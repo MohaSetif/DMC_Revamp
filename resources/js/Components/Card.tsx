@@ -1,17 +1,65 @@
 import { IconProp } from '@fortawesome/fontawesome-svg-core';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 
 const Card: React.FC<{ title: string, icon: IconProp, description: string }> = ({ title, icon, description }) => {
+  const iconScrollTrigger = useRef<SVGSVGElement>(null);
+  const [isVisible, setIsVisible] = useState<boolean>(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver((entries) => {
+      const entry = entries[0];
+      if (entry.isIntersecting) {
+        setTimeout(() => {
+          setIsVisible(true);
+        }, 500);
+      } else {
+        setIsVisible(false);
+      }
+    });
+
+    if (iconScrollTrigger.current) {
+      observer.observe(iconScrollTrigger.current);
+    }
+
+    return () => {
+      if (iconScrollTrigger.current) {
+        observer.unobserve(iconScrollTrigger.current);
+      }
+    };
+  }, []);
+
   return (
-    <div className='backdrop-blur-md top-0 z-[-2] bg-neutral-950 bg-[radial-gradient(ellipse_80%_80%_at_50%_-20%,rgba(120,140,198,0.3),rgba(3,11,19))] border border-gray-700 rounded-xl m-5 p-5'>
-      <div className='flex justify-center items-center mb-4 bg-gray-600/25 rounded-full h-10 w-10 border border-gray-600'>
-        <FontAwesomeIcon icon={icon} height="200" />
+    <div className='relative mb-10'>
+      <div className='flex justify-end items-center gap-10'>
+        <h1 className='text-white font-bold text-2xl'>{title}</h1>
+        <div className='relative'>
+          <div
+            className={`absolute rounded-full bg-blue-400/50 transition-all duration-500
+              ${isVisible ? 'opacity-100 backdrop-blur-md' : 'opacity-0'}`}
+            style={{
+              width: '70px',
+              height: '70px',
+              zIndex: 1,
+              top: '50%',
+              left: '50%',
+              transform: 'translate(-50%, -50%)',
+              filter: 'blur(15px)',
+            }}
+          ></div>
+          <FontAwesomeIcon
+            ref={iconScrollTrigger}
+            icon={icon}
+            size='2xl'
+            className={`p-4 relative z-20 transition-all duration-500 ${isVisible ? 'text-white' : ''}`}
+          />
+        </div>
       </div>
-      <h1 className='text-white font-bold text-2xl'>{title}</h1>
-      <p className='text-white'>{description}</p>
+      <div className='p-12 w-[64rem] flex justify-end'>
+        <p className='text-white text-right text-4xl leading-[1.5]'>{description}</p>
+      </div>
     </div>
   );
-}
+};
 
 export default Card;

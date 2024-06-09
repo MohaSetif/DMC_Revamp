@@ -5,7 +5,8 @@ import CustomButton from '@/Components/CustomButton';
 import Card from '@/Components/Card';
 import doctorIcon from "../../../public/svg/doctor.svg"
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faUser, faUserDoctor } from '@fortawesome/free-solid-svg-icons';
+import { faUser, faUserDoctor, faLocationDot, faCapsules, faKey } from '@fortawesome/free-solid-svg-icons';
+import { Fragment } from 'react/jsx-runtime';
 
 export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<{ laravelVersion: string, phpVersion: string }>) {
     
@@ -24,17 +25,17 @@ export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<
     {
       title: "الموقع الجغرافي",
       description: "مع Google Maps، لن تضطر أبدا إلى إدخال عنوانك الكامل",
-      icon: faUser
+      icon: faLocationDot
     },
     {
         title: "الأدوية النادرة",
         description: "من خلال هذا الموقع، لن تضطر أبدا للبحث من صيدلية إلى أخرى من أجل الدواء الذي تبحث عنه، أدخل و انتظر الرد من الصيادلة أنفسهم",
-        icon: faUser
+        icon: faCapsules
     },
     {
       title: "الرقم السري",
       description: "بعد أن يقوم المستخدم بالتسجيل، سيصل إليه إشعار فيه الرقم السري الخاص به",
-      icon: faUser
+      icon: faKey
     },
     {
         title: "التحقيق متعدد العوامل",
@@ -87,15 +88,15 @@ export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<
                             </div>
                         </main>
                         <div className='b-auto'>
-                          <TracingBeam className="px-6 mt-[24rem]">
-                              <div id="explanation" className="flex flex-wrap max-w-2xl mx-auto antialiased pt-4">
-                                  {details.map((detail, index)=> (
-                                    <div key={index}>
-                                      <Card title={detail.title} description={detail.description} icon={detail.icon} />
-                                    </div>
-                                  ))}
-                              </div>
-                          </TracingBeam>
+                            <div id="explanation" className="block">
+                                <TracingBeam className="mt-[24rem]">
+                                    {details.map((detail, index)=> (
+                                        <Fragment key={index}>
+                                            <Card title={detail.title} description={detail.description} icon={detail.icon} />
+                                        </Fragment>
+                                    ))}
+                                </TracingBeam>
+                            </div>
                         </div>
                     </div>
                 </div>

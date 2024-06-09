@@ -6,6 +6,8 @@ import Card from '@/Components/Card';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faUserDoctor, faLocationDot, faCapsules, faKey } from '@fortawesome/free-solid-svg-icons';
 import { Fragment } from 'react/jsx-runtime';
+import MultifactorAuthentication from '@/Components/MultifactorAuthentication';
+import EmailSmsOneTimePasscodes from '@/Components/EmailSmsOneTimePasscodes';
 
 export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<{ laravelVersion: string, phpVersion: string }>) {
   const details = [
@@ -21,7 +23,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<
     },
     {
       title: "الأدوية النادرة",
-      description: "من خلال هذا الموقع، لن تضطر أبدا للبحث من صيدلية إلى أخرى من أجل الدواء الذي تبحث عنه، أدخل و انتظر الرد من الصيادلة أنفسهم",
+      description: "من خلال هذا الموقع، لن تضطر أبدا للبحث من صيدلية إلى أخرى من أجل الأدوية النادرة، أطلب واحدا و انتظر الرد من الصيادلة أنفسهم",
       icon: faCapsules
     },
     {
@@ -87,6 +89,8 @@ export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<
                   {details.map((detail, index) => (
                     <Fragment key={index}>
                       <Card title={detail.title} description={detail.description} icon={detail.icon} />
+                      {index === 3 && <EmailSmsOneTimePasscodes/>}
+                      {index === 4 && <MultifactorAuthentication />}
                     </Fragment>
                   ))}
                 </TracingBeam>

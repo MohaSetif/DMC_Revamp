@@ -7,8 +7,4 @@ html {
   } 
 
 
-.blur-icon {
-    backdrop-filter: blur(10px);
-    background-color: rgba(255, 0, 0, 0.2);
-    border-radius: 50%;
-  }
+

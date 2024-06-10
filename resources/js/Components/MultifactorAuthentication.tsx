@@ -13,7 +13,7 @@ const MultifactorAuthentication: React.FC = () => {
   }, []);
 
   return (
-    <div className="p-10 mb-10 group isolate flex flex-col rounded-2xl bg-gray-900 shadow-[inset_0_1px,inset_0_0_0_1px] shadow-white/[0.025] overflow-hidden">
+    <div className="p-10 mb-10 group isolate flex flex-col rounded-2xl border border-gray-700 bg-gray-900 shadow-[inset_0_1px,inset_0_0_0_1px] shadow-white/[0.025] overflow-hidden">
       <div className="relative z-10 flex-none px-6 order-last pb-6">
         <h3 className="text-xl font-medium text-white text-right">التحقق من الهوية</h3>
         <p className="mt-2 text-2xl text-gray-400 text-right">

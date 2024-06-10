@@ -14,7 +14,7 @@ function MedicationForm() {
     setIsAnimating(true);
     let index = 0;
     const interval = setInterval(() => {
-      setLightedDots((prevDots) => {
+      setLightedDots(() => {
         const newDots = Array(4 * DOT_COUNT).fill(false);
         if (index < DOT_COUNT) {
           // Light up dots from user 1 to server
@@ -27,7 +27,7 @@ function MedicationForm() {
           newDots[3 * DOT_COUNT - (index % DOT_COUNT) - 1] = true;
         } else {
           // Light up dots from server to user 1
-          newDots[index - 3 * DOT_COUNT] = true;
+          newDots[DOT_COUNT - (index % DOT_COUNT)] = true;
         }
         return newDots;
       });

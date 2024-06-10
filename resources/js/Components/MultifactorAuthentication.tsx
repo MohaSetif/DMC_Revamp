@@ -13,10 +13,10 @@ const MultifactorAuthentication: React.FC = () => {
   }, []);
 
   return (
-    <div className="p-10 mb-10 group isolate flex flex-col rounded-2xl border border-gray-700 bg-gray-900 shadow-[inset_0_1px,inset_0_0_0_1px] shadow-white/[0.025] overflow-hidden">
-      <div className="relative z-10 flex-none px-6 order-last pb-6">
-        <h3 className="text-xl font-medium text-white text-right">التحقق من الهوية</h3>
-        <p className="mt-2 text-2xl text-gray-400 text-right">
+    <div className="p-5 mb-10 w-96 group isolate flex flex-col rounded-2xl border border-gray-700 bg-gray-900 shadow-[inset_0_1px,inset_0_0_0_1px] shadow-white/[0.025] overflow-hidden">
+      <div className="relative z-10 flex-none px-2 order-last pb-2">
+        <h3 className="text-sm/3 font-medium text-white text-right">التحقق من الهوية</h3>
+        <p className="mt-2 text-sm text-gray-400 text-right">
             يتم فرض إعدادات العوامل المتعددة للخدمة الذاتية لكل مستخدم تلقائيًا أثناء تسجيل الدخول.
         </p>
       </div>
@@ -32,7 +32,7 @@ const MultifactorAuthentication: React.FC = () => {
                 <div
                   key={index}
                   onMouseEnter={generateRandomNumbers}
-                  className="flex h-20 w-16 items-center justify-center overflow-hidden rounded-xl bg-gray-950 hover:border border-blue-500 transition-colors duration-300"
+                  className="flex h-16 w-12 items-center justify-center overflow-hidden rounded-xl bg-gray-950 hover:border border-blue-500 transition-colors duration-300"
                   style={{
                     boxShadow: '0 10px 19px 4px rgb(0 0 0 / 0.16), 0 -10px 16px -4px rgb(255 255 255 / 0.04), 0 0 0 1px rgb(255 255 255 / 0.01), 0 1px 0 0 rgb(255 255 255 / 0.02)',
                   }}

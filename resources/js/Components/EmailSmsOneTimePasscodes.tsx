@@ -16,13 +16,13 @@ const EmailSmsOneTimePasscodes: React.FC = () => {
 
   return (
     <div
-    className="mb-10 w-96 h-64 group isolate flex flex-col rounded-2xl border border-gray-700 bg-gray-900 shadow-[inset_0_1px,inset_0_0_0_1px] shadow-white/[0.025]"
+    className="w-96 h-64 group isolate flex flex-col rounded-2xl border border-gray-700 bg-gray-900 shadow-[inset_0_1px,inset_0_0_0_1px] shadow-white/[0.025]"
     onMouseEnter={handleMouseEnter}
     onMouseLeave={handleMouseLeave}
     >
-    <div className="relative z-10 flex-none px-6 order-last pb-6">
-      <h3 className="text-sm font-medium text-white text-right">رموز المرور لمرة واحدة</h3>
-      <p className="mt-2 text-sm/5 text-gray-400 text-right">
+    <div className="relative z-10 flex-none px-6 order-last pb-12">
+      <h3 className="text-sm/3 font-medium text-white text-right">رموز المرور لمرة واحدة</h3>
+      <p className="mt-2 text-sm text-gray-400 text-right">
         رسالة متضمنة فيها الرقم السري للمستخدم من أجل التحقق من الهوية
       </p>
     </div>

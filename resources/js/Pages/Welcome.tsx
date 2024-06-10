@@ -88,9 +88,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<
                 <TracingBeam className="mt-[24rem]">
                   {details.map((detail, index) => (
                     <Fragment key={index}>
-                      <Card title={detail.title} description={detail.description} icon={detail.icon} />
-                      {index === 3 && <EmailSmsOneTimePasscodes/>}
-                      {index === 4 && <MultifactorAuthentication />}
+                      <Card title={detail.title} description={detail.description} icon={detail.icon} index={index} />
                     </Fragment>
                   ))}
                 </TracingBeam>

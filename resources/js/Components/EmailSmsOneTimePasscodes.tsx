@@ -62,34 +62,34 @@ const EmailSmsOneTimePasscodes: React.FC = () => {
                 </div>
                 </div>
             </span>
-            <div className="mt-6 flex flex-wrap justify-between gap-x-2 gap-y-4 text-center">
-              <div className="flex-none">
-                <div className="relative size-10 rounded-xl bg-gray-800" style={{ boxShadow: '0 1px rgb(255 255 255 / 0.05) inset' }}>
-                  <FontAwesomeIcon icon={faPhone} color='gray' className='mt-3'/>
+            <div className="mt-6 flex flex-wrap gap-x-2 gap-y-4 text-center">
+              <div className="flex flex-col items-center">
+                <div className="relative h-10 w-10 rounded-xl bg-gray-800 flex items-center justify-center" style={{ boxShadow: '0 1px rgb(255 255 255 / 0.05) inset' }}>
+                  <FontAwesomeIcon icon={faPhone} color='gray' />
                 </div>
                 <div className="mt-1.5 text-[0.625rem]/4 font-medium text-gray-300">Phone</div>
               </div>
-              <div className="flex-none">
-                <div className="relative size-10 rounded-xl bg-gray-800" style={{ boxShadow: '0 1px rgb(255 255 255 / 0.05) inset' }}>
-                  <FontAwesomeIcon icon={faQuran} color='gray' className='mt-3'/>
+              <div className="flex flex-col items-center">
+                <div className="relative h-10 w-10 rounded-xl bg-gray-800 flex items-center justify-center" style={{ boxShadow: '0 1px rgb(255 255 255 / 0.05) inset' }}>
+                  <FontAwesomeIcon icon={faQuran} color='gray' />
                 </div>
                 <div className="mt-1.5 text-[0.625rem]/4 font-medium text-gray-300">القرآن الكريم</div>
               </div>
-              <div className="flex-none">
-                <div className="relative size-10 rounded-xl bg-gray-800" style={{ boxShadow: '0 1px rgb(255 255 255 / 0.05) inset' }}>
-                  <FontAwesomeIcon icon={faFacebookF} color='gray' className='mt-3' />
+              <div className="flex flex-col items-center">
+                <div className="relative h-10 w-10 rounded-xl bg-gray-800 flex items-center justify-center" style={{ boxShadow: '0 1px rgb(255 255 255 / 0.05) inset' }}>
+                  <FontAwesomeIcon icon={faFacebookF} color='gray' />
                 </div>
                 <div className="mt-1.5 text-[0.625rem]/4 font-medium text-gray-300">Facebook</div>
               </div>
-              <div className="flex-none">
-                <div className="relative size-10 rounded-xl bg-gray-800" style={{ boxShadow: '0 1px rgb(255 255 255 / 0.05) inset' }}>
-                  <FontAwesomeIcon icon={faInstagram} color='gray' className='mt-3'/>
+              <div className="flex flex-col items-center">
+                <div className="relative h-10 w-10 rounded-xl bg-gray-800 flex items-center justify-center" style={{ boxShadow: '0 1px rgb(255 255 255 / 0.05) inset' }}>
+                  <FontAwesomeIcon icon={faInstagram} color='gray' />
                 </div>
                 <div className="mt-1.5 text-[0.625rem]/4 font-medium text-gray-300">Instagram</div>
               </div>
-              <div className="flex-none">
-                <div className="relative size-10 rounded-xl bg-gray-800" style={{ boxShadow: '0 1px rgb(255 255 255 / 0.05) inset' }}>
-                  <FontAwesomeIcon icon={faViber} color='gray' className='mt-3'/>
+              <div className="flex flex-col items-center">
+                <div className="relative h-10 w-10 rounded-xl bg-gray-800 flex items-center justify-center" style={{ boxShadow: '0 1px rgb(255 255 255 / 0.05) inset' }}>
+                  <FontAwesomeIcon icon={faViber} color='gray' />
                 </div>
                 <div className="mt-1.5 text-[0.625rem]/4 font-medium text-gray-300">Viber</div>
               </div>

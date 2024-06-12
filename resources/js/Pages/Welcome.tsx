@@ -41,9 +41,9 @@ export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<
   return (
     <>
       <Head title="Welcome" />
-      <div className="relative h-full w-full bg-black">
+      <div className="relative h-full w-full bg-white dark:bg-black font-shubbak-light">
         <div className="absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:100px_80px]"></div>
-        <div className="absolute left-0 right-0 top-[-10%] h-[1000px] w-[1000px] rounded-full bg-[radial-gradient(circle_400px_at_50%_300px,#fbfbfb36,#000)]"></div>
+        <div className="absolute left-0 right-0 top-[-10%] h-[1000px] w-[1000px] rounded-full bg-[radial-gradient(circle_400px_at_50%_300px,#e4e4e8,#fff)] dark:bg-[radial-gradient(circle_400px_at_50%_300px,#fbfbfb36,#000)]"></div>
         <div className="relative z-10 min-h-screen flex flex-col items-center selection:bg-[#2036ff] selection:text-white">
           <div className="relative w-full max-w-2xl px-6 lg:max-w-7xl">
             <header className="grid grid-cols-2 items-center gap-2 py-5">
@@ -75,12 +75,12 @@ export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<
             </header>
             <main className="block items-center justify-center min-h-32 m-16 p-12">
               <div className="block text-center text-3xl h-5 font-medium text-gray-900 dark:text-gray-50 sm:text-4xl">
-                <span className='text-8xl'>Digital Med Care</span>
+                <span className='text-8xl font-shubbak-semi-bold'>Digital Med Care</span>
                 <div className="my-4"></div>
-                <span className="mb-12 block animate-text-gradient bg-gradient-to-r from-neutral-900 via-slate-500 to-neutral-500 bg-[200%_auto] bg-clip-text leading-tight text-transparent dark:from-neutral-100 dark:via-slate-400 dark:to-neutral-400">
+                <span className="mb-12 block animate-text-gradient bg-gradient-to-r from-neutral-900 via-slate-500 to-neutral-300 bg-[200%_auto] bg-clip-text leading-tight text-transparent dark:from-neutral-100 dark:via-slate-400 dark:to-neutral-400">
                   رعــايـــة طــــبـــيــة رقمــيـــة متــقــــدمــــة
                 </span>
-                <CustomButton text='افهم أكثر' section='#explanation' />
+                <CustomButton text='تعرف أكثر' section='#explanation' />
               </div>
             </main>
             <div className='b-auto'>

@@ -15,6 +15,9 @@ export default {
         extend: {
             fontFamily: {
                 sans: ['Figtree', ...defaultTheme.fontFamily.sans],
+                'shubbak-light': ['Shubbak-Light', 'sans-serif'],
+                'shubbak-bold': ['Shubbak-Bold', 'sans-serif'],
+                'shubbak-semi-bold': ['Shubbak-SemiBold', 'sans-serif'],
             },
         },
     },

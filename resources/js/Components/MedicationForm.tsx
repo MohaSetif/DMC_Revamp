@@ -40,33 +40,33 @@ function MedicationForm() {
   };
 
   return (
-    <div className='w-96 h-64 group isolate flex flex-col justify-center items-center rounded-2xl border border-gray-700 bg-gray-900 shadow-[inset_0_1px,inset_0_0_0_1px] shadow-white/[0.025] p-4'>
+    <div className='w-96 h-64 font-shubbak-semi-bold group isolate flex flex-col justify-center items-center rounded-2xl border border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-900 shadow-[inset_0_1px,inset_0_0_0_1px] shadow-white/[0.025] p-4'>
       <div className="flex justify-between items-center w-full mb-4">
         <div className="flex flex-col items-center">
-          <FontAwesomeIcon icon={faUser} size='2xl' color='white' />
-          <span className="text-gray-300 mt-2">المستخدم</span>
+          <FontAwesomeIcon icon={faUser} size='2xl' color='gray' />
+          <span className="text-gray-500 dark:text-gray-300 mt-2">المستخدم</span>
         </div>
         <div className="flex-1 flex justify-between items-center mx-4">
           {Array(DOT_COUNT).fill(null).map((_, idx) => (
-            <div key={idx} className={`w-1 h-1 rounded-full bg-gray-600 transition-all delay-75 ${lightedDots[idx] ? 'bg-blue-400' : ''}`}></div>
+            <div key={idx} className={`w-1 h-1 rounded-full bg-gray-600 transition-all delay-75 ${lightedDots[idx] ? 'bg-blue-500 dark:bg-blue-300' : ''}`}></div>
           ))}
         </div>
         <div className="flex flex-col items-center">
-          <FontAwesomeIcon icon={faServer} size='2xl' color='white' />
-          <span className="text-gray-300 mt-2">DMC</span>
+          <FontAwesomeIcon icon={faServer} size='2xl' color='gray' />
+          <span className="text-gray-500 dark:text-gray-300 mt-2">DMC</span>
         </div>
         <div className="flex-1 flex justify-between items-center mx-4">
           {Array(DOT_COUNT).fill(null).map((_, idx) => (
-            <div key={idx + 2 * DOT_COUNT} className={`w-1 h-1 rounded-full bg-gray-600 transition-all delay-75 ${lightedDots[2 * DOT_COUNT + idx] ? 'bg-blue-400' : ''}`}></div>
+            <div key={idx + 2 * DOT_COUNT} className={`w-1 h-1 rounded-full bg-gray-600 transition-all delay-75 ${lightedDots[2 * DOT_COUNT + idx] ? 'bg-blue-500 dark:bg-blue-300' : ''}`}></div>
           ))}
         </div>
         <div className="flex flex-col items-center">
-          <FontAwesomeIcon icon={faUser} size='2xl' color='white' />
-          <span className="text-gray-300 mt-2">الصيدلي</span>
+          <FontAwesomeIcon icon={faUser} size='2xl' color='gray' />
+          <span className="text-gray-500 dark:text-gray-300 mt-2">الصـيدلــي</span>
         </div>
       </div>
       <button
-        className="py-2 px-4 bg-blue-500 text-white rounded-md"
+        className="py-2 px-4 bg-gray-900 hover:bg-gray-700 dark:bg-slate-700 text-white rounded-md"
         onClick={startAnimation}
         disabled={isAnimating}
       >

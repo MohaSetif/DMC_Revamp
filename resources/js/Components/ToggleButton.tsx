@@ -5,8 +5,8 @@ const ThemeToggle: React.FC = () => {
 
   useEffect(() => {
     const darkModeEnabled =
-      localStorage.getItem('dark-mode') === 'true' ||
-      (!('dark-mode' in localStorage) &&
+      localStorage.getItem('dark') === 'true' ||
+      (!('dark' in localStorage) &&
         window.matchMedia('(prefers-color-scheme: dark)').matches);
 
     setIsDarkMode(darkModeEnabled);
@@ -16,10 +16,10 @@ const ThemeToggle: React.FC = () => {
   const updateTheme = (darkMode: boolean) => {
     if (darkMode) {
       document.documentElement.classList.add('dark');
-      localStorage.setItem('dark-mode', 'true');
+      localStorage.setItem('dark', 'true');
     } else {
       document.documentElement.classList.remove('dark');
-      localStorage.setItem('dark-mode', 'false');
+      localStorage.setItem('dark', 'false');
     }
   };
 

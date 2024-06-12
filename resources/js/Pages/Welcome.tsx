@@ -7,6 +7,8 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faUserDoctor, faLocationDot, faCapsules, faKey } from '@fortawesome/free-solid-svg-icons';
 import { Fragment } from 'react/jsx-runtime';
 import ToggleButton from '@/Components/ToggleButton';
+import DMC_BlueLogo from "../../../public/img/DMC_nav_logo.png"
+import DMC_WhiteLogo from "../../../public/img/168608548544536747.png"
 
 export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<{ laravelVersion: string, phpVersion: string }>) {
   const details = [
@@ -45,35 +47,48 @@ export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<
         <div className="absolute left-0 right-0 top-[-10%] h-[1000px] w-[1000px] rounded-full bg-bg_circle"></div>
         <div className="relative z-10 min-h-screen flex flex-col items-center selection:bg-[#2036ff] selection:text-white">
           <div className="relative w-full max-w-2xl px-6 lg:max-w-7xl">
-            <header className="grid grid-cols-2 items-center gap-2 py-5">
-              <nav className="flex justify-end">
-                <ToggleButton/>
-                {auth.user ? (
-                  <Link
-                    href={route('dashboard')}
-                    className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                  >
-                    Dashboard
-                  </Link>
-                ) : (
-                  <>
+          {/* <header className="py-5 fixed top-0 left-0 right-0 z-50 bg-white/30 dark:bg-gray-900/30 backdrop-blur-md border-b border-gray-200 dark:border-gray-700"> */}
+          <header className="py-5 flex justify-between items-center">
+            <div className="container mx-auto px-4">
+              <nav className="flex justify-between items-center">
+                <div className="flex items-center">
+                  <img
+                    src={DMC_BlueLogo}
+                    alt="DMC_logo"
+                    height="60"
+                    width="60"
+                  />
+                </div>
+                <div className="flex items-center space-x-4">
+                  <ToggleButton/>
+                  {auth.user ? (
                     <Link
-                      href={route('login')}
+                      href={route('dashboard')}
                       className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
                     >
-                      Log in
+                      Dashboard
                     </Link>
-                    <Link
-                      href={route('register')}
-                      className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                    >
-                      Register
-                    </Link>
-                  </>
-                )}
+                  ) : (
+                    <>
+                      <Link
+                        href={route('login')}
+                        className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                      >
+                        Log in
+                      </Link>
+                      <Link
+                        href={route('register')}
+                        className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                      >
+                        Register
+                      </Link>
+                    </>
+                  )}
+                </div>
               </nav>
-            </header>
-            <main className="block items-center justify-center min-h-32 m-16 p-12">
+            </div>
+          </header>
+            <main className="block items-center justify-center min-h-32 m-12 p-12">
               <div className="block text-center text-3xl h-5 font-medium text-gray-900 dark:text-gray-50 sm:text-4xl">
                 <span className='text-8xl font-shubbak-semi-bold text-p'>Digital Med Care</span>
                 <div className="my-4"></div>

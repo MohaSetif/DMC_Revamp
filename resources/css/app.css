@@ -111,3 +111,40 @@ html {
     font-style: normal;
     font-display: swap;
 }
+
+
+:root{
+    --background: 255, 255, 255;
+    --p: 15, 23, 42;
+    --card_background: 243, 244, 246;
+    --card_title: 107, 114, 128;
+    --card_text: 107, 114, 128;
+    --card_border: 209, 213, 219;
+    --card-nbr-box: 243, 244, 246;
+    --span_slate: 148, 163, 184;
+    --phone_shadow: 243, 244, 246;
+    --phone_apps: 209, 213, 219;
+    --phone_screen: 107, 114, 128;
+    --from_grad: 243, 244, 246;
+    --to_grad: 209, 213, 219;
+    --bg_circle: radial-gradient(circle 400px at 50% 300px, #e4e4e8, #fff);
+    --custom_button: 244, 244, 245;
+}
+
+.dark{
+    --background: 3, 9, 19;
+    --p: 255, 255, 255;
+    --card_background: 17, 24, 39;
+    --card_title: 255, 255, 255;
+    --card_text: 156, 163, 175;
+    --card_border: 55, 65, 81;
+    --card-nbr-box: 3, 7, 18;
+    --span_slate: 51, 65, 85;
+    --phone_shadow: 17, 24, 39;
+    --phone_apps: 31, 41, 55;
+    --phone_screen: 31, 41, 55;
+    --from_grad: 31, 41, 55;
+    --to_grad: 17, 24, 39;
+    --bg_circle: radial-gradient(circle 400px at 50% 300px, #fbfbfb36, #030913);
+    --custom_button: 1, 5, 11;
+}

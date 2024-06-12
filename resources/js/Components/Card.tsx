@@ -35,7 +35,7 @@ const Card: React.FC<{ title: string, icon: IconProp, description: string, index
   }, []);
 
   return (
-    <div className="flex mb-10 w-[70rem]">
+    <div className="flex mb-12 w-[70rem]">
       {index === 0 && <DoctorProfileCard />}
       {index === 1 && <UserToPharmacists />}
       {index === 2 && <MedicationForm />}
@@ -43,7 +43,7 @@ const Card: React.FC<{ title: string, icon: IconProp, description: string, index
       {index === 4 && <MultifactorAuthentication />}
       <div className="relative flex flex-col items-end w-full max-w-2xl">
         <div className="flex gap-10">
-          <h1 className="text-slate-900 dark:text-white font-shubbak-semi-bold text-3xl flex justify-center items-center">{title}</h1>
+          <h1 className="text-p font-shubbak-semi-bold text-3xl flex justify-center items-center">{title}</h1>
           <div className="relative">
             <div
               className={`absolute rounded-full bg-gray-400/70 dark:bg-blue-400/30 transition-all duration-500
@@ -66,8 +66,8 @@ const Card: React.FC<{ title: string, icon: IconProp, description: string, index
             />
           </div>
         </div>
-        <div className="p-12 w-full flex justify-end">
-          <p className="text-slate-900 dark:text-white text-right text-4xl leading-[1.5]">{description}</p>
+        <div className="p-6 w-full flex justify-end">
+          <p className="text-p text-right text-4xl leading-[1.5]">{description}</p>
         </div>
       </div>
     </div>

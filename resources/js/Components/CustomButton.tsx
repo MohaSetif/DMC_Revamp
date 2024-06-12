@@ -4,7 +4,7 @@ const CustomButton: React.FC<{ text: string, section: string }> = ({ text, secti
   return (
     <a
       href={section}
-      className="bg-slate-800 dark:bg-slate-200 no-underline group cursor-pointer relative shadow-2xl shadow-zinc-300 dark:shadow-zinc-900 rounded-full p-px text-xs font-semibold leading-6 dark:text-white text-black inline-block"
+      className="bg-slate-800 dark:bg-slate-200 no-underline group cursor-pointer relative shadow-xl shadow-gray-800/40 rounded-full p-px text-xs font-semibold leading-6 text-p inline-block"
     >
       <span className="absolute inset-0 overflow-hidden rounded-full">
         <span
@@ -12,7 +12,7 @@ const CustomButton: React.FC<{ text: string, section: string }> = ({ text, secti
         />
       </span>
       <div
-        className="transition ease-in-out delay-50 hover:scale-110 duration-300 relative flex space-x-2 items-center z-10 rounded-full dark:bg-zinc-950 bg-zinc-100 p-4 px-8 ring-1 ring-white/10 dark:ring-black/10"
+        className="transition ease-in-out delay-50 hover:scale-110 duration-300 relative flex space-x-2 items-center z-10 rounded-full bg-custom_button p-4 px-8 ring-1 ring-slate/10 dark:ring-black/10"
       >
         <span className="text-xl">
           {text}

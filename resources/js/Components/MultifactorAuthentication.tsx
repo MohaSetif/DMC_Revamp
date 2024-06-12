@@ -13,10 +13,10 @@ const MultifactorAuthentication: React.FC = () => {
   }, []);
 
   return (
-    <div className="p-5 mb-10 w-96 group isolate flex flex-col rounded-2xl border border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-900 shadow-[inset_0_1px,inset_0_0_0_1px] shadow-white/[0.025] overflow-hidden">
+    <div className="p-5 mb-10 w-96 group isolate flex flex-col rounded-2xl border border-card_border bg-card_bg shadow-[inset_0_1px,inset_0_0_0_1px] shadow-white/[0.025] overflow-hidden">
       <div className="relative z-10 flex-none px-2 order-last pb-2">
-        <h3 className="text-sm/3 text-gray-500 dark:text-white font-shubbak-semi-bold text-right">التحقق من الهوية</h3>
-        <p className="mt-2 text-sm text-gray-700 dark:text-gray-400 text-right">
+        <h3 className="text-sm/3 text-card_title font-shubbak-semi-bold text-right">التحقق من الهوية</h3>
+        <p className="mt-2 text-sm text-card_text text-right">
             يتم فرض إعدادات العوامل المتعددة للخدمة الذاتية لكل مستخدم تلقائيًا أثناء تسجيل الدخول.
         </p>
       </div>
@@ -32,12 +32,12 @@ const MultifactorAuthentication: React.FC = () => {
                 <div
                   key={index}
                   onMouseEnter={generateRandomNumbers}
-                  className="flex h-16 w-12 items-center justify-center overflow-hidden rounded-xl bg-gray-100 dark:bg-gray-950 hover:border border-blue-500 transition-colors duration-300"
+                  className="flex h-16 w-12 items-center justify-center overflow-hidden rounded-xl bg-card-nbr-box hover:border border-blue-500 transition-colors duration-300"
                   style={{
                     boxShadow: '0 10px 19px 4px rgb(0 0 0 / 0.16), 0 -10px 16px -4px rgb(255 255 255 / 0.04), 0 0 0 1px rgb(255 255 255 / 0.01), 0 1px 0 0 rgb(255 255 255 / 0.02)',
                   }}
                 >
-                  <span className='text-gray-600 dark:text-white font-semibold text-2xl flex pl-2'>{num}</span>
+                  <span className='text-card_title font-semibold text-2xl flex pl-2'>{num}</span>
                   <div
                     data-dot="true"
                     className="z-10 h-2 w-2 rounded-full bg-white"

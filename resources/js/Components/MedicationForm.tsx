@@ -40,11 +40,11 @@ function MedicationForm() {
   };
 
   return (
-    <div className='w-96 h-64 font-shubbak-semi-bold group isolate flex flex-col justify-center items-center rounded-2xl border border-gray-300 dark:border-gray-700 bg-gray-100 dark:bg-gray-900 shadow-[inset_0_1px,inset_0_0_0_1px] shadow-white/[0.025] p-4'>
+    <div className='w-96 h-64 font-shubbak-semi-bold group isolate flex flex-col justify-center items-center rounded-2xl border border-card_border bg-card_bg shadow-[inset_0_1px,inset_0_0_0_1px] shadow-white/[0.025] p-4'>
       <div className="flex justify-between items-center w-full mb-4">
         <div className="flex flex-col items-center">
           <FontAwesomeIcon icon={faUser} size='2xl' color='gray' />
-          <span className="text-gray-500 dark:text-gray-300 mt-2">المستخدم</span>
+          <span className="text-card_title mt-2">المستخدم</span>
         </div>
         <div className="flex-1 flex justify-between items-center mx-4">
           {Array(DOT_COUNT).fill(null).map((_, idx) => (
@@ -53,7 +53,7 @@ function MedicationForm() {
         </div>
         <div className="flex flex-col items-center">
           <FontAwesomeIcon icon={faServer} size='2xl' color='gray' />
-          <span className="text-gray-500 dark:text-gray-300 mt-2">DMC</span>
+          <span className="text-card_title mt-2">DMC</span>
         </div>
         <div className="flex-1 flex justify-between items-center mx-4">
           {Array(DOT_COUNT).fill(null).map((_, idx) => (
@@ -62,11 +62,11 @@ function MedicationForm() {
         </div>
         <div className="flex flex-col items-center">
           <FontAwesomeIcon icon={faUser} size='2xl' color='gray' />
-          <span className="text-gray-500 dark:text-gray-300 mt-2">الصـيدلــي</span>
+          <span className="text-card_title mt-2">الصـيدلــي</span>
         </div>
       </div>
       <button
-        className="py-2 px-4 bg-gray-900 hover:bg-gray-700 dark:bg-slate-700 text-white rounded-md"
+        className="py-2 px-4 bg-slate-800 hover:bg-slate-600 text-white rounded-md"
         onClick={startAnimation}
         disabled={isAnimating}
       >

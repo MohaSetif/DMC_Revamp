@@ -48,7 +48,7 @@ function MedicationForm() {
         </div>
         <div className="flex-1 flex justify-between items-center mx-4">
           {Array(DOT_COUNT).fill(null).map((_, idx) => (
-            <div key={idx} className={`w-1 h-1 rounded-full bg-gray-600 transition-all delay-75 ${lightedDots[idx] ? 'bg-blue-500 dark:bg-blue-300' : ''}`}></div>
+            <div key={idx} className={`w-1 h-1 rounded-full bg-gray-400 transition-all delay-75 ${lightedDots[idx] ? 'bg-cyan-500 dark:bg-cyan-300' : ''}`}></div>
           ))}
         </div>
         <div className="flex flex-col items-center">
@@ -57,7 +57,7 @@ function MedicationForm() {
         </div>
         <div className="flex-1 flex justify-between items-center mx-4">
           {Array(DOT_COUNT).fill(null).map((_, idx) => (
-            <div key={idx + 2 * DOT_COUNT} className={`w-1 h-1 rounded-full bg-gray-600 transition-all delay-75 ${lightedDots[2 * DOT_COUNT + idx] ? 'bg-blue-500 dark:bg-blue-300' : ''}`}></div>
+            <div key={idx + 2 * DOT_COUNT} className={`w-1 h-1 rounded-full bg-gray-400 transition-all delay-75 ${lightedDots[2 * DOT_COUNT + idx] ? 'bg-cyan-500 dark:bg-cyan-300' : ''}`}></div>
           ))}
         </div>
         <div className="flex flex-col items-center">

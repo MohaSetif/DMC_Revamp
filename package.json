@@ -29,8 +29,12 @@
         "@fortawesome/free-regular-svg-icons": "^6.5.2",
         "@fortawesome/free-solid-svg-icons": "^6.5.2",
         "@fortawesome/react-fontawesome": "^0.2.2",
+        "@types/gsap": "^3.0.0",
+        "@types/three": "^0.165.0",
         "clsx": "^2.1.1",
         "framer-motion": "^11.2.10",
-        "tailwind-merge": "^2.3.0"
+        "gsap": "^3.12.5",
+        "tailwind-merge": "^2.3.0",
+        "three": "^0.165.0"
     }
 }

@@ -3,6 +3,7 @@ import { PageProps } from '@/types';
 import { TracingBeam } from "../Components/ui/tracing-beam";
 import CustomButton from '@/Components/CustomButton';
 import Card from '@/Components/Card';
+import Blob from '@/Components/Blob';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faUser, faUserDoctor, faLocationDot, faCapsules, faKey } from '@fortawesome/free-solid-svg-icons';
 import { Fragment } from 'react/jsx-runtime';
@@ -106,6 +107,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<
                       <Card title={detail.title} description={detail.description} icon={detail.icon} index={index} />
                     </Fragment>
                   ))}
+                  <Blob />
                 </TracingBeam>
               </div>
             </div>

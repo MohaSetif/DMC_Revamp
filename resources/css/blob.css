@@ -1,0 +1,85 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  .flex-blob {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position: relative;
+    height: 100vh;
+    width: 100%;
+  }
+  
+  .canvas {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    height: 100%;
+    width: 100%;
+    transform: translate(-50%, -50%);
+    outline: none;
+    opacity: 0;
+    background: transparent; /* Ensure the canvas has no background color */
+    z-index: 1; /* Ensure canvas is below the nav */
+  }
+  
+  .content {
+    position: relative;
+    z-index: 2; /* Ensure content is above the canvas */
+    text-align: center;
+  }
+  
+  nav {
+    position: relative;
+    width: 100%;
+  }
+  
+  nav ul {
+    list-style: none;
+    width: 100%;
+  }
+
+  li {
+    position: relative;
+    opacity: 0;
+    margin-bottom: 20px; /* Adjust spacing between list items */
+  }
+  
+  li > div {
+    position: relative;
+    z-index: 3; /* Ensure li content is above the canvas */
+  }
+  
+  /* Style the li elements as needed */
+  li > div > span {
+    display: block;
+    color: #414141; /* Adjust text color */
+  }
+  
+  /* Optional: Add hover effect if desired */
+  li:hover > div > span {
+    color: #4aa2dd; /* Adjust hover text color */
+  }
+  
+  /* Ensure proper centering and spacing for the content */
+  .content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    position: relative;
+    z-index: 2; /* Ensure content is above the canvas */
+    padding: 20px; /* Adjust padding as needed */
+  }
+  
+  /* Optional: Style the h1 element */
+  h1 {
+    font-size: 3rem; /* Adjust heading font size */
+    margin-bottom: 20px; /* Adjust margin as needed */
+    color: #414141; /* Adjust heading color */
+  }
+  

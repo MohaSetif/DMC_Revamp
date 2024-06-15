@@ -10,6 +10,9 @@ import { Fragment } from 'react/jsx-runtime';
 import ToggleButton from '@/Components/ToggleButton';
 import DMC_BlueLogo from "../../../public/img/DMC_nav_logo.png"
 import DMC_WhiteLogo from "../../../public/img/168608548544536747.png"
+import Footer from '@/Components/Footer';
+import AnimationSquare from '@/Components/AnimationSquare';
+import AnimationSquare2 from '@/Components/AnimationSquare2';
 
 export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<{ laravelVersion: string, phpVersion: string }>) {
   const details = [
@@ -89,27 +92,34 @@ export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<
               </nav>
             </div>
           </header>
-            <main className="block items-center justify-center min-h-32 m-12 p-12">
-              <div className="block text-center text-3xl h-5 font-medium text-gray-900 dark:text-gray-50 sm:text-4xl">
-                <span className='text-8xl font-shubbak-semi-bold text-p'>Digital Med Care</span>
-                <div className="my-4"></div>
-                <span className="mb-12 block animate-text-gradient bg-gradient-to-r bg-[200%_auto] bg-clip-text leading-tight text-transparent from-slate-600 via-slate-400 to-slate-400">
-                  رعــايـــة طــــبـــيــة رقمــيـــة متــقــــدمــــة
-                </span>
-                <CustomButton text='تعرف أكثر' section='#explanation' />
-              </div>
-            </main>
-            <div className='b-auto'>
-              <div id="explanation" className="block">
-                <TracingBeam className="mt-[24rem]">
-                  {details.map((detail, index) => (
-                    <Fragment key={index}>
-                      <Card title={detail.title} description={detail.description} icon={detail.icon} index={index} />
-                    </Fragment>
-                  ))}
-                  <Blob />
-                </TracingBeam>
-              </div>
+          <main className="block items-center justify-center min-h-32 m-12 p-12">
+            <div className='overflow-hidden z-10'>
+              <AnimationSquare/>
+            </div>
+            <div className="block z-20 text-center text-3xl h-5 font-medium text-gray-900 dark:text-gray-50 sm:text-4xl">
+              <span className='text-8xl font-shubbak-semi-bold text-p'>Digital Med Care</span>
+              <div className="my-4"></div>
+              <span className="mb-12 block animate-text-gradient bg-gradient-to-r bg-[200%_auto] bg-clip-text leading-tight text-transparent from-slate-600 via-slate-400 to-slate-400">
+                رعــايـــة طــــبـــيــة رقمــيـــة متــقــــدمــــة
+              </span>
+              <CustomButton text='تعرف أكثر' section='#explanation' />
+            </div>
+            <div className='overflow-hidden z-10'>
+              <AnimationSquare2/>
+            </div>
+          </main>
+          <div className='b-auto'>
+            <div id="explanation" className="block">
+              <TracingBeam className="mt-[24rem]">
+                {details.map((detail, index) => (
+                  <Fragment key={index}>
+                    <Card title={detail.title} description={detail.description} icon={detail.icon} index={index} />
+                  </Fragment>
+                ))}
+                <Blob />
+              </TracingBeam>
+            </div>
+            <Footer/>
             </div>
           </div>
         </div>

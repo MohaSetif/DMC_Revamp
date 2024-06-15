@@ -105,7 +105,7 @@ const THREEScene: React.FC = () => {
     });
 
     const cube = new THREE.Points(geometry, material);
-    cube.scale.set(0.75, 0.75, 0.75);
+    cube.scale.set(0.7, 0.7, 0.7);
     scene.add(cube);
 
     const render = () => {

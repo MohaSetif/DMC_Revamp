@@ -1,9 +1,16 @@
 import React from 'react';
 
-const CustomButton: React.FC<{ text: string, section: string }> = ({ text, section }) => {
+const CustomButton: React.FC<{ text: string}> = ({ text }) => {
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 500,
+      behavior: 'smooth'
+    });
+  };
+
   return (
-    <a
-      href={section}
+    <button
+      onClick={scrollToTop}
       className="bg-slate-800 dark:bg-slate-200 no-underline group cursor-pointer relative shadow-xl shadow-gray-800/40 rounded-full p-px text-xs font-semibold leading-6 text-p inline-block"
     >
       <span className="absolute inset-0 overflow-hidden rounded-full">
@@ -37,7 +44,7 @@ const CustomButton: React.FC<{ text: string, section: string }> = ({ text, secti
       <span
         className="absolute -bottom-0 left-[1.125rem] h-px w-[calc(100%-2.25rem)] bg-gradient-to-r from-emerald-400/0 via-emerald-400/90 to-emerald-400/0 transition-opacity duration-500 group-hover:opacity-40"
       />
-    </a>
+    </button>
   );
 };
 

@@ -15,6 +15,7 @@ import AnimationSquare from '@/Components/AnimationSquare';
 import AnimationSquare2 from '@/Components/AnimationSquare2';
 
 export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<{ laravelVersion: string, phpVersion: string }>) {
+
   const details = [
     {
       title: "كيف أسجل عند طبيب؟",
@@ -102,7 +103,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<
               <span className="mb-12 block animate-text-gradient bg-gradient-to-r bg-[200%_auto] bg-clip-text leading-tight text-transparent from-slate-600 via-slate-400 to-slate-400">
                 رعــايـــة طــــبـــيــة رقمــيـــة متــقــــدمــــة
               </span>
-              <CustomButton text='تعرف أكثر' section='#explanation' />
+              <CustomButton text='تعرف أكثر' />
             </div>
             <div className='overflow-hidden z-10'>
               <AnimationSquare2/>

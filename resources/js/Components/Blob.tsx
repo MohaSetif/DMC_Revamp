@@ -153,28 +153,28 @@ const THREEScene: React.FC = () => {
   }, []);
 
   return (
-    <div className='flex-blob' ref={containerRef} style={{ height: '100vh', width: '100%' }}>
+    <div className='flex-blob relative' ref={containerRef} style={{ height: '100vh', width: '100%' }}>
       <canvas ref={canvasRef} className="canvas"></canvas>
-      <div className="content">
+      <div className="content absolute inset-0 flex flex-col justify-center items-center px-4">
         <div>
-            <h1 className='text-p font-shubbak-semi-bold text-3xl flex justify-center items-center' ref={h1Ref}>أهداف هذا الموقع</h1>
+          <h1 className='text-p font-shubbak-semi-bold text-2xl md:text-3xl flex justify-center items-center mb-4' ref={h1Ref}>أهداف هذا الموقع</h1>
         </div>
-        <ul className='text-4xl text-center' ref={navRef}>
-            <li>
-                <div>
-                    <span className='text-p text-4xl leading-[1.5] mb-12 ml-[25rem]'>رقمنة المجال الطبي</span>
-                </div>
-            </li>
-            <li>
-                <div>
-                    <span className='text-p text-4xl leading-[1.5] mb-12 ml-[-15rem]'>مساعدة المرضى على تلقي العلاج اللازم</span>
-                </div>
-            </li>
-            <li>
-                <div>
-                    <span className='text-p text-4xl leading-[1.5] ml-[12rem]'>حل أزمة البحث عن الأدوية النادرة</span>
-                </div>
-            </li>
+        <ul className='text-xl md:text-4xl text-center' ref={navRef}>
+          <li className='mb-2'>
+            <div>
+              <span className='text-p text-xl md:text-4xl leading-[1.5] md:ml-[25rem]'>رقمنة المجال الطبي</span>
+            </div>
+          </li>
+          <li className='mb-2'>
+            <div>
+              <span className='text-p text-xl md:text-4xl leading-[1.5] md:ml-[-15rem]'>مساعدة المرضى على تلقي العلاج اللازم</span>
+            </div>
+          </li>
+          <li>
+            <div>
+              <span className='text-p text-xl md:text-4xl leading-[1.5] md:ml-[12rem]'>حل أزمة البحث عن الأدوية النادرة</span>
+            </div>
+          </li>
         </ul>
       </div>
     </div>

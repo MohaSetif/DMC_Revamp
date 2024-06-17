@@ -4,7 +4,7 @@ import React from 'react';
 
 function UserToPharmacists() {
   return (
-    <div className='w-96 h-64 group isolate flex flex-col rounded-2xl border border-card_border bg-card_bg shadow-[inset_0_1px,inset_0_0_0_1px] shadow-white/[0.025] p-4 overflow-hidden'>
+    <div className='w-full max-w-md h-64 group isolate flex flex-col rounded-2xl border border-card_border bg-card_bg shadow-[inset_0_1px,inset_0_0_0_1px] shadow-white/[0.025] p-4 overflow-hidden'>
       <div className="flex flex-col items-center mb-4">
         <h2 className="text-card_title font-shubbak-semi-bold text-lg mb-2">تحديد تلقائي للموقع</h2>
       </div>

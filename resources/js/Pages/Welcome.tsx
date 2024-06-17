@@ -47,80 +47,79 @@ export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<
   return (
     <>
       <Head title="Welcome" />
-      <div className="relative h-full w-full bg-page font-shubbak-light">
+      <div className="relative h-full w-full bg-page font-shubbak-light overflow-hidden">
         <div className="absolute bottom-0 left-0 right-0 top-0 bg-[linear-gradient(to_right,#4f4f4f2e_1px,transparent_1px),linear-gradient(to_bottom,#8080800a_1px,transparent_1px)] bg-[size:100px_80px]"></div>
-        <div className="absolute left-0 right-0 top-[-10%] h-[1000px] w-[1000px] rounded-full bg-bg_circle"></div>
+        <div className="absolute left-0 top-[-10%] h-[800px] w-[800px] md:h-[1000px] md:w-[1000px] rounded-full bg-bg_circle"></div>        
         <div className="relative z-10 min-h-screen flex flex-col items-center selection:bg-[#2036ff] selection:text-white">
-          <div className="relative w-full max-w-2xl px-6 lg:max-w-7xl">
-          {/* <header className="py-5 fixed top-0 left-0 right-0 z-50 bg-white/30 dark:bg-gray-900/30 backdrop-blur-md border-b border-gray-200 dark:border-gray-700"> */}
-          <header className="py-5 flex justify-between items-center">
-            <div className="container mx-auto px-4">
-              <nav className="flex justify-between items-center">
-                <div className="flex items-center">
-                  <img
-                    src={DMC_BlueLogo}
-                    alt="DMC_logo"
-                    height="60"
-                    width="60"
-                  />
-                </div>
-                <div className="flex items-center space-x-4">
-                  <ToggleButton/>
-                  {auth.user ? (
-                    <Link
-                      href={route('dashboard')}
-                      className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                    >
-                      Dashboard
-                    </Link>
-                  ) : (
-                    <>
+          <div className="relative w-full px-4 lg:max-w-7xl">
+            <header className="py-5 flex justify-between items-center">
+              <div className="container mx-auto">
+                <nav className="flex justify-between items-center">
+                  <div className="flex items-center">
+                    <img
+                      src={DMC_BlueLogo}
+                      alt="DMC_logo"
+                      height="60"
+                      width="60"
+                    />
+                  </div>
+                  <div className="flex items-center space-x-4">
+                    <ToggleButton/>
+                    {auth.user ? (
                       <Link
-                        href={route('login')}
+                        href={route('dashboard')}
                         className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
                       >
-                        Log in
+                        الصفحة الرئيسية
                       </Link>
-                      <Link
-                        href={route('register')}
-                        className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                      >
-                        Register
-                      </Link>
-                    </>
-                  )}
-                </div>
-              </nav>
-            </div>
-          </header>
-          <main className="block items-center justify-center min-h-32 m-12 p-12">
-            <div className='overflow-hidden z-10'>
-              <AnimationSquare/>
-            </div>
-            <div className="block z-20 text-center text-3xl h-5 font-medium text-gray-900 dark:text-gray-50 sm:text-4xl">
-              <span className='text-8xl font-shubbak-semi-bold text-p'>Digital Med Care</span>
-              <div className="my-4"></div>
-              <span className="mb-12 block animate-text-gradient bg-gradient-to-r bg-[200%_auto] bg-clip-text leading-tight text-transparent from-slate-600 via-slate-400 to-slate-400">
-                رعــايـــة طــــبـــيــة رقمــيـــة متــقــــدمــــة
-              </span>
-              <CustomButton text='تعرف أكثر' />
-            </div>
-            <div className='overflow-hidden z-10'>
-              <AnimationSquare2/>
-            </div>
-          </main>
-          <div className='b-auto'>
-            <div id="explanation" className="block">
-              <TracingBeam className="mt-[24rem]">
-                {details.map((detail, index) => (
-                  <Fragment key={index}>
-                    <Card title={detail.title} description={detail.description} icon={detail.icon} index={index} />
-                  </Fragment>
-                ))}
-                <Blob />
-              </TracingBeam>
-            </div>
-            <Footer/>
+                    ) : (
+                      <>
+                        <Link
+                          href={route('login')}
+                          className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                        >
+                          أدخل
+                        </Link>
+                        <Link
+                          href={route('register')}
+                          className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                        >
+                          سجل
+                        </Link>
+                      </>
+                    )}
+                  </div>
+                </nav>
+              </div>
+            </header>
+            <main className="block items-center justify-center min-h-32 m-4 md:m-12 p-4 md:p-12">
+              <div className='overflow-hidden z-10'>
+                <AnimationSquare/>
+              </div>
+              <div className="block z-20 text-center text-xl md:text-3xl font-medium text-gray-900 dark:text-gray-50 md:h-5 sm:text-2xl">
+                <span className='text-5xl md:text-8xl font-shubbak-semi-bold text-p'>Digital Med Care</span>
+                <div className="my-2 md:my-4"></div>
+                <span className="mb-4 md:mb-12 block animate-text-gradient bg-gradient-to-r bg-[200%_auto] bg-clip-text leading-tight text-transparent from-slate-600 via-slate-400 to-slate-400">
+                  رعــايـــة طــــبـــيــة رقمــيـــة متــقــــدمــــة
+                </span>
+                <CustomButton text='تعرف أكثر' />
+              </div>
+              <div className='overflow-hidden z-10'>
+                <AnimationSquare2/>
+              </div>
+            </main>
+            <div className='b-auto'>
+              <div id="explanation" className="block">
+                <TracingBeam className="mt-12 md:mt-[24rem]">
+                  {details.map((detail, index) => (
+                    <Fragment key={index}>
+                      <Card title={detail.title} description={detail.description} icon={detail.icon} index={index} />
+                    </Fragment>
+                  ))}
+                  <Blob />
+                </TracingBeam>
+              </div>
+              <Footer/>
             </div>
           </div>
         </div>

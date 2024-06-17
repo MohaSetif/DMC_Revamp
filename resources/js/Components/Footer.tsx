@@ -5,11 +5,11 @@ import stethoscope from "../../../public/img/stethoscope.png";
 
 function Footer() {
   return (
-    <footer className="bg-slate-400 dark:bg-slate-900 rounded-2xl m-12 mt-[8rem] relative">
-      <div className="mx-auto w-[70rem] max-w-screen-xl p-4 py-6 lg:py-8">
+    <footer className="bg-slate-400 dark:bg-slate-900 rounded-2xl m-4 md:m-12 mt-[4rem] md:mt-[8rem] relative">
+      <div className="mx-auto max-w-screen-xl p-4 py-6 lg:py-8">
         <div className="md:flex md:justify-between relative">
-          <div className="flex flex-col items-center justify-between pr-4 h-56">
-            <div className="mb-6 md:mb-0">
+          <div className="flex flex-col items-center justify-between mb-8 md:mb-0">
+            <div className="mb-4 md:mb-6">
               <a href="/" className="flex items-center align-top">
                 <img
                   src={DMC_WhiteLogo}
@@ -19,19 +19,21 @@ function Footer() {
                 />
               </a>
             </div>
-            <div className="mb-4">
+            <div>
               <BackToTopButton />
             </div>
           </div>
-          <div className='absolute z-30 ml-[24rem] top-[-10rem]'>  {/* Adjusted the top property */}
-            <img src={stethoscope} alt="stethoscope" height="350" width="350" />
-          </div>
-          <div className='block backdrop-blur-md z-20 bg-slate-200/30 dark:bg-slate-700/30 p-6 rounded-2xl h-56 w-[85%] leading-[15rem] relative text-right'>
-            <div className="absolute top-[-1.15rem] right-0 start_journey text-[9rem] text-right leading-[7rem] text-white font-shubbak-bold z-20">
-                ابــدأ
+          <div className="relative md:ml-auto">
+            <div className="absolute z-30 left-1/2 transform -translate-x-1/2 -top-16 md:static md:left-auto md:translate-x-0 md:ml-[15rem]">
+              <img src={stethoscope} alt="stethoscope" height="200" width="200" className="mr-[16rem] h-[100px] w-[150px] md:block md:h-[350px] md:w-[350px]" />
             </div>
-            <div className="absolute top-[4.5rem] right-0 start_journey text-[9rem] text-right text-white font-shubbak-bold z-20">
+            <div className="block backdrop-blur-md z-20 bg-slate-200/30 dark:bg-slate-700/30 p-4 md:p-6 rounded-2xl leading-[6rem] md:leading-[15rem] relative text-center md:text-right h-28 md:h-56 w-full md:w-[150%]">
+              <div className="absolute top-[-0.75rem] md:top-[-1.15rem] right-0 start_journey text-[2.5rem] md:text-[9rem] text-right leading-[4rem] md:leading-[7rem] text-white font-shubbak-bold z-20">
+                ابــدأ
+              </div>
+              <div className="absolute top-[2rem] md:top-[4.5rem] right-0 start_journey text-[2.5rem] md:text-[9rem] text-right text-white font-shubbak-bold z-20">
                 مشوارك معنا
+              </div>
             </div>
           </div>
         </div>

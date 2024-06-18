@@ -160,12 +160,12 @@ const THREEScene: React.FC = () => {
           <h1 className='text-p font-shubbak-semi-bold text-2xl md:text-3xl flex justify-center items-center mb-4' ref={h1Ref}>أهداف هذا الموقع</h1>
         </div>
         <ul className='text-xl md:text-4xl text-center' ref={navRef}>
-          <li className='mb-2'>
+          <li className='mb-10'>
             <div>
               <span className='text-p text-xl md:text-4xl leading-[1.5] md:ml-[25rem]'>رقمنة المجال الطبي</span>
             </div>
           </li>
-          <li className='mb-2'>
+          <li className='mb-10'>
             <div>
               <span className='text-p text-xl md:text-4xl leading-[1.5] md:ml-[-15rem]'>مساعدة المرضى على تلقي العلاج اللازم</span>
             </div>

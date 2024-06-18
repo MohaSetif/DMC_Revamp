@@ -24,14 +24,16 @@ function Footer() {
             </div>
           </div>
           <div className="relative md:ml-auto">
-            <div className="absolute z-30 left-1/2 transform -translate-x-1/2 -top-16 md:static md:left-auto md:translate-x-0 md:ml-[15rem]">
-              <img src={stethoscope} alt="stethoscope" height="200" width="200" className="mr-[16rem] h-[100px] w-[150px] md:block md:h-[350px] md:w-[350px]" />
+            {/* Stethoscope image */}
+            <div className="absolute z-0 hidden md:block left-1/2 transform -translate-x-1/2 -top-40 md:left-auto md:translate-x-0 md:ml-[15rem]">
+              <img src={stethoscope} alt="stethoscope" className="mr-[16rem] h-[100px] w-[100px] mt-8 md:block md:h-[240px] md:w-[350px] rotate-[170deg]" />
             </div>
-            <div className="block backdrop-blur-md z-20 bg-slate-200/30 dark:bg-slate-700/30 p-4 md:p-6 rounded-2xl leading-[6rem] md:leading-[15rem] relative text-center md:text-right h-28 md:h-56 w-full md:w-[150%]">
-              <div className="absolute top-[-0.75rem] md:top-[-1.15rem] right-0 start_journey text-[2.5rem] md:text-[9rem] text-right leading-[4rem] md:leading-[7rem] text-white font-shubbak-bold z-20">
+            {/* Blurry box */}
+            <div className="block backdrop-blur-sm z-10 bg-slate-200/30 dark:bg-slate-700/30 p-4 md:p-6 rounded-2xl h-24 md:h-72 md:w-[56.5rem]">
+              <div className="absolute top-[-0.75rem] md:top-[-1.15rem] pr-2 right-0 start_journey text-[2.5rem] md:text-[9rem] text-right leading-[4rem] md:leading-[7rem] text-white font-shubbak-bold z-20">
                 ابــدأ
               </div>
-              <div className="absolute top-[2rem] md:top-[4.5rem] right-0 start_journey text-[2.5rem] md:text-[9rem] text-right text-white font-shubbak-bold z-20">
+              <div className="absolute top-[2rem] md:top-[4.5rem] pr-2 right-0 start_journey text-[2.5rem] md:text-[9rem] text-right text-white font-shubbak-bold z-20">
                 مشوارك معنا
               </div>
             </div>

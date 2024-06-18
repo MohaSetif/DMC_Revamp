@@ -13,7 +13,7 @@ function BackToTopButton() {
   };
 
   return (
-    <div className="hidden font-shubbak-semi-bold mt-[8.4rem] lg:flex items-center">
+    <div className="flex font-shubbak-semi-bold md:mt-[8.4rem] items-center">
       <button
         onClick={scrollToTop}
         onMouseEnter={() => setIsHovered(true)}

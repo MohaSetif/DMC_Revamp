@@ -35,7 +35,7 @@ const Card: React.FC<{ title: string, icon: IconProp, description: string, index
   }, []);
 
   return (
-    <div className="flex flex-col mb-20 md:mb-[15rem] w-full md:w-[70rem]">
+    <div className="flex flex-col mb-[10rem] md:mb-[15rem] w-full md:w-[70rem]">
       <div className="flex flex-col-reverse md:flex-row">
         <div className="md:w-1/2">
           {index === 0 && <DoctorProfileCard />}
@@ -44,13 +44,13 @@ const Card: React.FC<{ title: string, icon: IconProp, description: string, index
           {index === 3 && <EmailSmsOneTimePasscodes />}
           {index === 4 && <MultifactorAuthentication />}
         </div>
-        <div className="relative flex flex-col items-start md:items-end md:w-1/2">
-          <div className="flex flex-col md:flex-row md:items-center gap-4 md:gap-10">
-            <h1 className="text-p font-shubbak-semi-bold text-2xl md:text-3xl flex justify-center items-center">{title}</h1>
+        <div className="relative flex flex-col items-end md:items-end md:w-[32rem]">
+          <div className="flex items-center justify-end gap-4 md:gap-10">
+            <h1 className="text-p mt-4 font-shubbak-semi-bold text-2xl md:text-3xl">{title}</h1>
             <div className="relative flex justify-center items-center">
               <div
                 className={`absolute rounded-full bg-gray-400/70 dark:bg-blue-400/30 transition-all duration-500
-                  ${isVisible ? 'opacity-100 backdrop-blur-md' : 'opacity-0'}`}
+${isVisible ? 'opacity-100 backdrop-blur-md' : 'opacity-0'}`}
                 style={{
                   width: '50px',
                   height: '50px',
@@ -66,8 +66,8 @@ const Card: React.FC<{ title: string, icon: IconProp, description: string, index
               />
             </div>
           </div>
-          <div className="p-4 md:p-6 w-full flex md:justify-end">
-            <p className="text-p text-left md:text-right text-lg md:text-2xl leading-[1.5]">{description}</p>
+          <div className="p-4 md:p-6 w-full flex justify-end">
+            <p className="text-p text-right text-lg md:text-2xl leading-[1.5]">{description}</p>
           </div>
         </div>
       </div>

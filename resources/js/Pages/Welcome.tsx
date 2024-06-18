@@ -24,7 +24,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<
     },
     {
       title: "الموقع الجغرافي",
-      description: "مع Google Maps، لن تضطر أبدا إلى إدخال عنوانك الكامل",
+      description: "مع Google Maps، لن تضطر أبدا إلى إدخال عنانك الكامل",
       icon: faLocationDot
     },
     {
@@ -92,11 +92,11 @@ export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<
                 </nav>
               </div>
             </header>
-            <main className="block items-center justify-center min-h-32 m-4 md:m-12 p-4 md:p-12">
-              <div className='overflow-hidden z-10'>
-                <AnimationSquare/>
+            <main className="flex items-center justify-center h-screen w-screen p-0 m-0">
+              <div className="overflow-hidden z-10">
+                <AnimationSquare />
               </div>
-              <div className="block z-20 text-center text-xl md:text-3xl font-medium text-gray-900 dark:text-gray-50 md:h-5 sm:text-2xl">
+              <div className="flex flex-col items-center justify-center z-20 text-center text-xl md:text-3xl font-medium text-gray-900 dark:text-gray-50 sm:text-2xl">
                 <span className='text-5xl md:text-8xl font-shubbak-semi-bold text-p'>Digital Med Care</span>
                 <div className="my-2 md:my-4"></div>
                 <span className="mb-4 md:mb-12 block animate-text-gradient bg-gradient-to-r bg-[200%_auto] bg-clip-text leading-tight text-transparent from-slate-600 via-slate-400 to-slate-400">
@@ -104,8 +104,8 @@ export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<
                 </span>
                 <CustomButton text='تعرف أكثر' />
               </div>
-              <div className='overflow-hidden z-10'>
-                <AnimationSquare2/>
+              <div className="overflow-hidden z-10">
+                <AnimationSquare2 />
               </div>
             </main>
             <div className='b-auto'>

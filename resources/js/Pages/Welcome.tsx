@@ -92,7 +92,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<
                 </nav>
               </div>
             </header>
-            <main className="flex items-center justify-center h-screen w-screen p-0 m-0">
+            <main className="flex items-center justify-center min-h-screen w-full mt-[-4rem]">
               <div className="overflow-hidden z-10">
                 <AnimationSquare />
               </div>
@@ -110,7 +110,7 @@ export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<
             </main>
             <div className='b-auto'>
               <div id="explanation" className="block">
-                <TracingBeam className="mt-12 md:mt-[24rem]">
+                <TracingBeam className="mt-12 md:mt-[4rem]">
                   {details.map((detail, index) => (
                     <Fragment key={index}>
                       <Card title={detail.title} description={detail.description} icon={detail.icon} index={index} />

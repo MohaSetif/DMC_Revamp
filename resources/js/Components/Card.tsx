@@ -37,7 +37,7 @@ const Card: React.FC<{ title: string, icon: IconProp, description: string, index
   return (
     <div className="flex flex-col mb-[10rem] md:mb-[15rem] w-full md:w-[70rem]">
       <div className="flex flex-col-reverse md:flex-row">
-        <div className="md:w-1/2">
+        <div className="md:w-1/2 relative z-30">
           {index === 0 && <DoctorProfileCard />}
           {index === 1 && <UserToPharmacists />}
           {index === 2 && <MedicationForm />}

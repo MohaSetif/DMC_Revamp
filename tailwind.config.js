@@ -13,7 +13,16 @@ export default {
 
     theme: {
         extend: {
+            keyframes: {
+                slideInOut: {
+                  '0%': { transform: 'translateX(100%)' },
+                  '10%': { transform: 'translateX(0)' },
+                  '90%': { transform: 'translateX(0)' },
+                  '100%': { transform: 'translateX(100%)' },
+                },
+            },
             animation: {
+                'slide-in-out': 'slideInOut 5s ease-in-out',
                 'spin-slow': 'spin 120s linear infinite',
             },
             fontFamily: {

@@ -39,10 +39,10 @@ export default function Authenticated({ user, header, children }: PropsWithChild
 
                         <div className="hidden sm:flex sm:justify-center flex-grow">
                             <div className="flex space-x-8 sm:-my-px">
-                                <NavLink href={route('pharmacies')} active={route().current('pharmacies')}>
+                                <NavLink href={route('medications.index')} active={route().current('medications.index')}>
                                     صيدليتنا
                                 </NavLink>
-                                <NavLink href={route('doctors')} active={route().current('doctors')}>
+                                <NavLink href={route('doctors.index')} active={route().current('doctors.index')}>
                                     أطباؤنا
                                 </NavLink>
                                 <NavLink href={route('dashboard')} active={route().current('dashboard')}>
@@ -119,10 +119,10 @@ export default function Authenticated({ user, header, children }: PropsWithChild
                         <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
                             الصفحة الرئيسة
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink href={route('doctors')} active={route().current('doctors')}>
+                        <ResponsiveNavLink href={route('doctors.index')} active={route().current('doctors.index')}>
                             أطباؤنا
                         </ResponsiveNavLink>
-                        <ResponsiveNavLink href={route('pharmacies')} active={route().current('pharmacies')}>
+                        <ResponsiveNavLink href={route('medications.index')} active={route().current('medications.index')}>
                             صيدليتنا
                         </ResponsiveNavLink>
                     </div>

@@ -15,4 +15,11 @@ class DoctorsController extends Controller
             'doctors' => $doctors
         ]);
     }
+
+    public function doc_profile($id){
+        $doctor = Doctor::query()->where('id', $id)->first();
+        return Inertia::render('Public/Doctor_Profile', [
+            'doctor' => $doctor
+        ]);
+    }
 }

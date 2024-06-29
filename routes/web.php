@@ -17,7 +17,10 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    return Inertia::render('Dashboard');
+    $usertype = auth()->user()->roles->first();
+    return Inertia::render('Dashboard', [
+        'usertype' => $usertype
+    ]);
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {
@@ -26,10 +29,9 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
     Route::get('/doctors', [DoctorsController::class, 'index'])->name('doctors.index');
-    Route::get('/doctors/{id}', [DoctorsController::class, 'doc_profile'])->name('doctor.profile');
     Route::get('/doctors/build_profile', [DoctorsController::class, 'build_profile'])->name('doctor.build_profile');
     Route::post('/doctors/post_building', [DoctorsController::class, 'post_building'])->name('doctor.post_building');
-
+    Route::get('/doctors/{id}', [DoctorsController::class, 'doc_profile'])->name('doctor.profile');
 
     Route::get('/medications_form', [MedicationsController::class, 'index'])->name('medications.index');
     Route::post('/medications_store', [MedicationsController::class, 'store'])->name('medications.store');

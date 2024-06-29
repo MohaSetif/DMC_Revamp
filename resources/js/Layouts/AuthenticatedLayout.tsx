@@ -6,9 +6,9 @@ import DMC_BlueLogo from "../../../public/img/DMC_nav_logo.png";
 import DMC_WhiteLogo from "../../../public/img/168608548544536747.png"
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link } from '@inertiajs/react';
-import { User } from '@/types';
+import { PageProps, User } from '@/types';
 
-export default function Authenticated({ user, header, children }: PropsWithChildren<{ user: User, header?: ReactNode }>) {
+export default function Authenticated({ user, usertype, header, children }: PropsWithChildren<{ user: User, usertype?: string, header?: ReactNode }>) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
     return (
@@ -79,7 +79,7 @@ export default function Authenticated({ user, header, children }: PropsWithChild
                                     </Dropdown.Trigger>
 
                                     <Dropdown.Content>
-                                        <Dropdown.Link href={route('profile.edit')}>الصفحة الشخصية</Dropdown.Link>
+                                        <Dropdown.Link href={usertype === 'Doctor' ? route('doctor.build_profile') : route('profile.edit')}>الصفحة الشخصية</Dropdown.Link>
                                         <Dropdown.Link href={route('logout')} method="post" as="button">
                                             الخروج
                                         </Dropdown.Link>
@@ -136,7 +136,7 @@ export default function Authenticated({ user, header, children }: PropsWithChild
                         </div>
 
                         <div className="mt-3 space-y-1 text-right">
-                            <ResponsiveNavLink href={route('profile.edit')}>الصفحة الشخصية</ResponsiveNavLink>
+                            <ResponsiveNavLink href={usertype === 'Doctor' ? route('doctor.build_profile') : route('profile.edit')}>الصفحة الشخصية</ResponsiveNavLink>
                             <ResponsiveNavLink method="post" href={route('logout')} as="button">
                                 الخروج
                             </ResponsiveNavLink>

@@ -2,10 +2,17 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import { PageProps } from '@/types';
 
-export default function Dashboard({ auth }: PageProps) {
+interface DashboardProps extends PageProps {
+    usertype: {
+      name: string;
+    };
+  }
+
+export default function Dashboard({ auth, usertype }: DashboardProps) {
     return (
         <AuthenticatedLayout
             user={auth.user}
+            usertype={usertype.name}
             header={<h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">الصفحة الرئيسية</h2>}
         >
             <Head title="الصفحة الرئيسية" />

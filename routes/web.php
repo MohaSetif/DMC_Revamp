@@ -27,6 +27,8 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/doctors', [DoctorsController::class, 'index'])->name('doctors.index');
     Route::get('/doctors/{id}', [DoctorsController::class, 'doc_profile'])->name('doctor.profile');
+    Route::get('/doctors/build_profile', [DoctorsController::class, 'build_profile'])->name('doctor.build_profile');
+    Route::post('/doctors/post_building', [DoctorsController::class, 'post_building'])->name('doctor.post_building');
 
 
     Route::get('/medications_form', [MedicationsController::class, 'index'])->name('medications.index');

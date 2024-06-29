@@ -28,15 +28,17 @@ class DoctorResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('name')
+                TextInput::make('user.name')
                     ->required()
                     ->maxLength(255)
-                    ->reactive()
-                    ->afterStateUpdated(fn ($state, callable $set) => $set('slug', Str::slug($state))),
-                TextInput::make('slug')
+                    ->reactive(),
+                TextInput::make('user.email')
                     ->required()
                     ->maxLength(255),
-                TextInput::make('phone')
+                TextInput::make('user.password')
+                    ->required()
+                    ->maxLength(255),
+                TextInput::make('user.phone')
                     ->tel()
                     ->required()
                     ->maxLength(255),
@@ -63,7 +65,7 @@ class DoctorResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('name'),
+                Tables\Columns\TextColumn::make('user.name'),
                 Tables\Columns\TextColumn::make('speciality'),
                 Tables\Columns\TextColumn::make('work_place'),
                 Tables\Columns\TextColumn::make('price'),

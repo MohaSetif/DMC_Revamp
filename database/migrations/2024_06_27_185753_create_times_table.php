@@ -13,9 +13,7 @@ return new class extends Migration
     {
         Schema::create('times', function (Blueprint $table) {
             $table->id();
-            $table->string('name');
-            $table->unsignedBigInteger('userId');
-            $table->foreign('userId')->references('id')->on('doctors');
+            $table->string('doctor_id');
             $table->string('saturday');
             $table->string('sunday');
             $table->string('monday');

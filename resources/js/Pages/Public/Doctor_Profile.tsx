@@ -48,40 +48,86 @@ const Doctor_Profile: React.FC<Props> = ({ auth, doctor, time, reviews, averageR
       <Head title={doctor.name} />
       <div className="container py-5">
         <div className="row">
-          <div className="col-lg-4">
-            <div className="card mb-4">
-              <div className="top_profile card-body text-center">
-                <img src={`/storage/${doctor.image}`} alt="doctor_image"
-                  className="rounded-circle img-fluid container text-center" style={{ width: '200px', height: '170px' }} />
-                <h5 className="my-3">{doctor.name}</h5>
-                <p className="text-muted mb-1">{doctor.speciality}</p>
-                <div className="d-flex justify-content-center mb-2">
-                    <a href={`/command/${doctor.id}`} className="btn bg-success command-btn mx-2">حجز</a>
-                </div>
-              </div>
-            </div>
-            <div className="card mb-4 mb-lg-0">
-              <div className="nabda card-body p-3">
-                <h3 className="text-center" style={{ color: '#F74234' }}>نبذة عن الطبيب</h3>
-                <hr />
-                <p>{doctor.who}</p>
-              </div>
-            </div>
-          </div>
           <div className="col-lg-8">
-            {/* Doctor info card */}
             <div className="card mb-4">
-              {/* ... (doctor info content) */}
-            </div>
-            {/* Available time card */}
+                <div className="card-body">
+                  <div className="profile_info row">
+                    <div className="col-sm-3">
+                      <p className="mb-0">الاسم</p>
+                    </div>
+                    <div className="col-sm-9">
+                      <p className="text-muted mb-0">
+                        {doctor.name}
+                      </p>
+                    </div>
+                  </div>
+                  <hr/>
+                  <div>
+                    <div className="col-sm-3">
+                      <p className="mb-0">مكان العمل</p>
+                    </div>
+                    <div className="col-sm-9">
+                      <p className="text-muted mb-0">{doctor.work_place} </p>
+                    </div>
+                  </div>
+                  <hr/>
+                  <div>
+                    <div className="col-sm-3">
+                      <p className="mb-0">سعر الحصة</p>
+                    </div>
+                    <div className="col-sm-9">
+                      <p className="text-muted mb-0"> {doctor.price}</p>
+                    </div>
+                  </div>
+                </div>
             <div className="col-md-12">
-              {/* ... (available time content) */}
+                {/* <div className="card mb-4 mb-md-0">
+                    <div className="card-body">
+                      <p className="mb-4"><span className="time  font-italic me-1">الوقت المتاح</span>
+                      </p>
+                      
+                      <div className="table-responsive">
+                            <table className="table ">
+                              <thead>
+                                <tr>
+                                  <th>السبت</th>
+                                  <th>الأحد</th>
+                                  <th>الاثنين</th>
+                                  <th>الثلاثاء</th>
+                                  <th>الأربعاء</th>
+                                  <th>الخميس</th>
+                                  <th>الجمعة</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                <tr>
+                                @if($time== '')
+                                  <h3>لا توجد أوقات متاحة</h3>
+                                @else
+                                  <td>{time.saturday}</td>
+                                  <td>{time.sunday}</td>
+                                  <td>{time.monday}</td>
+                                  <td>{time.tuesday}</td>
+                                  <td>{time.wednesday}</td>
+                                  <td>{time.thursday}</td>
+                                  <td>{time.friday}</td>
+                                @endif
+                                </tr>
+                             </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div> */}
             </div>
             {/* Reviews section */}
             <div className="posts card mb-4 mb-lg-0 my-4">
               {/* ... (reviews content) */}
             </div>
+            <div className="d-flex justify-content-center mb-2">
+                <a href={`/command/${doctor.id}`} className="bg-red-600 border border-red-500 text-white px-4 mx-2">حجز</a>
+            </div>
           </div>
+        </div>
         </div>
       </div>
     </AuthenticatedLayout>

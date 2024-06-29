@@ -10,7 +10,7 @@ class Time extends Model
     use HasFactory;
 
     protected $fillable =[
-        'name' ,'userId', 'saturday' , 'sunday' , 'monday' , 'tuesday' , 'wednesday' , 'thursday' , 'friday' ,
+        'doctor_id', 'saturday' , 'sunday' , 'monday' , 'tuesday' , 'wednesday' , 'thursday' , 'friday' ,
     ];
 
 

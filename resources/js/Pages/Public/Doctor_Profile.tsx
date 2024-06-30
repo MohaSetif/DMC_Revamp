@@ -124,7 +124,7 @@ const Doctor_Profile: React.FC<Props> = ({ auth, doctor, time, reviews, averageR
               {/* ... (reviews content) */}
             </div>
             <div className="d-flex justify-content-center mb-2">
-                <a href={`/command/${doctor.id}`} className="bg-red-600 border border-red-500 text-white px-4 mx-2">حجز</a>
+                <a href={`/appointments/${doctor.id}`} className="bg-red-600 border border-red-500 text-white px-4 mx-2">حجز</a>
             </div>
           </div>
         </div>

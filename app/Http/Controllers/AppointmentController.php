@@ -2,10 +2,24 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Doctor;
+use App\Models\Time;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Inertia\Inertia;
 
 class AppointmentController extends Controller
 {
+    public function index($id){
+        $doctor = Doctor::where('id', $id)->firstOrFail();
+        $time = Time::where('doctor_id', $doctor->id)->first();
+
+        return Inertia::render('Public/Doctors/Appointments', [
+            'doctor' => $doctor,
+            'time' => $time ?? "",
+        ]);
+    }
+
     public function store(Request $request)
     { 
         $request->validate([

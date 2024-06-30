@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\AppointmentController;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\DoctorsController;
 use App\Http\Controllers\MedicationsController;
@@ -30,8 +31,11 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/doctors', [DoctorsController::class, 'index'])->name('doctors.index');
     Route::get('/doctors/build_profile', [DoctorsController::class, 'build_profile'])->name('doctor.build_profile');
-    Route::post('/doctors/post_building', [DoctorsController::class, 'post_building'])->name('doctor.post_building');
+    Route::put('/doctors/post_building', [DoctorsController::class, 'update_profile'])->name('doctor.update_profile');
     Route::get('/doctors/{id}', [DoctorsController::class, 'doc_profile'])->name('doctor.profile');
+
+    Route::get('/appointments/{id}', [AppointmentController::class, 'index'])->name('appointment.index');
+    Route::post('/appointments/{id}', [AppointmentController::class, 'store'])->name('appointment.store');
 
     Route::get('/medications_form', [MedicationsController::class, 'index'])->name('medications.index');
     Route::post('/medications_store', [MedicationsController::class, 'store'])->name('medications.store');

@@ -9,10 +9,9 @@ class Time extends Model
 {
     use HasFactory;
 
-    protected $fillable =[
-        'doctor_id', 'saturday' , 'sunday' , 'monday' , 'tuesday' , 'wednesday' , 'thursday' , 'friday' ,
+    protected $fillable = [
+        'doctor_id', 'sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday',
     ];
-
 
     public function doctor(){
         return $this->belongsTo(Doctor::class);

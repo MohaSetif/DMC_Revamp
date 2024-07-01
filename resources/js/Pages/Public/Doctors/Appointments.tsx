@@ -1,6 +1,4 @@
-// resources/js/Pages/DoctorAppointment.tsx
-
-import React, { useState, useEffect } from 'react';
+import React, { useRef, useState } from 'react';
 import { useForm } from '@inertiajs/react';
 import { PageProps } from '@/types';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
@@ -9,8 +7,9 @@ import TextInput from '@/Components/TextInput';
 import InputError from '@/Components/InputError';
 import PrimaryButton from '@/Components/PrimaryButton';
 import MapComponent from '@/Components/Map';
+import Toast from '@/Components/Toast';
 
-interface Doctor {
+interface DoctorInfo {
   name: string;
 }
 
@@ -25,13 +24,15 @@ interface Time {
 }
 
 interface DoctorAppointmentProps extends PageProps {
-  doctor: Doctor;
-  time: Time | "";
+  doctor_info: DoctorInfo;
+  time: Time | '';
 }
 
-export default function Appointments({ auth, doctor, time }: DoctorAppointmentProps) {
+export default function Appointments({ auth, doctor_info, doctor_id, time }: DoctorAppointmentProps) {
+  const [toasts, setToasts] = useState<{ message: string, type: 'success' | 'error' }[]>([]);
   const { data, setData, post, processing, errors } = useForm({
-    doctor: doctor.name,
+    doctor_id: doctor_id,
+    user_id: auth.user.id,
     name: '',
     age: '',
     phone: '',
@@ -43,16 +44,41 @@ export default function Appointments({ auth, doctor, time }: DoctorAppointmentPr
   });
 
   const [mapCenter, setMapCenter] = useState<[number, number]>([0, 0]);
+  const mapRef = useRef<any>(null);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    post(route('command.store'));
+    post(route('appointment.store'), {
+      onSuccess: async () => {
+        addToast({ message: 'تم الحجز بنجاح، يرجى التحقق من صندوق الوارد.', type: 'success' });
+      },
+      onError: () => {
+        addToast({ message: 'حدث خطأ أثناء الحجز، يرجى المحاولة مرة أخرى.', type: 'error' });
+      }
+    });
   };
 
-  const handleLocationUpdate = (lat: number, lon: number) => {
-    setData('latitude', lat.toString());
-    setData('longitude', lon.toString());
-    setMapCenter([lon, lat]);
+  const addToast = (toast: { message: string, type: 'success' | 'error' }) => {
+    setToasts(prevToasts => {
+      if (prevToasts.length >= 3) {
+        return [...prevToasts.slice(1), toast];
+      }
+      return [...prevToasts, toast];
+    });
+  };
+
+  const removeToast = (index: number) => {
+    setToasts(prevToasts => prevToasts.filter((_, i) => i !== index));
+  };
+
+  const handleFindLocation = () => {
+    if (mapRef.current) {
+      mapRef.current.onLocationSelect((lat: number, lon: number) => {
+        setData('latitude', lat.toString());
+        setData('longitude', lon.toString());
+        setMapCenter([lon, lat]);
+      });
+    }
   };
 
   return (
@@ -61,6 +87,16 @@ export default function Appointments({ auth, doctor, time }: DoctorAppointmentPr
       header={<h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">حجز موعد مع الطبيب</h2>}
     >
       <div className="py-12">
+        <div className="fixed top-4 right-4 z-50">
+          {toasts.map((toast, index) => (
+            <Toast
+              key={index}
+              message={toast.message}
+              type={toast.type}
+              onClose={() => removeToast(index)}
+            />
+          ))}
+        </div>
         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
           <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
             <div className="p-6 text-gray-900 dark:text-gray-100">
@@ -71,14 +107,14 @@ export default function Appointments({ auth, doctor, time }: DoctorAppointmentPr
                     id="doctor"
                     type="text"
                     name="doctor"
-                    value={data.doctor}
+                    value={doctor_info.name}
                     className="mt-1 block w-full"
                     disabled
                   />
                 </div>
 
                 <div>
-                  <InputLabel htmlFor="name" value="اسم و لقب المريض" />
+                  <InputLabel htmlFor="name" value="اسم ولقب المريض" />
                   <TextInput
                     id="name"
                     type="text"
@@ -94,7 +130,7 @@ export default function Appointments({ auth, doctor, time }: DoctorAppointmentPr
                   <InputLabel htmlFor="age" value="العمر" />
                   <TextInput
                     id="age"
-                    type="text"
+                    type="number"
                     name="age"
                     value={data.age}
                     className="mt-1 block w-full"
@@ -118,6 +154,10 @@ export default function Appointments({ auth, doctor, time }: DoctorAppointmentPr
 
                 <div>
                   <InputLabel htmlFor="map" value="قم بتحديد موقعك آليا هنا" />
+                  <MapComponent ref={mapRef} onLocationSelect={(lat, lon) => { }} />
+                  <PrimaryButton type="button" onClick={handleFindLocation} className="mt-4">
+                    تحديد الموقع
+                  </PrimaryButton>
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
@@ -125,7 +165,7 @@ export default function Appointments({ auth, doctor, time }: DoctorAppointmentPr
                     <InputLabel htmlFor="latitude" value="خط العرض" />
                     <TextInput
                       id="latitude"
-                      type="text"
+                      type="number"
                       name="latitude"
                       value={data.latitude}
                       className="mt-1 block w-full"
@@ -137,7 +177,7 @@ export default function Appointments({ auth, doctor, time }: DoctorAppointmentPr
                     <InputLabel htmlFor="longitude" value="خط الطول" />
                     <TextInput
                       id="longitude"
-                      type="text"
+                      type="number"
                       name="longitude"
                       value={data.longitude}
                       className="mt-1 block w-full"
@@ -148,7 +188,7 @@ export default function Appointments({ auth, doctor, time }: DoctorAppointmentPr
                 </div>
 
                 <div>
-                  <InputLabel htmlFor="localisation" value="في حالة لم تعمل الخريطة ضع رابط الموقع هنا الموقع بالتحديد" />
+                  <InputLabel htmlFor="localisation" value="في حالة عدم عمل الخريطة، ضع رابط الموقع هنا" />
                   <TextInput
                     id="localisation"
                     type="text"
@@ -161,34 +201,15 @@ export default function Appointments({ auth, doctor, time }: DoctorAppointmentPr
                 </div>
 
                 <div>
-                  <InputLabel htmlFor="time" value="الوقت الذي يناسبك" />
-                  {time === "" ? (
-                    <TextInput
-                      id="time"
-                      type="text"
-                      name="time"
-                      value={data.time}
-                      className="mt-1 block w-full"
-                      onChange={(e) => setData('time', e.target.value)}
-                    />
-                  ) : (
-                    <select
-                      id="time"
-                      name="time"
-                      value={data.time}
-                      className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
-                      onChange={(e) => setData('time', e.target.value)}
-                    >
-                      <option value="">اختر الوقت</option>
-                      <option value={`السبت : ${time.saturday}`}>السبت : {time.saturday}</option>
-                      <option value={`الأحد : ${time.sunday}`}>الأحد : {time.sunday}</option>
-                      <option value={`الاثنين : ${time.monday}`}>الاثنين : {time.monday}</option>
-                      <option value={`الثلاثاء : ${time.tuesday}`}>الثلاثاء : {time.tuesday}</option>
-                      <option value={`الأربعاء : ${time.wednesday}`}>الأربعاء : {time.wednesday}</option>
-                      <option value={`الخميس : ${time.thursday}`}>الخميس : {time.thursday}</option>
-                      <option value={`الجمعة : ${time.friday}`}>الجمعة : {time.friday}</option>
-                    </select>
-                  )}
+                  <InputLabel htmlFor="time" value="الوقت المناسب" />
+                  <TextInput
+                    id="time"
+                    type="text"
+                    name="time"
+                    value={data.time}
+                    className="mt-1 block w-full"
+                    onChange={(e) => setData('time', e.target.value)}
+                  />
                   <InputError message={errors.time} className="mt-2" />
                 </div>
 
@@ -198,7 +219,7 @@ export default function Appointments({ auth, doctor, time }: DoctorAppointmentPr
                     id="description"
                     name="description"
                     value={data.description}
-                    className="mt-1 block w-full border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
+                    className="mt-1 block w-full"
                     rows={3}
                     onChange={(e) => setData('description', e.target.value)}
                   ></textarea>
@@ -206,8 +227,8 @@ export default function Appointments({ auth, doctor, time }: DoctorAppointmentPr
                 </div>
 
                 <div>
-                  <PrimaryButton className="w-full" disabled={processing}>
-                    {processing ? 'جاري التأكيد...' : 'تأكيد الطلب'}
+                  <PrimaryButton className="w-28" disabled={processing}>
+                    {processing ? 'جارٍ التأكيد...' : 'تأكيد الطلب'}
                   </PrimaryButton>
                 </div>
               </form>

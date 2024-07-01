@@ -55,6 +55,11 @@ class User extends Authenticatable implements FilamentUser
         return $this->hasOne(Doctor::class);
     }
 
+    public function appointment()
+    {
+        return $this->hasMany(Appointment::class);
+    }
+
     public function canAccessFilament(): bool
     {
         return $this->doctor()->exists();

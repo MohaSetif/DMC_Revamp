@@ -1,5 +1,5 @@
 import React from 'react';
-import { Head } from '@inertiajs/react';
+import { Head, Link } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { PageProps } from '@/types';
 
@@ -124,7 +124,7 @@ const Doctor_Profile: React.FC<Props> = ({ auth, doctor, time, reviews, averageR
               {/* ... (reviews content) */}
             </div>
             <div className="d-flex justify-content-center mb-2">
-                <a href={`/appointments/${doctor.id}`} className="bg-red-600 border border-red-500 text-white px-4 mx-2">حجز</a>
+                <Link href={`/appointments/${doctor.id}`} className="bg-red-600 border border-red-500 text-white px-4 mx-2">حجز</Link>
             </div>
           </div>
         </div>

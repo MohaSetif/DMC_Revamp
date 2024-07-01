@@ -16,8 +16,6 @@ interface FormData {
   image: File | null;
 }
 
-const MAX_TOASTS = 3;
-
 function Medic_Form({ auth }: PageProps) {
   const [toasts, setToasts] = useState<{ message: string, type: 'success' | 'error' }[]>([]);
   const { data, setData, post, processing, errors, reset } = useForm<FormData>({
@@ -66,7 +64,7 @@ function Medic_Form({ auth }: PageProps) {
 
   const addToast = (toast: { message: string, type: 'success' | 'error' }) => {
     setToasts(prevToasts => {
-      if (prevToasts.length >= MAX_TOASTS) {
+      if (prevToasts.length >= 3) {
         return [...prevToasts.slice(1), toast];
       }
       return [...prevToasts, toast];

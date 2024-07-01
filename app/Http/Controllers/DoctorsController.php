@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\Appointment;
 use App\Models\Doctor;
 use App\Models\Time;
 use App\Models\User;
@@ -85,5 +86,13 @@ class DoctorsController extends Controller
         );
     
         return redirect()->back()->with('success', 'Profile updated successfully');
+    }
+
+    public function my_appointments(){
+        $doc = Doctor::where('user_id', auth()->user()->id)->first();
+        $appoint_list = Appointment::where('doctor_id', $doc->id)->get();
+        return Inertia::render('Public/Doctors/Doctor_Appointments', [
+            'appointments' => $appoint_list
+        ]);
     }
 }

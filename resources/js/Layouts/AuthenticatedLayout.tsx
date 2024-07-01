@@ -80,6 +80,11 @@ export default function Authenticated({ user, usertype, header, children }: Prop
 
                                     <Dropdown.Content>
                                         <Dropdown.Link href={usertype === 'Doctor' ? route('doctor.build_profile') : route('profile.edit')}>الصفحة الشخصية</Dropdown.Link>
+                                        {usertype === 'Doctor' ? 
+                                            <Dropdown.Link href={route('doctor.appoint_list')}>مواعيدك</Dropdown.Link>
+                                            :
+                                            ''
+                                        }
                                         <Dropdown.Link href={route('logout')} method="post" as="button">
                                             الخروج
                                         </Dropdown.Link>
@@ -117,7 +122,7 @@ export default function Authenticated({ user, usertype, header, children }: Prop
                 <div className={(showingNavigationDropdown ? 'block' : 'hidden') + ' sm:hidden'}>
                     <div className="pt-2 pb-3 space-y-1">
                         <ResponsiveNavLink href={route('dashboard')} active={route().current('dashboard')}>
-                            الصفحة الرئيسة
+                            الصفحة الرئيسية
                         </ResponsiveNavLink>
                         <ResponsiveNavLink href={route('doctors.index')} active={route().current('doctors.index')}>
                             أطباؤنا
@@ -137,6 +142,11 @@ export default function Authenticated({ user, usertype, header, children }: Prop
 
                         <div className="mt-3 space-y-1 text-right">
                             <ResponsiveNavLink href={usertype === 'Doctor' ? route('doctor.build_profile') : route('profile.edit')}>الصفحة الشخصية</ResponsiveNavLink>
+                            {usertype === 'Doctor' ? 
+                                            <Dropdown.Link href={route('doctor.appoint_list')}>مواعيدك</Dropdown.Link>
+                                            :
+                                            ''
+                                        }
                             <ResponsiveNavLink method="post" href={route('logout')} as="button">
                                 الخروج
                             </ResponsiveNavLink>

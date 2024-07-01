@@ -18,6 +18,11 @@ class Doctor extends Model
     public function user(){
         return $this->belongsTo(User::class);
     }
+
+    public function appointment()
+    {
+        return $this->hasMany(Appointment::class);
+    }
     
     public function time(){
         return $this->hasOne(Time::class , 'user_id');

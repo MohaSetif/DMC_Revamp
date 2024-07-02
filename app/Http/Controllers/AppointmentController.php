@@ -66,7 +66,7 @@ class AppointmentController extends Controller
             'status' => 'required|in:مؤكد,مرفوض,في طور الانتظار',
         ]);
         $appointment->status = $request->input('status');
-        $appointment->save();
+        $appointment->update();
     
         return back()->with('success', 'Appointment status updated successfully.');
     }

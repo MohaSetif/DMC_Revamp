@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { Head, useForm } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import PrimaryButton from '@/Components/PrimaryButton';
@@ -40,17 +40,22 @@ interface DoctorAppointmentsProps extends PageProps {
 }
 
 export default function Doctor_Appointments({ auth, appointments, user_role }: DoctorAppointmentsProps) {
-  const { setData, put, processing } = useForm({
+  const { data, setData, put, processing } = useForm({
+    appointmentId: 0,
     status: '' as StatusType,
   });
-  
-  const handleStatusUpdate = (appointmentId: number, newStatus: StatusType) => {    
-    setData('status', newStatus);
-    console.log('Updating status to:', newStatus);    
-    put(route('appointments.updateStatus', appointmentId), {
-      preserveState: true,
-      preserveScroll: true,
-    });
+
+  useEffect(() => {
+    if (data.status && data.appointmentId !== 0) {
+      put(route('appointments.updateStatus', data.appointmentId), {
+        preserveState: true,
+        preserveScroll: true,
+      });
+    }
+  }, [data.status, data.appointmentId]);
+
+  const handleStatusUpdate = (appointmentId: number, newStatus: StatusType) => {
+    setData({ appointmentId, status: newStatus });
   };
 
   return (
@@ -81,7 +86,7 @@ export default function Doctor_Appointments({ auth, appointments, user_role }: D
                     {appointments.map((appointment) => (
                       <tr key={appointment.id} className="border-b dark:border-gray-700">
                         <td className="px-4 py-2">
-                          { /*appointment.status === 'في طور الانتظار' && */ user_role.name == 'Doctor' && (
+                          {user_role.name == 'Doctor' && (
                             <>
                               <PrimaryButton
                                 className="mr-4"

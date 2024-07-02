@@ -91,8 +91,10 @@ class DoctorsController extends Controller
     public function my_appointments(){
         $doc = Doctor::where('user_id', auth()->user()->id)->first();
         $appoint_list = Appointment::where('doctor_id', $doc->id)->get();
+        $usertype = auth()->user()->roles->first();
         return Inertia::render('Public/Doctors/Doctor_Appointments', [
-            'appointments' => $appoint_list
+            'appointments' => $appoint_list,
+            'user_role' => $usertype
         ]);
     }
 }

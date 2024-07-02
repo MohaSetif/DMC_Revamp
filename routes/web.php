@@ -32,10 +32,11 @@ Route::middleware('auth')->group(function () {
     Route::get('/doctors', [DoctorsController::class, 'index'])->name('doctors.index');
     Route::get('/doctors/build_profile', [DoctorsController::class, 'build_profile'])->name('doctor.build_profile');
     Route::put('/doctors/post_building', [DoctorsController::class, 'update_profile'])->name('doctor.update_profile');
-    Route::get('/my_appointments', [DoctorsController::class, 'my_appointments'])->name('doctor.appoint_list');
+    Route::get('/your_appointments', [DoctorsController::class, 'my_appointments'])->name('doctor.appoint_list');
     Route::get('/doctors/{id}', [DoctorsController::class, 'doc_profile'])->name('doctor.profile');
 
     Route::get('/appointments/{id}', [AppointmentController::class, 'index'])->name('appointment.index');
+    Route::get('/my_appointments', [AppointmentController::class, 'getUserAppointments'])->name('appointment.for_user');
     Route::post('/schedule_appointment', [AppointmentController::class, 'store'])->name('appointment.store');
     Route::put('/appointments/{appointment}/update-status', [AppointmentController::class, 'updateStatus'])->name('appointments.updateStatus');
 

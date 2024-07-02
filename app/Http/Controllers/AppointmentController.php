@@ -25,6 +25,15 @@ class AppointmentController extends Controller
         ]);
     }
 
+    public function getUserAppointments(){
+        $appoint_list = Appointment::where('user_id', auth()->user()->id)->get();
+        $usertype = auth()->user()->roles->first();
+        return Inertia::render('Public/Doctors/Doctor_Appointments', [
+            'appointments' => $appoint_list,
+            'user_role' => $usertype
+        ]);
+    }
+
     public function store(Request $request)
     { 
         $request->validate([
@@ -37,7 +46,7 @@ class AppointmentController extends Controller
             'description' => 'required',
         ]);
 
-        return Appointment::create([
+        Appointment::create([
             'user_id' => $request->user_id,
             'doctor_id' => $request->doctor_id,
             'name' => $request->name,
@@ -54,10 +63,11 @@ class AppointmentController extends Controller
     public function updateStatus(Request $request, Appointment $appointment)
     {
         $request->validate([
-            'status' => 'required|in:مؤكد,ملغي,في طور الانتظار',
+            'status' => 'required|in:مؤكد,مرفوض,في طور الانتظار',
         ]);
-
-        $appointment->status = $request->status;
-        $appointment->update();
+        $appointment->status = $request->input('status');
+        $appointment->save();
+    
+        return back()->with('success', 'Appointment status updated successfully.');
     }
 }

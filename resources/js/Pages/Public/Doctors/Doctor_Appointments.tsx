@@ -14,38 +14,42 @@ interface Appointment {
   status: StatusType;
 }
 
-type StatusType = 'مؤكد' | 'ملغي' | 'في طور الانتظار';
+interface Role {
+  name: string;
+}
+
+type StatusType = 'مؤكد' | 'مرفوض' | 'في طور الانتظار';
 
 const statusClasses: Record<StatusType, string> = {
-  'مؤكد': 'bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300',
-  'ملغي': 'bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300',
-  'في طور الانتظار': 'bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300'
+  'مؤكد': 'border border-green-200 bg-green-100 text-green-800 dark:bg-green-900 dark:text-green-300',
+  'مرفوض': 'border border-red-200 bg-red-100 text-red-800 dark:bg-red-900 dark:text-red-300',
+  'في طور الانتظار': 'border border-yellow-200 bg-yellow-100 text-yellow-800 dark:bg-yellow-900 dark:text-yellow-300'
 };
-
-const defaultClass = 'bg-gray-100 text-gray-800 dark:bg-gray-700 dark:text-gray-300';
 
 function renderStatus(status: StatusType) {
   return (
-    <span className={`px-2 py-1 rounded-full text-xs font-semibold ${statusClasses[status] || defaultClass}`}>
+    <span className={`px-2 py-1 rounded-full text-xs font-semibold ${statusClasses[status]}`}>
       {status}
     </span>
   );
 }
 
 interface DoctorAppointmentsProps extends PageProps {
-  appointments: Appointment[]
+  appointments: Appointment[];
+  user_role: Role;
 }
 
-export default function Doctor_Appointments({ auth, appointments }: DoctorAppointmentsProps) {
-  const { put, processing } = useForm({
+export default function Doctor_Appointments({ auth, appointments, user_role }: DoctorAppointmentsProps) {
+  const { setData, put, processing } = useForm({
     status: '' as StatusType,
   });
-
+  
   const handleStatusUpdate = (appointmentId: number, newStatus: StatusType) => {    
+    setData('status', newStatus);
+    console.log('Updating status to:', newStatus);    
     put(route('appointments.updateStatus', appointmentId), {
       preserveState: true,
       preserveScroll: true,
-      data: { status: newStatus },
     });
   };
 
@@ -62,7 +66,7 @@ export default function Doctor_Appointments({ auth, appointments }: DoctorAppoin
             <div className="p-6 text-gray-900 dark:text-gray-100">
               <div className="overflow-x-auto">
                 <table className="w-full text-right">
-                  <thead className="bg-gray-50 dark:bg-gray-700">
+                  <thead className="bg-gray-100 dark:bg-gray-700">
                     <tr>
                       <th className="px-4 py-2"></th>
                       <th className="px-4 py-2">الحالة</th>
@@ -77,7 +81,7 @@ export default function Doctor_Appointments({ auth, appointments }: DoctorAppoin
                     {appointments.map((appointment) => (
                       <tr key={appointment.id} className="border-b dark:border-gray-700">
                         <td className="px-4 py-2">
-                          {appointment.status === 'في طور الانتظار' && (
+                          { /*appointment.status === 'في طور الانتظار' && */ user_role.name == 'Doctor' && (
                             <>
                               <PrimaryButton
                                 className="mr-4"
@@ -88,7 +92,7 @@ export default function Doctor_Appointments({ auth, appointments }: DoctorAppoin
                               </PrimaryButton>
                               <PrimaryButton
                                 className="bg-red-500 hover:bg-red-400 focus:bg-red-700 focus:hover:bg-red-900"
-                                onClick={() => handleStatusUpdate(appointment.id, 'ملغي')}
+                                onClick={() => handleStatusUpdate(appointment.id, 'مرفوض')}
                                 disabled={processing}
                               >
                                 رفض

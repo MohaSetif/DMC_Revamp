@@ -50,10 +50,10 @@ export default function Appointments({ auth, doctor_info, doctor_id, time }: Doc
     e.preventDefault();
     post(route('appointment.store'), {
       onSuccess: async () => {
-        addToast({ message: 'تم الحجز بنجاح، يرجى التحقق من صندوق الوارد.', type: 'success' });
+        addToast({ message: '.تم الحجز بنجاح، يرجى التحقق من جدول المواعيد', type: 'success' });
       },
       onError: () => {
-        addToast({ message: 'حدث خطأ أثناء الحجز، يرجى المحاولة مرة أخرى.', type: 'error' });
+        addToast({ message: '.حدث خطأ أثناء الحجز، يرجى المحاولة مرة أخرى', type: 'error' });
       }
     });
   };
@@ -201,16 +201,26 @@ export default function Appointments({ auth, doctor_info, doctor_id, time }: Doc
                 </div>
 
                 <div>
-                  <InputLabel htmlFor="time" value="الوقت المناسب" />
-                  <TextInput
+                  <select
                     id="time"
-                    type="text"
                     name="time"
                     value={data.time}
-                    className="mt-1 block w-full"
+                    className="mt-1 block w-full text-right border-gray-300 dark:border-gray-700 dark:bg-gray-900 dark:text-gray-300 focus:border-indigo-500 dark:focus:border-indigo-600 focus:ring-indigo-500 dark:focus:ring-indigo-600 rounded-md shadow-sm"
                     onChange={(e) => setData('time', e.target.value)}
-                  />
-                  <InputError message={errors.time} className="mt-2" />
+                  >
+                    <option value="">اختر الوقت</option>
+                    {time && (
+                      <>
+                        <option value={`السبت : ${time.saturday}`}>السبت : {time.saturday}</option>
+                        <option value={`الأحد : ${time.sunday}`}>الأحد : {time.sunday}</option>
+                        <option value={`الاثنين : ${time.monday}`}>الاثنين : {time.monday}</option>
+                        <option value={`الثلاثاء : ${time.tuesday}`}>الثلاثاء : {time.tuesday}</option>
+                        <option value={`الأربعاء : ${time.wednesday}`}>الأربعاء : {time.wednesday}</option>
+                        <option value={`الخميس : ${time.thursday}`}>الخميس : {time.thursday}</option>
+                        <option value={`الجمعة : ${time.friday}`}>الجمعة : {time.friday}</option>
+                      </>
+                    )}
+                  </select>
                 </div>
 
                 <div>

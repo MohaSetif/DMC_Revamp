@@ -23,7 +23,7 @@ return new class extends Migration
             $table->string('localisation')->nullable();
             $table->string('time');
             $table->text('description');
-            $table->string('status')->default('في طور الإنتظار');
+            $table->string('status')->default('في طور الانتظار');
             $table->timestamps();
         });
     }

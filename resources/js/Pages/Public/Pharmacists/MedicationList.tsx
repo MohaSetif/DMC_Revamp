@@ -1,8 +1,9 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Head, useForm } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import PrimaryButton from '@/Components/PrimaryButton';
 import { PageProps } from '@/types';
+import MapComponent from '../../../Components/Map';
 
 interface Medication {
   id: number;
@@ -14,6 +15,8 @@ interface Medication {
   description: string;
   image: string;
   status: StatusType;
+  pharmacist_lat?: number;
+  pharmacist_lon?: number;
 }
 
 interface Role {
@@ -41,6 +44,8 @@ interface MedicationListProps extends PageProps {
 }
 
 export default function MedicationList({ auth, medications, user_role }: MedicationListProps) {
+  const [activeMapId, setActiveMapId] = useState<number | null>(null);
+
   const { data, setData, put, processing } = useForm({
     medicationId: 0,
     status: '' as StatusType,
@@ -81,35 +86,49 @@ export default function MedicationList({ auth, medications, user_role }: Medicat
                       <th className="px-4 py-2">العنوان</th>
                       <th className="px-4 py-2">رقم الهاتف</th>
                       <th className="px-4 py-2">رقم التعريف</th>
+                      <th className="px-4 py-2">الخريطة</th>
                     </tr>
                   </thead>
                   <tbody>
                     {medications.map((medication) => (
-                      <tr key={medication.id} className="border-b dark:border-gray-700">
-                        <td className="px-4 py-2">
-                          {medication.status === 'في طور الانتظار' && user_role.name == 'Pharmacist' && (
-                            <PrimaryButton
-                              className="mr-4"
-                              onClick={() => handleStatusUpdate(medication.id, 'موجود')}
-                              disabled={processing}
-                            >
-                              قبول
-                            </PrimaryButton>
-                          )}
-                        </td>
-                        <td className="px-4 py-2">{renderStatus(medication.status)}</td>
-                        <td className="px-4 py-2 flex items-center justify-center">
-                          <img
-                            src={`/prescription_image/${medication.image}`}
-                            alt={medication.description}
-                            className="h-20 w-auto rounded-md"
-                          />
-                        </td>
-                        <td className="px-4 py-2">{medication.description}</td>
-                        <td className="px-4 py-2">{medication.address}</td>
-                        <td className="px-4 py-2">{medication.phone}</td>
-                        <td className="px-4 py-2 font-semibold">{medication.uniqid}</td>
-                      </tr>
+                      <React.Fragment key={medication.id}>
+                        <tr className="border-b dark:border-gray-700">
+                          <td className="px-4 py-2">
+                            {medication.status === 'في طور الانتظار' && user_role.name === 'Pharmacist' && (
+                              <PrimaryButton
+                                className="mr-4"
+                                onClick={() => handleStatusUpdate(medication.id, 'موجود')}
+                                disabled={processing}
+                              >
+                                قبول
+                              </PrimaryButton>
+                            )}
+                          </td>
+                          <td className="px-4 py-2">{renderStatus(medication.status)}</td>
+                          <td className="px-4 py-2 flex items-center justify-center">
+                            <img
+                              src={`/prescription_image/${medication.image}`}
+                              alt={medication.description}
+                              className="h-20 w-auto rounded-md"
+                            />
+                          </td>
+                          <td className="px-4 py-2">{medication.description}</td>
+                          <td className="px-4 py-2">{medication.address}</td>
+                          <td className="px-4 py-2">{medication.phone}</td>
+                          <td className="px-4 py-2 font-semibold">{medication.uniqid}</td>
+                          <td className="px-4 py-2">
+                            {medication.status === 'موجود' && (
+                              <td colSpan={8} className="px-4 py-2">
+                                <MapComponent
+                                  key={medication.id}
+                                  lat={30.8}
+                                  lon={4.6}
+                                />
+                              </td>
+                            )}
+                          </td>
+                        </tr>
+                      </React.Fragment>
                     ))}
                   </tbody>
                 </table>

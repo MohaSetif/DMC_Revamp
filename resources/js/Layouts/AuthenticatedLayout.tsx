@@ -81,6 +81,7 @@ export default function Authenticated({ user, usertype, header, children }: Prop
                                     <Dropdown.Content>
                                         <Dropdown.Link href={usertype === 'Doctor' ? route('doctor.build_profile') : route('profile.edit')}>الصفحة الشخصية</Dropdown.Link>
                                         <Dropdown.Link href={usertype === 'Doctor' ? route('doctor.appoint_list') : route('appointment.for_user')}>مواعيدك</Dropdown.Link>
+                                        <Dropdown.Link href={usertype === 'Pharmacist' ? route('pharmacist.medic_list') : route('medication.for_user')}>طلبات الأدوية</Dropdown.Link>
                                         <Dropdown.Link href={route('logout')} method="post" as="button">
                                             الخروج
                                         </Dropdown.Link>

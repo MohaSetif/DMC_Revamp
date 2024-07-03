@@ -14,18 +14,15 @@ return new class extends Migration
         Schema::create('medications', function (Blueprint $table) {
             $table->id();
             $table->string('uniqid')->uniqid();
-            $table->string('firstname');
-            $table->string('lastname');
-            $table->string('phone');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users');
+            $table->unsignedBigInteger('pharmacist_id')->nullable();
+            $table->foreign('pharmacist_id')->references('id')->on('pharmacists');
             $table->string('address');
+            $table->string('phone');
             $table->string('description');
             $table->string('image');
             $table->string('status');
-            $table->string('pharmacien');
-            $table->string('latitude');
-            $table->string('longitude');
-            $table->unsignedBigInteger('user_id');
-            $table->foreign('user_id')->references('id')->on('users');
             $table->timestamps();
         });
     }

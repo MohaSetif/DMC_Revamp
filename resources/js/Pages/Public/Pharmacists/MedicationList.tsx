@@ -39,7 +39,7 @@ interface DoctorAppointmentsProps extends PageProps {
   user_role: Role;
 }
 
-export default function Doctor_Appointments({ auth, appointments, user_role }: DoctorAppointmentsProps) {
+export default function MedicationList({ auth, appointments, user_role }: DoctorAppointmentsProps) {
   const { data, setData, put, processing } = useForm({
     appointmentId: 0,
     status: '' as StatusType,

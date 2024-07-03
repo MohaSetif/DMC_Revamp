@@ -10,15 +10,15 @@ class Medication extends Model
     use HasFactory;
 
     protected $fillable =[
-        'uniqid', 'firstname' , 'lastname', 'phone' ,'address', 'description'  , 'image' , 'status' , 'user_id', 'pharmacien' ,'latitude','longitude'
+        'uniqid', 'user_id', 'pharmacist_id', 'phone' ,'address', 'description'  , 'image' , 'status'
      ];
  
  
      public function user(){
-         return $this->belongsTo(User::class);
+         return $this->belongsTo(User::class, 'user_id');
      }
  
      public function pharmacist(){
-         return $this->belongsTo(Pharmacist::class);
+         return $this->belongsTo(Pharmacist::class, 'pharmacist_id');
      }
 }

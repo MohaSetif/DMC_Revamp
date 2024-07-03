@@ -41,6 +41,9 @@ Route::middleware('auth')->group(function () {
     Route::post('/schedule_appointment', [AppointmentController::class, 'store'])->name('appointment.store');
 
     Route::get('/medications_form', [MedicationsController::class, 'index'])->name('medications.index');
+    Route::get('/medications_list', [MedicationsController::class, 'our_medications'])->name('pharmacist.medic_list');
+    Route::get('/my_medications_list', [MedicationsController::class, 'medic_list'])->name('medication.for_user');
+    Route::put('/medications/{medication}/update-status', [MedicationsController::class, 'updateStatus'])->name('medications.updateStatus');
     Route::post('/medications_store', [MedicationsController::class, 'store'])->name('medications.store');
 });
 

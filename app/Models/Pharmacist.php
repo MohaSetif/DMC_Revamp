@@ -10,7 +10,7 @@ class Pharmacist extends Model
     use HasFactory;
 
     protected $fillable =[
-        'name', 'phone' , 'address' , 'longitude' , 'latitude' , 'user_id'
+        'user_id' , 'address' , 'longitude' , 'latitude'
     ];
 
     

@@ -22,7 +22,7 @@ return new class extends Migration
             $table->string('phone');
             $table->string('description');
             $table->string('image');
-            $table->string('status');
+            $table->string('status')->default('في طور الانتظار');
             $table->timestamps();
         });
     }

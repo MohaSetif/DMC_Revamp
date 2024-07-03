@@ -6,6 +6,7 @@ use App\Filament\Resources\PharmacistResource\Pages;
 use App\Filament\Resources\PharmacistResource\RelationManagers;
 use App\Models\Pharmacist;
 use Filament\Forms;
+use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
@@ -22,16 +23,42 @@ class PharmacistResource extends Resource
     public static function form(Form $form): Form
     {
         return $form
-            ->schema([
-                //
-            ]);
+        ->schema([
+            TextInput::make('user.name')
+                ->required()
+                ->maxLength(255)
+                ->reactive(),
+            TextInput::make('user.email')
+                ->required()
+                ->maxLength(255),
+            TextInput::make('user.password')
+                ->required()
+                ->maxLength(255),
+            TextInput::make('user.phone')
+                ->tel()
+                ->required()
+                ->maxLength(255),
+            TextInput::make('address')
+                ->required()
+                ->maxLength(255),
+            TextInput::make('longitude')
+                ->required()
+                ->numeric()
+                ->maxLength(255),
+            TextInput::make('latitude')
+                ->required()
+                ->numeric()
+                ->minValue(0),
+        ]);
     }
 
     public static function table(Table $table): Table
     {
         return $table
             ->columns([
-                //
+                Tables\Columns\TextColumn::make('user.name'),
+                Tables\Columns\TextColumn::make('user.phone'),
+                Tables\Columns\TextColumn::make('address'),
             ])
             ->filters([
                 //

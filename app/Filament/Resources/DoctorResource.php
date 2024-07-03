@@ -7,6 +7,7 @@ use App\Filament\Resources\DoctorResource\RelationManagers;
 use App\Models\Doctor;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
+use Filament\Forms\Components\Grid;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Form;
@@ -14,9 +15,12 @@ use Filament\Resources\Resource;
 use Filament\Tables;
 use Filament\Tables\Table;
 use Filament\Forms\Components\TextInput;
+use Filament\Tables\Columns\ImageColumn;
+use Filament\Tables\Columns\TextColumn;
 use Illuminate\Support\Str;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Hash;
 
 class DoctorResource extends Resource
 {
@@ -28,36 +32,45 @@ class DoctorResource extends Resource
     {
         return $form
             ->schema([
-                TextInput::make('user.name')
-                    ->required()
-                    ->maxLength(255)
-                    ->reactive(),
-                TextInput::make('user.email')
-                    ->required()
-                    ->maxLength(255),
-                TextInput::make('user.password')
-                    ->required()
-                    ->maxLength(255),
-                TextInput::make('user.phone')
-                    ->tel()
-                    ->required()
-                    ->maxLength(255),
-                TextInput::make('speciality')
-                    ->required()
-                    ->maxLength(255),
-                TextInput::make('work_place')
-                    ->required()
-                    ->maxLength(255),
-                TextInput::make('price')
-                    ->required()
-                    ->numeric()
-                    ->minValue(0),
-                Textarea::make('who')
-                    ->required()
-                    ->maxLength(65535),
-                FileUpload::make('image')
-                    ->image()
-                    ->required(),
+                Grid::make()
+                ->relationship('user')
+                ->schema([
+                    TextInput::make('name')
+                        ->required(),
+                    TextInput::make('phone')
+                        ->tel()
+                        ->required()
+                        ->maxLength(255),
+                    TextInput::make('email')
+                        ->email()
+                        ->required(),
+                    TextInput::make('password')
+                        ->password()
+                        ->dehydrateStateUsing(fn ($state) => filled($state) ? Hash::make($state) : null)
+                        ->dehydrated(fn ($state) => filled($state))
+                        ->required(fn (string $context): bool => $context === 'create'),
+                ])
+                ->columns(2),
+                Grid::make()
+                    ->schema([
+                        TextInput::make('speciality')
+                        ->required()
+                        ->maxLength(255),
+                        TextInput::make('work_place')
+                            ->required()
+                            ->maxLength(255),
+                        TextInput::make('price')
+                            ->required()
+                            ->numeric()
+                            ->minValue(0),
+                        Textarea::make('who')
+                            ->required()
+                            ->maxLength(65535),
+                        FileUpload::make('image')
+                            ->image()
+                            ->required(),
+                    ])
+                    ->columns(2),
             ]);
     }
 
@@ -65,12 +78,13 @@ class DoctorResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('user.name'),
-                Tables\Columns\TextColumn::make('speciality'),
-                Tables\Columns\TextColumn::make('work_place'),
-                Tables\Columns\TextColumn::make('price'),
-                Tables\Columns\ImageColumn::make('image'),
+                TextColumn::make('user.name'),
+                TextColumn::make('speciality'),
+                TextColumn::make('work_place'),
+                TextColumn::make('price'),
+                ImageColumn::make('image'),
             ])
+            ->searchable()
             ->filters([
                 //
             ])

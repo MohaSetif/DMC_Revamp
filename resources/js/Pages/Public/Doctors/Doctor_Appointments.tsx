@@ -86,7 +86,7 @@ export default function Doctor_Appointments({ auth, appointments, user_role }: D
                     {appointments.map((appointment) => (
                       <tr key={appointment.id} className="border-b dark:border-gray-700">
                         <td className="px-4 py-2">
-                          {user_role.name == 'Doctor' && (
+                          {appointment.status === 'في طور الانتظار' && user_role.name == 'Doctor' && (
                             <>
                               <PrimaryButton
                                 className="mr-4"

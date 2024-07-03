@@ -6,6 +6,7 @@ use App\Filament\Resources\PharmacistResource;
 use Filament\Actions;
 use Filament\Resources\Pages\EditRecord;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Log;
 
 class EditPharmacist extends EditRecord
 {
@@ -13,21 +14,23 @@ class EditPharmacist extends EditRecord
 
     protected function handleRecordUpdate(Model $record, array $data): Model
     {
+        $userData = $data['user'] ?? $data;
         $record->user->update([
-            'name' => $data['user']['name'],
-            'email' => $data['user']['email'],
+            'name' => $userData['name'] ?? $record->user->name,
+            'email' => $userData['email'] ?? $record->user->email,
+            'phone' => $userData['phone'] ?? $record->user->phone,
         ]);
 
-        if (isset($data['user']['password'])) {
+        if (!empty($userData['password'])) {
             $record->user->update([
-                'password' => $data['user']['password'],
+                'password' => bcrypt($userData['password']),
             ]);
         }
 
         $record->update([
-            'longitude' => $data['longitude'],
-            'latitude' => $data['latitude'], 
-            'address' => $data['address'], 
+            'longitude' => $data['longitude'] ?? $record->longitude,
+            'latitude' => $data['latitude'] ?? $record->latitude,
+            'address' => $data['address'] ?? $record->address,
         ]);
 
         return $record;

@@ -6,6 +6,7 @@ import DMC_BlueLogo from "../../../public/img/DMC_nav_logo.png";
 import DMC_WhiteLogo from "../../../public/img/168608548544536747.png"
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link } from '@inertiajs/react';
+import ToggleButton from '@/Components/ToggleButton';
 import { PageProps, User } from '@/types';
 
 export default function Authenticated({ user, usertype, header, children }: PropsWithChildren<{ user: User, usertype?: string, header?: ReactNode }>) {
@@ -52,6 +53,7 @@ export default function Authenticated({ user, usertype, header, children }: Prop
                         </div>
 
                         <div className="hidden sm:flex sm:items-center sm:ms-6">
+                            <ToggleButton/>
                             <div className="ms-3 relative">
                                 <Dropdown>
                                     <Dropdown.Trigger>
@@ -140,6 +142,7 @@ export default function Authenticated({ user, usertype, header, children }: Prop
                         <div className="mt-3 space-y-1 text-right">
                             <ResponsiveNavLink href={usertype === 'Doctor' ? route('doctor.build_profile') : route('profile.edit')}>الصفحة الشخصية</ResponsiveNavLink>
                             <Dropdown.Link href={usertype === 'Doctor' ? route('doctor.appoint_list') : route('appointment.for_user')}>مواعيدك</Dropdown.Link>
+                            <Dropdown.Link href={usertype === 'Pharmacist' ? route('pharmacist.medic_list') : route('medication.for_user')}>طلبات الأدوية</Dropdown.Link>
                             <ResponsiveNavLink method="post" href={route('logout')} as="button">
                                 الخروج
                             </ResponsiveNavLink>

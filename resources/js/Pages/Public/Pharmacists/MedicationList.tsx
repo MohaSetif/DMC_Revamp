@@ -76,11 +76,10 @@ export default function MedicationList({ auth, medications, user_role }: Medicat
                     <tr>
                       <th className="px-4 py-2"></th>
                       <th className="px-4 py-2">الحالة</th>
+                      <th className="px-4 py-2">الوصفة الطبية</th>
                       <th className="px-4 py-2">الوصف</th>
                       <th className="px-4 py-2">العنوان</th>
                       <th className="px-4 py-2">رقم الهاتف</th>
-                      {/* <th className="px-4 py-2">الصيدلي</th>
-                      <th className="px-4 py-2">المستخدم</th> */}
                       <th className="px-4 py-2">رقم التعريف</th>
                     </tr>
                   </thead>
@@ -88,24 +87,27 @@ export default function MedicationList({ auth, medications, user_role }: Medicat
                     {medications.map((medication) => (
                       <tr key={medication.id} className="border-b dark:border-gray-700">
                         <td className="px-4 py-2">
-                            {user_role.name == 'Doctor' && (
-                                <>
-                                    <PrimaryButton
-                                        className="mr-4"
-                                        onClick={() => handleStatusUpdate(medication.id, 'موجود')}
-                                        disabled={processing}
-                                    >
-                                        قبول
-                                    </PrimaryButton>
-                                </>
-                            )}
+                          {medication.status === 'في طور الانتظار' && user_role.name == 'Pharmacist' && (
+                            <PrimaryButton
+                              className="mr-4"
+                              onClick={() => handleStatusUpdate(medication.id, 'موجود')}
+                              disabled={processing}
+                            >
+                              قبول
+                            </PrimaryButton>
+                          )}
                         </td>
                         <td className="px-4 py-2">{renderStatus(medication.status)}</td>
+                        <td className="px-4 py-2 flex items-center justify-center">
+                          <img
+                            src={`/prescription_image/${medication.image}`}
+                            alt={medication.description}
+                            className="h-20 w-auto rounded-md"
+                          />
+                        </td>
                         <td className="px-4 py-2">{medication.description}</td>
                         <td className="px-4 py-2">{medication.address}</td>
                         <td className="px-4 py-2">{medication.phone}</td>
-                        {/* <td className="px-4 py-2">{medication.pharmacist?.name || 'غير معين'}</td>
-                        <td className="px-4 py-2">{medication.user.name}</td> */}
                         <td className="px-4 py-2 font-semibold">{medication.uniqid}</td>
                       </tr>
                     ))}

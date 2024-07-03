@@ -18,7 +18,7 @@ interface PageProps extends InertiaPageProps {
   doctors: Doctor[];
 }
 
-function DoctorsList({ auth, doctors }: PageProps) {
+const DoctorsList: React.FC<PageProps> = ({ auth, doctors }) => {
   return (
     <AuthenticatedLayout
       user={auth.user}
@@ -26,24 +26,38 @@ function DoctorsList({ auth, doctors }: PageProps) {
     >
       <Head title="أطباؤنا" />
       <div className="container mx-auto py-8">
-        <h1 className="text-3xl font-bold mb-6">Doctors List</h1>
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
           {doctors.map((doctor: Doctor) => (
-            <div key={doctor.id} className="bg-white shadow-md rounded-lg p-6">
-              <img
-                src={`/storage/${doctor.image}`}
-                alt={doctor.name}
-                className="w-full h-48 object-cover rounded-md mb-4"
-              />
-              <h2 className="text-xl font-semibold mb-2">{doctor.name}</h2>
-              <p className="text-gray-600 mb-2">Speciality: {doctor.speciality}</p>
-              <p className="text-gray-600 mb-2">Work Place: {doctor.work_place}</p>
-
-              <a href={`/doctors/${doctor.id}`}
-                className="inline-block bg-blue-500 text-white px-4 py-2 rounded-md mt-4 hover:bg-blue-600 transition-colors"
-              >
-                View Details
-              </a>
+            <div key={doctor.id} className="bg-white dark:bg-gray-800 border border-gray-600 shadow-md rounded-lg overflow-hidden">
+              <div className="relative pb-2/3">
+                <img
+                  src={`/storage/${doctor.image}`}
+                  alt={doctor.name}
+                  className="absolute inset-0 h-full w-full object-cover rounded-t-lg"
+                />
+              </div>
+              <div className="p-6">
+                <div className="flex items-center mb-4">
+                  <div className="h-[3.75rem] w-16 overflow-hidden rounded-full border-2 border-blue-500">
+                    <img
+                      src={`/storage/${doctor.image}`}
+                      alt={doctor.name}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                  <div className="ml-4">
+                    <h2 className="text-xl font-semibold">{doctor.name}</h2>
+                    <p className="text-gray-400 text-right text-sm">Speciality: {doctor.speciality}</p>
+                    <p className="text-gray-400 text-right text-sm">Work Place: {doctor.work_place}</p>
+                  </div>
+                </div>
+                <a
+                  href={`/doctors/${doctor.id}`}
+                  className="inline-block bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors"
+                >
+                  تعرف أكثر
+                </a>
+              </div>
             </div>
           ))}
         </div>

@@ -34,6 +34,7 @@ Route::middleware('auth')->group(function () {
     Route::put('/doctors/post_building', [DoctorsController::class, 'update_profile'])->name('doctor.update_profile');
     Route::get('/your_appointments', [DoctorsController::class, 'my_appointments'])->name('doctor.appoint_list');
     Route::get('/doctors/{id}', [DoctorsController::class, 'doc_profile'])->name('doctor.profile');
+    Route::post('/doctors/{doctor}/review', [DoctorsController::class, 'submitReview'])->name('doctor.review');
 
     Route::get('/appointments/{id}', [AppointmentController::class, 'index'])->name('appointment.index');
     Route::get('/my_appointments', [AppointmentController::class, 'getUserAppointments'])->name('appointment.for_user');

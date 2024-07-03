@@ -25,10 +25,9 @@ class MedicationsController extends Controller
     }
 
     public function our_medications(){ //For pharmacists
-        $doc = Pharmacist::where('user_id', auth()->user()->id)->first();
-        $medications_list = Medication::where('doctor_id', $doc->id)->get();
+        $medications_list = Medication::all();
         $usertype = auth()->user()->roles->first();
-        return Inertia::render('Public/Doctors/Doctor_Appointments', [
+        return Inertia::render('Public/Pharmacists/MedicationList', [
             'medications' => $medications_list,
             'user_role' => $usertype
         ]);
@@ -43,8 +42,7 @@ class MedicationsController extends Controller
         ]);
 
         if ($request->image != null) {
-            $slug = Str::slug($request->firstname, '-');
-            $ImageName = uniqid() . '-' . $slug . '.' . $request->image->extension();
+            $ImageName = uniqid() . '-' . $request->image->extension();
             $request->image->move(public_path('prescription_image'), $ImageName);
         } else {
             $ImageName = 'no image';
@@ -66,9 +64,6 @@ class MedicationsController extends Controller
 
     public function updateStatus(Request $request, Medication $medication)
     {
-        $request->validate([
-            'status' => 'required|in:مؤكد,مرفوض,في طور الانتظار',
-        ]);
         $medication->status = $request->input('status');
         $medication->update();
     

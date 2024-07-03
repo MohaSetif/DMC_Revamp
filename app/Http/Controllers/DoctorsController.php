@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Appointment;
 use App\Models\Doctor;
+use App\Models\Review;
 use App\Models\Time;
 use App\Models\User;
 use Illuminate\Http\Request;
@@ -23,8 +24,16 @@ class DoctorsController extends Controller
 
     public function doc_profile($id){
         $doctor = Doctor::query()->where('id', $id)->first();
+        $doctor_info = User::where('id', $doctor->user_id)->first();
+        $doc_week = Time::where('doctor_id', $doctor->id)->first();
+        $reviews = Review::where('doctor_id', $doctor->id)->get();
+        $ratings = Review::where('doctor_id', $doctor->id)->avg('rating');
         return Inertia::render('Public/Doctor_Profile', [
-            'doctor' => $doctor
+            'doctor' => $doctor,
+            'doctor_name' => $doctor_info->name,
+            'time' => $doc_week,
+            'reviews' => $reviews,
+            'ratings' => $ratings
         ]);
     }
 
@@ -96,5 +105,22 @@ class DoctorsController extends Controller
             'appointments' => $appoint_list,
             'user_role' => $usertype
         ]);
+    }
+
+    public function submitReview(Request $request, Doctor $doctor)
+    {
+        $validated = $request->validate([
+            'rating' => 'integer|min:0|max:5',
+            'comment' => 'string|max:1000',
+        ]);
+
+        $review = new Review([
+            'rating' => $validated['rating'],
+            'comment' => $validated['comment'],
+            'user_id' => auth()->id(),
+            'username' => auth()->user()->name
+        ]);
+
+        $doctor->review()->save($review);
     }
 }

@@ -6,13 +6,18 @@ use App\Filament\Resources\PharmacistResource\Pages;
 use App\Filament\Resources\PharmacistResource\RelationManagers;
 use App\Models\Pharmacist;
 use Filament\Forms;
+use Filament\Forms\Components\Fieldset;
+use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\TextInput;
 use Filament\Forms\Form;
 use Filament\Resources\Resource;
 use Filament\Tables;
+use Filament\Tables\Columns\TextColumn;
 use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
+use Illuminate\Support\Facades\Hash;
 
 class PharmacistResource extends Resource
 {
@@ -21,34 +26,40 @@ class PharmacistResource extends Resource
     protected static ?string $navigationIcon = 'heroicon-o-rectangle-stack';
 
     public static function form(Form $form): Form
-    {
-        return $form
+{
+    return $form
         ->schema([
-            TextInput::make('user.name')
-                ->required()
-                ->maxLength(255)
-                ->reactive(),
-            TextInput::make('user.email')
-                ->required()
-                ->maxLength(255),
-            TextInput::make('user.password')
-                ->required()
-                ->maxLength(255),
-            TextInput::make('user.phone')
-                ->tel()
-                ->required()
-                ->maxLength(255),
-            TextInput::make('address')
-                ->required()
-                ->maxLength(255),
-            TextInput::make('longitude')
-                ->required()
-                ->numeric()
-                ->maxLength(255),
-            TextInput::make('latitude')
-                ->required()
-                ->numeric()
-                ->minValue(0),
+            Grid::make()
+                ->relationship('user')
+                ->schema([
+                    Forms\Components\TextInput::make('name')
+                        ->required(),
+                    Forms\Components\TextInput::make('phone')
+                        ->tel()
+                        ->required()
+                        ->maxLength(255),
+                    Forms\Components\TextInput::make('email')
+                        ->email()
+                        ->required(),
+                    Forms\Components\TextInput::make('password')
+                        ->password()
+                        ->dehydrateStateUsing(fn ($state) => filled($state) ? Hash::make($state) : null)
+                        ->dehydrated(fn ($state) => filled($state))
+                        ->required(fn (string $context): bool => $context === 'create'),
+                ])
+                ->columns(2),
+            Grid::make()
+                ->schema([
+                    Forms\Components\TextInput::make('longitude')
+                        ->numeric()
+                        ->required(),
+                    Forms\Components\TextInput::make('latitude')
+                        ->numeric()
+                        ->required(),
+                    Forms\Components\TextInput::make('address')
+                        ->required(),
+                ])
+                ->columns(2),
         ]);
     }
 
@@ -56,10 +67,11 @@ class PharmacistResource extends Resource
     {
         return $table
             ->columns([
-                Tables\Columns\TextColumn::make('user.name'),
-                Tables\Columns\TextColumn::make('user.phone'),
-                Tables\Columns\TextColumn::make('address'),
+                TextColumn::make('user.name'),
+                TextColumn::make('user.phone'),
+                TextColumn::make('address'),
             ])
+            ->searchable()
             ->filters([
                 //
             ])

@@ -6,7 +6,7 @@ import InputLabel from '@/Components/InputLabel';
 import TextInput from '@/Components/TextInput';
 import InputError from '@/Components/InputError';
 import PrimaryButton from '@/Components/PrimaryButton';
-import MapComponent from '@/Components/Map';
+import MapComponent from '@/Components/Map2';
 import Toast from '@/Components/Toast';
 
 interface DoctorInfo {
@@ -23,33 +23,39 @@ interface Time {
   friday: string;
 }
 
+interface Location {
+  lat: number;
+  lon: number;
+}
+
 interface DoctorAppointmentProps extends PageProps {
   doctor_info: DoctorInfo;
+  doctor_id: number;
   time: Time | '';
 }
 
 export default function Appointments({ auth, doctor_info, doctor_id, time }: DoctorAppointmentProps) {
   const [toasts, setToasts] = useState<{ message: string, type: 'success' | 'error' }[]>([]);
+  const [location, setLocation] = useState<Location>({ lat: 0, lon: 0 });
   const { data, setData, post, processing, errors } = useForm({
     doctor_id: doctor_id,
     user_id: auth.user.id,
     name: '',
     age: '',
     phone: '',
-    latitude: '',
-    longitude: '',
+    latitude: 0,
+    longitude: 0,
     localisation: '',
     time: '',
     description: '',
   });
 
-  const [mapCenter, setMapCenter] = useState<[number, number]>([0, 0]);
-  const mapRef = useRef<any>(null);
+  const mapRef = useRef<{ setLocation: (lat: number, lon: number) => void } | null>(null);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     post(route('appointment.store'), {
-      onSuccess: async () => {
+      onSuccess: () => {
         addToast({ message: '.تم الحجز بنجاح، يرجى التحقق من جدول المواعيد', type: 'success' });
       },
       onError: () => {
@@ -71,16 +77,51 @@ export default function Appointments({ auth, doctor_info, doctor_id, time }: Doc
     setToasts(prevToasts => prevToasts.filter((_, i) => i !== index));
   };
 
-  const handleFindLocation = () => {
-    if (mapRef.current) {
-      mapRef.current.onLocationSelect((lat: number, lon: number) => {
-        setData('latitude', lat.toString());
-        setData('longitude', lon.toString());
-        setMapCenter([lon, lat]);
-      });
-    }
+  const handleLocationSelect = (lat: number, lon: number) => {
+    setData('longitude', lon);
+    setData('latitude', lat);
+    setLocation({ lat, lon });
   };
 
+  const handleFindLocation = () => {
+    if ('geolocation' in navigator) {
+      navigator.geolocation.getCurrentPosition(
+        (position) => {
+          const { latitude, longitude } = position.coords;
+          setLocation({ lat: latitude, lon: longitude });
+          setData('latitude', latitude);
+          setData('longitude', longitude);
+          mapRef.current?.setLocation(latitude, longitude);
+        },
+        (error) => {
+          console.error('Geolocation error:', error);
+          let errorMessage = 'Unable to retrieve your location. ';
+          switch(error.code) {
+            case error.PERMISSION_DENIED:
+              errorMessage += 'You denied the request for geolocation.';
+              break;
+            case error.POSITION_UNAVAILABLE:
+              errorMessage += 'Location information is unavailable.';
+              break;
+            case error.TIMEOUT:
+              errorMessage += 'The request to get user location timed out.';
+              break;
+            default:
+              errorMessage += 'An unknown error occurred.';
+              break;
+          }
+          alert(errorMessage + ' Please select manually on the map.');
+        },
+        {
+          enableHighAccuracy: true,
+          timeout: 5000,
+          maximumAge: 0
+        }
+      );
+    } else {
+      alert('Geolocation is not supported by your browser. Please select manually on the map.');
+    }
+  };
   return (
     <AuthenticatedLayout
       user={auth.user}
@@ -154,10 +195,22 @@ export default function Appointments({ auth, doctor_info, doctor_id, time }: Doc
 
                 <div>
                   <InputLabel htmlFor="map" value="قم بتحديد موقعك آليا هنا" />
-                  <MapComponent ref={mapRef} onLocationSelect={(lat, lon) => { }} />
+                  <MapComponent 
+                    ref={mapRef}
+                    onLocationSelect={handleLocationSelect}
+                    height={500}
+                    width={1165}
+                    initialLat={location.lat}
+                    initialLon={location.lon}
+                  />
                   <PrimaryButton type="button" onClick={handleFindLocation} className="mt-4">
                     تحديد الموقع
                   </PrimaryButton>
+                  {location.lat !== 0 && location.lon !== 0 && (
+                    <p className="mt-2">
+                      الموقع المحدد: {location.lat.toFixed(6)}, {location.lon.toFixed(6)}
+                    </p>
+                  )}
                 </div>
 
                 <div className="grid grid-cols-2 gap-4">
@@ -169,7 +222,7 @@ export default function Appointments({ auth, doctor_info, doctor_id, time }: Doc
                       name="latitude"
                       value={data.latitude}
                       className="mt-1 block w-full"
-                      onChange={(e) => setData('latitude', e.target.value)}
+                      onChange={(e) => setData('latitude', parseFloat(e.target.value))}
                     />
                     <InputError message={errors.latitude} className="mt-2" />
                   </div>
@@ -181,7 +234,7 @@ export default function Appointments({ auth, doctor_info, doctor_id, time }: Doc
                       name="longitude"
                       value={data.longitude}
                       className="mt-1 block w-full"
-                      onChange={(e) => setData('longitude', e.target.value)}
+                      onChange={(e) => setData('longitude', parseFloat(e.target.value))}
                     />
                     <InputError message={errors.longitude} className="mt-2" />
                   </div>
@@ -229,7 +282,7 @@ export default function Appointments({ auth, doctor_info, doctor_id, time }: Doc
                     id="description"
                     name="description"
                     value={data.description}
-                    className="mt-1 block w-full"
+                    className="mt-1 text-black dark:text-white dark:bg-gray-900 rounded-md block w-full"
                     rows={3}
                     onChange={(e) => setData('description', e.target.value)}
                   ></textarea>

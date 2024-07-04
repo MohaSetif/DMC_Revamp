@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { Head, useForm } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import PrimaryButton from '@/Components/PrimaryButton';
@@ -15,8 +15,8 @@ interface Medication {
   description: string;
   image: string;
   status: StatusType;
-  pharmacist_lat?: number;
-  pharmacist_lon?: number;
+  pharmacist_lat: number | null;
+  pharmacist_lon: number | null;
 }
 
 interface Role {
@@ -79,7 +79,7 @@ export default function MedicationList({ auth, medications, user_role }: Medicat
                 <table className="w-full text-right">
                   <thead className="bg-gray-100 dark:bg-gray-700">
                     <tr>
-                      <th className="px-4 py-2"></th>
+                      <th className="px-4 py-2">الإجراءات</th>
                       <th className="px-4 py-2">الحالة</th>
                       <th className="px-4 py-2">الوصفة الطبية</th>
                       <th className="px-4 py-2">الوصف</th>
@@ -118,13 +118,27 @@ export default function MedicationList({ auth, medications, user_role }: Medicat
                           <td className="px-4 py-2 font-semibold">{medication.uniqid}</td>
                           <td className="px-4 py-2">
                             {medication.status === 'موجود' && (
-                              <td colSpan={8} className="px-4 py-2">
-                                <MapComponent
-                                  key={medication.id}
-                                  lat={30.8}
-                                  lon={4.6}
-                                />
-                              </td>
+                              <div className="flex items-center">
+                                <a
+                                  href={`https://www.google.com/maps?q=${5},${36}`}
+                                  target="_blank"
+                                  rel="noopener noreferrer"
+                                  className="text-blue-600 hover:text-blue-800 dark:text-blue-400 dark:hover:text-blue-200"
+                                >
+                                  <svg
+                                    xmlns="http://www.w3.org/2000/svg"
+                                    className="h-5 w-5 inline-block ml-2"
+                                    viewBox="0 0 20 20"
+                                    fill="currentColor"
+                                  >
+                                    <path
+                                      fillRule="evenodd"
+                                      d="M13.82 6.76a2.5 2.5 0 1 1-4.12 2.82L8.3 10.3a.75.75 0 0 1-1.06 0L4.3 8.59A2.5 2.5 0 1 1 6.41 6.5L7.89 8h4.22l1.48-1.5zM10 14a4 4 0 1 0 0-8 4 4 0 0 0 0 8z"
+                                    />
+                                  </svg>
+                                  عرض على خرائط جوجل
+                                </a>
+                              </div>
                             )}
                           </td>
                         </tr>

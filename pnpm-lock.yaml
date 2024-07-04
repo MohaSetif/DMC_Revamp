@@ -23,6 +23,9 @@ dependencies:
   '@types/gsap':
     specifier: ^3.0.0
     version: 3.0.0
+  '@types/leaflet':
+    specifier: ^1.9.12
+    version: 1.9.12
   '@types/openlayers':
     specifier: ^4.6.23
     version: 4.6.23
@@ -41,6 +44,9 @@ dependencies:
   gsap:
     specifier: ^3.12.5
     version: 3.12.5
+  leaflet:
+    specifier: ^1.9.4
+    version: 1.9.4
   ol:
     specifier: ^9.2.4
     version: 9.2.4
@@ -1423,11 +1429,21 @@ packages:
     resolution: {integrity: sha512-/kYRxGDLWzHOB7q+wtSUQlFrtcdUccpfy+X+9iMBpHK8QLLhx2wIPYuS5DYtR9Wa/YlZAbIovy7qVdB1Aq6Lyw==}
     dev: true
 
+  /@types/geojson@7946.0.14:
+    resolution: {integrity: sha512-WCfD5Ht3ZesJUsONdhvm84dmzWOiOzOAqOncN0++w0lBw1o8OuDNJF2McvvCef/yBqb/HYRahp1BYtODFQ8bRg==}
+    dev: false
+
   /@types/gsap@3.0.0:
     resolution: {integrity: sha512-BbWLi4WRHGze4C8NV7U7yRevuBFiPkPZZyGa0rryanvh/9HPUFXTNBXsGQxJZJq7Ix7j4RXMYodP3s+OsqCErg==}
     deprecated: This is a stub types definition. gsap provides its own type definitions, so you do not need this installed.
     dependencies:
       gsap: 3.12.5
+    dev: false
+
+  /@types/leaflet@1.9.12:
+    resolution: {integrity: sha512-BK7XS+NyRI291HIo0HCfE18Lp8oA30H1gpi1tf0mF3TgiCEzanQjOqNZ4x126SXzzi2oNSZhZ5axJp1k0iM6jg==}
+    dependencies:
+      '@types/geojson': 7946.0.14
     dev: false
 
   /@types/node@18.19.33:
@@ -2169,6 +2185,10 @@ packages:
       vite: 5.2.12(@types/node@18.19.33)
       vite-plugin-full-reload: 1.1.0
     dev: true
+
+  /leaflet@1.9.4:
+    resolution: {integrity: sha512-nxS1ynzJOmOlHp+iL3FyWqK89GtNL8U8rvlMOsQdTTssxZwCXh8N2NB3GDQOL+YR3XnWyZAxwQixURb+FA74PA==}
+    dev: false
 
   /lerc@3.0.0:
     resolution: {integrity: sha512-Rm4J/WaHhRa93nCN2mwWDZFoRVF18G1f47C+kvQWyHGEZxFpTUi73p7lMVSAndyxGt6lJ2/CFbOcf9ra5p8aww==}

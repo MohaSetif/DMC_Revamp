@@ -125,6 +125,7 @@ export default function Appointments({ auth, doctor_info, doctor_id, time }: Doc
   return (
     <AuthenticatedLayout
       user={auth.user}
+      usertype={auth.usertype}
       header={<h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">حجز موعد مع الطبيب</h2>}
     >
       <div className="py-12">

@@ -22,6 +22,7 @@ const DoctorsList: React.FC<PageProps> = ({ auth, doctors }) => {
   return (
     <AuthenticatedLayout
       user={auth.user}
+      usertype={auth.usertype}
       header={<h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">أطباؤنا</h2>}
     >
       <Head title="أطباؤنا" />

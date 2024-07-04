@@ -7,9 +7,9 @@ import DMC_WhiteLogo from "../../../public/img/168608548544536747.png"
 import ResponsiveNavLink from '@/Components/ResponsiveNavLink';
 import { Link } from '@inertiajs/react';
 import ToggleButton from '@/Components/ToggleButton';
-import { PageProps, User } from '@/types';
+import { PageProps, User, Usertype } from '@/types';
 
-export default function Authenticated({ user, usertype, header, children }: PropsWithChildren<{ user: User, usertype?: string, header?: ReactNode }>) {
+export default function Authenticated({ user, usertype, header, children }: PropsWithChildren<{ user: User, usertype: Usertype, header?: ReactNode }>) {
     const [showingNavigationDropdown, setShowingNavigationDropdown] = useState(false);
 
     return (
@@ -81,9 +81,9 @@ export default function Authenticated({ user, usertype, header, children }: Prop
                                     </Dropdown.Trigger>
 
                                     <Dropdown.Content>
-                                        <Dropdown.Link href={usertype === 'Doctor' ? route('doctor.build_profile') : route('profile.edit')}>الصفحة الشخصية</Dropdown.Link>
-                                        <Dropdown.Link href={usertype === 'Doctor' ? route('doctor.appoint_list') : route('appointment.for_user')}>مواعيدك</Dropdown.Link>
-                                        <Dropdown.Link href={usertype === 'Pharmacist' ? route('pharmacist.medic_list') : route('medication.for_user')}>طلبات الأدوية</Dropdown.Link>
+                                        <Dropdown.Link href={usertype.name === 'Doctor' ? route('doctor.build_profile') : route('profile.edit')}>الصفحة الشخصية</Dropdown.Link>
+                                        <Dropdown.Link href={usertype.name === 'Doctor' ? route('doctor.appoint_list') : route('appointment.for_user')}>مواعيدك</Dropdown.Link>
+                                        <Dropdown.Link href={usertype.name === 'Pharmacist' ? route('pharmacist.medic_list') : route('medication.for_user')}>طلبات الأدوية</Dropdown.Link>
                                         <Dropdown.Link href={route('logout')} method="post" as="button">
                                             الخروج
                                         </Dropdown.Link>
@@ -140,9 +140,9 @@ export default function Authenticated({ user, usertype, header, children }: Prop
                         </div>
 
                         <div className="mt-3 space-y-1 text-right">
-                            <ResponsiveNavLink href={usertype === 'Doctor' ? route('doctor.build_profile') : route('profile.edit')}>الصفحة الشخصية</ResponsiveNavLink>
-                            <Dropdown.Link href={usertype === 'Doctor' ? route('doctor.appoint_list') : route('appointment.for_user')}>مواعيدك</Dropdown.Link>
-                            <Dropdown.Link href={usertype === 'Pharmacist' ? route('pharmacist.medic_list') : route('medication.for_user')}>طلبات الأدوية</Dropdown.Link>
+                            <ResponsiveNavLink href={usertype.name === 'Doctor' ? route('doctor.build_profile') : route('profile.edit')}>الصفحة الشخصية</ResponsiveNavLink>
+                            <Dropdown.Link href={usertype.name === 'Doctor' ? route('doctor.appoint_list') : route('appointment.for_user')}>مواعيدك</Dropdown.Link>
+                            <Dropdown.Link href={usertype.name === 'Pharmacist' ? route('pharmacist.medic_list') : route('medication.for_user')}>طلبات الأدوية</Dropdown.Link>
                             <ResponsiveNavLink method="post" href={route('logout')} as="button">
                                 الخروج
                             </ResponsiveNavLink>

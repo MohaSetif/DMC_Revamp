@@ -67,6 +67,7 @@ export default function MedicationList({ auth, medications, user_role }: Medicat
   return (
     <AuthenticatedLayout
       user={auth.user}
+      usertype={auth.usertype}
       header={<h2 className="font-bold text-2xl text-gray-800 dark:text-gray-200 leading-tight text-right">قائمة الأدوية</h2>}
     >
       <Head title="Medication List" />

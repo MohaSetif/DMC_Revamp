@@ -61,6 +61,7 @@ export default function Doctor_Appointments({ auth, appointments, user_role }: D
   return (
     <AuthenticatedLayout
       user={auth.user}
+      usertype={auth.usertype}
       header={<h2 className="font-bold text-2xl text-gray-800 dark:text-gray-200 leading-tight text-right">قائمة المواعيد</h2>}
     >
       <Head title="Doctor Appointments" />

@@ -72,6 +72,7 @@ const Doctor_Profile: React.FC<Props> = ({ auth, doctor, doctor_name, time, rati
   return (
     <AuthenticatedLayout
       user={auth.user}
+      usertype={auth.usertype}
       header={<h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">{doctor_name}</h2>}
     >
       <Head title={doctor_name} />

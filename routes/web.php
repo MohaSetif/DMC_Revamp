@@ -18,10 +18,8 @@ Route::get('/', function () {
 });
 
 Route::get('/dashboard', function () {
-    $usertype = auth()->user()->roles->first();
-    return Inertia::render('Dashboard', [
-        'usertype' => $usertype
-    ]);
+    //$usertype = auth()->user()->roles->first();
+    return Inertia::render('Dashboard');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 Route::middleware('auth')->group(function () {

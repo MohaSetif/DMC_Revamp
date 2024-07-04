@@ -68,6 +68,7 @@ const Build_Profile: React.FC<BuildProfileProps> = ({ auth, doctor, shifts }) =>
     return (
         <AuthenticatedLayout
             user={auth.user}
+            usertype={auth.usertype}
         >
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">

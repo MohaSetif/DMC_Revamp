@@ -16,9 +16,12 @@ class DoctorsController extends Controller
 {
     public function index()
     {
-        $doctors = Doctor::all();
+        $doctors = Doctor::with('user')->get();
+        $doctorNames = $doctors->pluck('user.name')->toArray();
+
         return Inertia::render('Public/DoctorsList', [
-            'doctors' => $doctors
+            'doctors' => $doctors,
+            'doctorNames' => $doctorNames,
         ]);
     }
 

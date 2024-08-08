@@ -1,7 +1,9 @@
-import React from 'react';
+import React, { Suspense } from 'react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { Head } from '@inertiajs/react';
 import { PageProps as InertiaPageProps } from '@/types';
+import Loader from '@/Components/ui/Loader';
+import ProfileCard from '@/Components/ui/ProfileCard';
 
 interface Doctor {
   id: number;
@@ -15,10 +17,11 @@ interface Doctor {
 }
 
 interface PageProps extends InertiaPageProps {
-  doctors: Doctor[];
+  doctors: Doctor[]
+  doctorNames: String[]
 }
 
-const DoctorsList: React.FC<PageProps> = ({ auth, doctors }) => {
+const DoctorsList: React.FC<PageProps> = ({ auth, doctors, doctorNames }) => {
   return (
     <AuthenticatedLayout
       user={auth.user}
@@ -28,38 +31,10 @@ const DoctorsList: React.FC<PageProps> = ({ auth, doctors }) => {
       <Head title="أطباؤنا" />
       <div className="container mx-auto py-8">
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {doctors.map((doctor: Doctor) => (
-            <div key={doctor.id} className="bg-white dark:bg-gray-800 border border-gray-600 shadow-md rounded-lg overflow-hidden">
-              <div className="relative pb-2/3">
-                <img
-                  src={`/storage/${doctor.image}`}
-                  alt={doctor.name}
-                  className="absolute inset-0 h-full w-full object-cover rounded-t-lg"
-                />
-              </div>
-              <div className="p-6">
-                <div className="flex items-center mb-4">
-                  <div className="h-[3.75rem] w-16 overflow-hidden rounded-full border-2 border-blue-500">
-                    <img
-                      src={`/storage/${doctor.image}`}
-                      alt={doctor.name}
-                      className="h-full w-full object-cover"
-                    />
-                  </div>
-                  <div className="ml-4">
-                    <h2 className="text-xl font-semibold">{doctor.name}</h2>
-                    <p className="text-gray-400 text-right text-sm">Speciality: {doctor.speciality}</p>
-                    <p className="text-gray-400 text-right text-sm">Work Place: {doctor.work_place}</p>
-                  </div>
-                </div>
-                <a
-                  href={`/doctors/${doctor.id}`}
-                  className="inline-block bg-blue-500 text-white px-4 py-2 rounded-md hover:bg-blue-600 transition-colors"
-                >
-                  تعرف أكثر
-                </a>
-              </div>
-            </div>
+          {doctors.map((doctor: Doctor, index) => (
+            <Suspense fallback={<Loader />}>
+              <ProfileCard doctor={doctor} doctor_name={doctorNames[index]} />
+            </Suspense>
           ))}
         </div>
       </div>

@@ -129,6 +129,12 @@ html {
     --to_grad: 209, 213, 219;
     --bg_circle: radial-gradient(circle 400px at 50% 300px, #e4e4e8, #fff);
     --custom_button: 244, 244, 245;
+
+    --bg-color: #f0f9ff;
+    --circle-1: #bae6fd;
+    --circle-2: #7dd3fc;
+    --shadow-1: #62d3ff;
+    --shadow-2: #11b7ff;
 }
 
 .dark{
@@ -147,4 +153,18 @@ html {
     --to_grad: 17, 24, 39;
     --bg_circle: radial-gradient(circle 400px at 50% 300px, #fbfbfb36, #030913);
     --custom_button: 1, 5, 11;
+
+    --bg-color: #0f172a;
+    --circle-1: #1e293b;
+    --circle-2: #334155;
+    --shadow-1: #4338ca;
+    --shadow-2: #6d28d9;
 }
+
+  body {
+    background-image: url('../../public/svg/bwl-background.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-attachment: fixed;
+    color: var(--text-color);
+  }

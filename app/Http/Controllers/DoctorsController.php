@@ -29,7 +29,7 @@ class DoctorsController extends Controller
         $doctor = Doctor::query()->where('id', $id)->first();
         $doctor_info = User::where('id', $doctor->user_id)->first();
         $doc_week = Time::where('doctor_id', $doctor->id)->first();
-        $reviews = Review::where('doctor_id', $doctor->id)->get();
+        $reviews = Review::where('doctor_id', $doctor->id)->latest()->get();
         $ratings = Review::where('doctor_id', $doctor->id)->avg('rating');
         return Inertia::render('Public/Doctor_Profile', [
             'doctor' => $doctor,

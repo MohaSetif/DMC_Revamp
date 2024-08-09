@@ -45,6 +45,13 @@ export default {
                 'from_grad': "rgba(var(--from_grad))",
                 'to_grad': "rgba(var(--to_grad))",
                 'page': "rgba(var(--background))",
+
+                'bg-color': 'var(--bg-color)',
+                'circle-1': 'var(--circle-1)',
+                'circle-2': 'var(--circle-2)',
+                'shadow-1': 'var(--shadow-1)',
+                'shadow-2': 'var(--shadow-2)',
+                'text-color': 'var(--text-color)',
             },
             backgroundImage: {
                 'bg_circle': "var(--bg_circle)"

@@ -9,7 +9,7 @@ interface Doctor_Card {
 
 function ProfileCard({ doctor, doctor_name }: { doctor: Doctor_Card, doctor_name: String }) {
   return (
-    <div key={doctor.id} className="bg-white dark:bg-gray-800 border border-gray-600 shadow-md rounded-lg overflow-hidden text-right"> {/* Added text-right */}
+    <div key={doctor.id} className="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 shadow-md rounded-lg overflow-hidden text-right"> {/* Added text-right */}
         <div className="relative pb-2/3">
             <img
             src={`/storage/${doctor.image}`}
@@ -20,10 +20,10 @@ function ProfileCard({ doctor, doctor_name }: { doctor: Doctor_Card, doctor_name
         <div className="p-6">
             <div className="flex items-center justify-end mb-4">
                 <div className="m-4">
-                    <h2 className="text-xl text-gray-400 font-semibold">{doctor_name} :الاسم</h2>
-                    <p className="text-gray-400 text-right text-sm">{doctor.speciality} :الاختصاص</p>
+                    <h2 className="text-xl text-gray-500 font-semibold">{doctor_name} :الاسم</h2>
+                    <p className="text-gray-500 text-right text-sm">الاختصاص: {doctor.speciality}</p>
                 </div>
-                <div className="h-[3.75rem] w-16 overflow-hidden rounded-full border-2 border-blue-500">
+                <div className="h-16 w-16 overflow-hidden rounded-full border-2 border-blue-500">
                     <img
                     src={`/storage/${doctor.image}`}
                     alt={doctor.name}

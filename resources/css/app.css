@@ -161,10 +161,16 @@ html {
     --shadow-2: #6d28d9;
 }
 
-  body {
-    background-image: url('../../public/svg/bwl-background.svg');
+body {
     background-repeat: no-repeat;
     background-size: cover;
     background-attachment: fixed;
-    color: var(--text-color);
-  }
+}
+
+body.light-mode {
+    background-image: url('../../public/svg/bwl-background.svg');
+}
+
+body.dark-mode {
+    background-image: url('../../public/svg/bwl-background-dark.svg');
+}

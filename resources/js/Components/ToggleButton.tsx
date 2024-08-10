@@ -16,9 +16,13 @@ const ThemeToggle: React.FC = () => {
   const updateTheme = (darkMode: boolean) => {
     if (darkMode) {
       document.documentElement.classList.add('dark');
+      document.body.classList.add('dark-mode');
+      document.body.classList.remove('light-mode');
       localStorage.setItem('dark', 'true');
     } else {
       document.documentElement.classList.remove('dark');
+      document.body.classList.add('light-mode');
+      document.body.classList.remove('dark-mode');
       localStorage.setItem('dark', 'false');
     }
   };

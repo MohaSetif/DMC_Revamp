@@ -1,12 +1,12 @@
 <svg width="1886" height="1690" viewBox="0 0 1886 1690" fill="none" xmlns="http://www.w3.org/2000/svg">
   <g clip-path="url(#clip0_136_90)">
     <!-- Updated background to darker purplish blue -->
-    <rect width="1886" height="1690" fill="#1B0E40"/>
+    <rect width="1886" height="1690" fill="#010109"/>
     <g opacity="0.3" filter="url(#filter0_i_136_90)">
-      <circle cx="1021.02" cy="781.317" r="849.024" fill="#2A1A5E"/>
+      <circle cx="1021.02" cy="781.317" r="849.024" fill="#07071b"/>
     </g>
     <g style="mix-blend-mode:multiply" filter="url(#filter1_i_136_90)">
-      <circle cx="778.5" cy="1300.5" r="1023.5" fill="#2A1A5E"/>
+      <circle cx="778.5" cy="1300.5" r="1023.5" fill="#07071b"/>
     </g>
     <rect y="-6.10352e-05" width="1928" height="460" fill="url(#paint0_linear_136_90)"/>
   </g>
@@ -34,8 +34,8 @@
       <feBlend mode="normal" in2="shape" result="effect1_innerShadow_136_90"/>
     </filter>
     <linearGradient id="paint0_linear_136_90" x1="0" y1="460" x2="0" y2="-6.10352e-05" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#2A1A5E" stop-opacity="0"/>
-      <stop offset="1" stop-color="#2A1A5E"/>
+      <stop stop-color="#07071b" stop-opacity="0"/>
+      <stop offset="1" stop-color="#07071b"/>
     </linearGradient>
     <clipPath id="clip0_136_90">
       <rect width="1886" height="1690" fill="white"/>

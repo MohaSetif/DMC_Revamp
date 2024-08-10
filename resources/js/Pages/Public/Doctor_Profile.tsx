@@ -43,6 +43,13 @@ interface Props extends PageProps {
   userHasReview: boolean;
 }
 
+const InfoItem: React.FC<{ icon: React.ReactNode; text: string | number }> = ({ icon, text }) => (
+  <div className="flex items-end justify-end text-gray-600 dark:text-gray-300 space-x-2">
+    <span className="ml-2 text-sm sm:text-base">{text}</span>
+    <span>{icon}</span>
+  </div>
+);
+
 const Doctor_Profile: React.FC<Props> = ({ auth, doctor, doctor_name, time, ratings, reviews, totalUser, userHasReview }) => {
   const { data, setData, post, processing, errors } = useForm({
     rating: 0,
@@ -75,45 +82,63 @@ const Doctor_Profile: React.FC<Props> = ({ auth, doctor, doctor_name, time, rati
     >
       <Head title={doctor_name} />
 
-      <div className="py-2">
-        <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 p-12">
-          <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg p-4 my-4 relative">
-            <div className="bg-image absolute inset-0 z-0">
+      <div className="py-2 rtl">
+        <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 p-4 sm:p-8">
+          <div className="bg-white dark:bg-gray-900 shadow-lg rounded-lg overflow-hidden transition-all duration-300 hover:shadow-xl">
+            <div className="relative h-48 bg-gradient-to-l from-blue-500 to-purple-600">
               <img
-                src="/path/to/background-image.jpg"
-                alt="Background"
-                className="w-full h-full object-cover"
+                className="w-full h-full object-cover mix-blend-overlay opacity-30"
               />
             </div>
-            <div className="flex items-start relative z-10">
-              <div className="doc_img -mt-8 -ml-4">
-                <div className="h-32 w-32 overflow-hidden rounded-full border-2 border-blue-500 bg-white">
-                  <img
-                    src={`/storage/${doctor.image}`}
-                    alt={doctor.name}
-                    className="h-full w-full object-cover"
-                  />
+            <div className="px-4 py-6 sm:px-8 sm:py-8">
+              <div className="flex flex-col sm:flex-row items-center sm:items-start">
+                <div className="relative -mt-24 sm:-mt-32 mb-6 sm:mb-0 sm:ml-8">
+                  <div className="h-32 w-32 sm:h-40 sm:w-40 md:h-48 md:w-48 rounded-full border-[6px] border-white dark:border-gray-900 overflow-hidden">
+                    <img
+                      src={`/storage/${doctor.image}`}
+                      alt={doctor.name}
+                      className="h-full w-full object-cover"
+                    />
+                  </div>
+                </div>
+                <div className="text-right sm:text-right flex-grow">
+                  <h1 className="text-2xl sm:text-3xl md:text-4xl font-bold text-gray-800 dark:text-white mb-2">
+                    {doctor_name}
+                  </h1>
+                  <p className="text-lg sm:text-xl text-blue-600 dark:text-blue-400 font-semibold mb-4">
+                    {doctor.speciality}
+                  </p>
+                  <div className="flex flex-wrap justify-center sm:justify-end items-center mb-6 space-x-2">
+                    <span className="text-xl sm:text-2xl font-bold text-yellow-500">{ratings}</span>
+                    <div className="flex">
+                      {renderStars(ratings)}
+                    </div>
+                    <span className="text-sm sm:text-base text-gray-600 dark:text-gray-400">({totalUser} تقييم)</span>
+                  </div>
+                  <div className="space-y-3 sm:space-y-4">
+                    <InfoItem icon={<FontAwesomeIcon icon={faMapMarkerAlt} />} text={doctor.work_place} />
+                    <InfoItem icon={<FontAwesomeIcon icon={faDollarSign} />} text={`${doctor.price} دج`} />
+                    <InfoItem icon={<FontAwesomeIcon icon={faUserMd} />} text={doctor.who} />
+                  </div>
                 </div>
               </div>
-              <div className="doc_info ml-4 pt-2">
-                <h1 className="text-2xl font-bold text-gray-800 dark:text-white">{doctor.name}</h1>
-                <h2 className="text-lg text-gray-600 dark:text-gray-300">{doctor.speciality}</h2>
-                <h2 className="text-md text-gray-500 dark:text-gray-400">{doctor.work_place}</h2>
-                <h2 className="text-md text-gray-500 dark:text-gray-400">{doctor.price}</h2>
-                <h2 className="text-md text-gray-500 dark:text-gray-400">{doctor.who}</h2>
-              </div>
+            </div>
+            <div className="flex justify-center items-center px-4 sm:px-6 py-4 sm:py-6 bg-gray-50 dark:bg-gray-800 border-t border-gray-200 dark:border-gray-700">
+              <a href={`/appointments/${doctor.id}`} className="w-96 flex justify-center items-center bg-blue-500 hover:bg-blue-600 text-white font-bold py-3 px-4 sm:px-6 rounded-full transition duration-300 ease-in-out transform shadow-md text-sm sm:text-base">
+                احجز موعدا
+              </a>
             </div>
           </div>
                   
-          <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg">
-            <div className="p-8">
+          <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg mt-8">
+            <div className="p-4 sm:p-8">
               <div className="mt-4">
                 <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">الأوقات المتاحة</h2>
                 <div className="overflow-x-auto bg-white dark:bg-gray-800 rounded-lg shadow">
-                  <table className="w-full text-sm text-left text-gray-500 dark:text-gray-400">
+                  <table className="w-full text-sm text-right text-gray-500 dark:text-gray-400">
                     <thead className="text-xs text-gray-700 uppercase bg-gray-50 dark:bg-gray-700 dark:text-gray-400">
                       <tr>
-                        {['السبت', 'الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة'].map((day) => (
+                        {['الجمعة', 'الخميس', 'الأربعاء', 'الثلاثاء', 'الاثنين', 'الأحد', 'السبت'].map((day) => (
                           <th key={day} scope="col" className="px-6 py-3">{day}</th>
                         ))}
                       </tr>
@@ -121,12 +146,12 @@ const Doctor_Profile: React.FC<Props> = ({ auth, doctor, doctor_name, time, rati
                     <tbody>
                       {time ? (
                         <tr className="bg-white dark:bg-gray-900">
-                          {['saturday', 'sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday'].map((day) => (
+                          {['friday', 'thursday', 'wednesday', 'tuesday', 'monday', 'sunday', 'saturday'].map((day) => (
                             <td key={day} className="px-6 py-4">
                               {time[day as keyof Time] ? (
-                                <div className="flex items-center">
-                                  <FontAwesomeIcon icon={faClock} className="text-green-500 mr-2" />
+                                <div className="flex items-center justify-end">
                                   <span>{time[day as keyof Time]}</span>
+                                  <FontAwesomeIcon icon={faClock} className="text-green-500 ml-2" />
                                 </div>
                               ) : (
                                 <span className="text-red-500">غير متاح</span>
@@ -143,10 +168,10 @@ const Doctor_Profile: React.FC<Props> = ({ auth, doctor, doctor_name, time, rati
                   </table>
                 </div>
               </div>
-              <div className="p-8">
+              <div className="mt-8">
                 <h2 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">التقييمات والتعليقات</h2>
                 
-                <div className="flex flex-col lg:flex-row space-y-8 lg:space-y-0 lg:space-x-8">
+                <div className="flex flex-col lg:flex-row space-y-8 lg:space-y-0 lg:space-x-reverse lg:space-x-8">
                   <div className="flex-grow lg:w-2/3">
                     {reviews && reviews.length > 0 ? (
                       <div className="space-y-6">
@@ -154,7 +179,7 @@ const Doctor_Profile: React.FC<Props> = ({ auth, doctor, doctor_name, time, rati
                           <div key={review.id} className="bg-gray-50 dark:bg-gray-700 p-6 rounded-xl shadow-md transition duration-300 hover:shadow-lg">
                             <div className="flex items-center justify-between mb-4">
                               <div className="flex items-center">
-                                <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-lg mr-4">
+                                <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-lg ml-4">
                                   {review.username.charAt(0).toUpperCase()}
                                 </div>
                                 <div>
@@ -163,10 +188,10 @@ const Doctor_Profile: React.FC<Props> = ({ auth, doctor, doctor_name, time, rati
                                 </div>
                               </div>
                               <div className="flex items-center">
-                                <div className="flex mr-2">
+                                <span className="text-2xl font-bold text-yellow-500 ml-2">{review.rating.toFixed(1)}</span>
+                                <div className="flex">
                                   {renderStars(review.rating)}
                                 </div>
-                                <span className="text-2xl font-bold text-yellow-500">{review.rating.toFixed(1)}</span>
                               </div>
                             </div>
                             <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">{review.comment}</p>
@@ -185,7 +210,7 @@ const Doctor_Profile: React.FC<Props> = ({ auth, doctor, doctor_name, time, rati
                   </div>
 
                   {!userHasReview && (
-                    <div className="lg:w-1/3">
+                    <div className="lg:w-1/3 flex justify-end items-start">
                       <div className="bg-gray-50 dark:bg-gray-700 p-6 rounded-xl shadow-md">
                         <h3 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">أضف تقييمك</h3>
                         <form onSubmit={handleSubmit} className="space-y-6">
@@ -217,8 +242,8 @@ const Doctor_Profile: React.FC<Props> = ({ auth, doctor, doctor_name, time, rati
                       </div>
                     </div>
                   )}
+                </div>
               </div>
-            </div>
             </div>
           </div>
         </div>

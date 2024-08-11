@@ -17,8 +17,8 @@ interface Doctor {
 }
 
 interface PageProps extends InertiaPageProps {
-  doctors: Doctor[]
-  doctorNames: String[]
+  doctors: Doctor[];
+  doctorNames: String[];
 }
 
 const DoctorsList: React.FC<PageProps> = ({ auth, doctors, doctorNames }) => {
@@ -30,9 +30,9 @@ const DoctorsList: React.FC<PageProps> = ({ auth, doctors, doctorNames }) => {
     >
       <Head title="أطباؤنا" />
       <div className="container mx-auto py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 m-2">
           {doctors.map((doctor: Doctor, index) => (
-            <Suspense fallback={<Loader />}>
+            <Suspense key={doctor.id} fallback={<Loader />}>
               <ProfileCard doctor={doctor} doctor_name={doctorNames[index]} />
             </Suspense>
           ))}
@@ -40,6 +40,6 @@ const DoctorsList: React.FC<PageProps> = ({ auth, doctors, doctorNames }) => {
       </div>
     </AuthenticatedLayout>
   );
-}
+};
 
 export default DoctorsList;

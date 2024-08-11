@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { Head, Link, useForm } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { PageProps } from '@/types';
-import { faClock, faDollarSign, faMapMarkerAlt, faStar, faUserMd } from '@fortawesome/free-solid-svg-icons';
+import { faClock, faComment, faDollarSign, faMapMarkerAlt, faStar, faUserMd } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 interface Doctor {
@@ -39,7 +39,7 @@ interface Props extends PageProps {
   reviews: Review[] | null;
   doctor_name: string;
   ratings: number;
-  totalUser: number;
+  nbr_votes: number;
   userHasReview: boolean;
 }
 
@@ -50,11 +50,13 @@ const InfoItem: React.FC<{ icon: React.ReactNode; text: string | number }> = ({ 
   </div>
 );
 
-const Doctor_Profile: React.FC<Props> = ({ auth, doctor, doctor_name, time, ratings, reviews, totalUser, userHasReview }) => {
+const Doctor_Profile: React.FC<Props> = ({ auth, doctor, doctor_name, time, ratings, reviews, nbr_votes, userHasReview }) => {
   const { data, setData, post, processing, errors } = useForm({
     rating: 0,
     comment: '',
   });
+
+  // console.log(ratings.toFixed(2));
 
   const renderStars = (rating: number, interactive = false) => {
     return [...Array(5)].map((_, index) => (
@@ -109,11 +111,11 @@ const Doctor_Profile: React.FC<Props> = ({ auth, doctor, doctor_name, time, rati
                     {doctor.speciality}
                   </p>
                   <div className="flex flex-wrap justify-center sm:justify-end items-center mb-6 space-x-2">
-                    <span className="text-xl sm:text-2xl font-bold text-yellow-500">{ratings}</span>
+                    <span className="text-xl sm:text-2xl font-bold text-yellow-500">{ratings.toFixed(2)}</span>
                     <div className="flex">
                       {renderStars(ratings)}
                     </div>
-                    <span className="text-sm sm:text-base text-gray-600 dark:text-gray-400">({totalUser} تقييم)</span>
+                    <span className="text-sm sm:text-base text-gray-600 dark:text-gray-400 text-right">({nbr_votes} تقييمات)</span>
                   </div>
                   <div className="space-y-3 sm:space-y-4">
                     <InfoItem icon={<FontAwesomeIcon icon={faMapMarkerAlt} />} text={doctor.work_place} />
@@ -178,7 +180,7 @@ const Doctor_Profile: React.FC<Props> = ({ auth, doctor, doctor_name, time, rati
                         {reviews.map((review) => (
                           <div key={review.id} className="bg-gray-50 dark:bg-gray-700 p-6 rounded-xl shadow-md transition duration-300 hover:shadow-lg">
                             <div className="flex items-center justify-between mb-4">
-                              <div className="flex items-center">
+                              <div className="flex items-center space-x-2">
                                 <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-lg ml-4">
                                   {review.username.charAt(0).toUpperCase()}
                                 </div>
@@ -187,7 +189,7 @@ const Doctor_Profile: React.FC<Props> = ({ auth, doctor, doctor_name, time, rati
                                   <p className="text-sm text-gray-500 dark:text-gray-400">{review.createdAt}</p>
                                 </div>
                               </div>
-                              <div className="flex items-center">
+                              <div className="flex items-center space-x-2">
                                 <span className="text-2xl font-bold text-yellow-500 ml-2">{review.rating.toFixed(1)}</span>
                                 <div className="flex">
                                   {renderStars(review.rating)}
@@ -200,11 +202,9 @@ const Doctor_Profile: React.FC<Props> = ({ auth, doctor, doctor_name, time, rati
                       </div>
                     ) : (
                       <div className="bg-gray-50 dark:bg-gray-700 p-8 rounded-xl text-center">
-                        <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
-                          <path vectorEffect="non-scaling-stroke" strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 13h6m-3-3v6m-9 1V7a2 2 0 012-2h6l2 2h6a2 2 0 012 2v8a2 2 0 01-2 2H5a2 2 0 01-2-2z" />
-                        </svg>
-                        <h3 className="mt-2 text-sm font-medium text-gray-900 dark:text-gray-200">لا توجد تقييمات</h3>
-                        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">ابدأ بإضافة تقييم جديد.</p>
+                        <FontAwesomeIcon icon={faComment} className="h-10 w-10 text-gray-300" />
+                        <h3 className="mt-2 text-sm font-semibold text-gray-900 dark:text-gray-200">لا توجد تقييمات</h3>
+                        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">.إبدأ بإضافة تقييم جديد</p>
                       </div>
                     )}
                   </div>

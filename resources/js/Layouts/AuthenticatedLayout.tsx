@@ -25,14 +25,14 @@ export default function Authenticated({ user, usertype, header, children }: Prop
                                     alt="DMC_logo"
                                     height="45"
                                     width="45"
-                                    className="m-6 dark:hidden"
+                                    className="mr-10 dark:hidden"
                                     />
                                     <img
                                     src={DMC_WhiteLogo}
                                     alt="DMC_logo"
                                     height="45"
                                     width="45"
-                                    className="m-6 hidden dark:block"
+                                    className="mr-10 hidden dark:block"
                                     />
                                 </Link>
                             </div>
@@ -141,8 +141,8 @@ export default function Authenticated({ user, usertype, header, children }: Prop
 
                         <div className="mt-3 space-y-1 text-right">
                             <ResponsiveNavLink href={usertype.name === 'Doctor' ? route('doctor.build_profile') : route('profile.edit')}>الصفحة الشخصية</ResponsiveNavLink>
-                            <Dropdown.Link href={usertype.name === 'Doctor' ? route('doctor.appoint_list') : route('appointment.for_user')}>مواعيدك</Dropdown.Link>
-                            <Dropdown.Link href={usertype.name === 'Pharmacist' ? route('pharmacist.medic_list') : route('medication.for_user')}>طلبات الأدوية</Dropdown.Link>
+                            <ResponsiveNavLink href={usertype.name === 'Doctor' ? route('doctor.appoint_list') : route('appointment.for_user')}>مواعيدك</ResponsiveNavLink>
+                            <ResponsiveNavLink href={usertype.name === 'Pharmacist' ? route('pharmacist.medic_list') : route('medication.for_user')}>طلبات الأدوية</ResponsiveNavLink>
                             <ResponsiveNavLink method="post" href={route('logout')} as="button">
                                 الخروج
                             </ResponsiveNavLink>

@@ -31,12 +31,14 @@ class DoctorsController extends Controller
         $doc_week = Time::where('doctor_id', $doctor->id)->first();
         $reviews = Review::where('doctor_id', $doctor->id)->latest()->get();
         $ratings = Review::where('doctor_id', $doctor->id)->avg('rating');
+        $voteCount = Review::where('doctor_id', $doctor->id)->count();
         return Inertia::render('Public/Doctor_Profile', [
             'doctor' => $doctor,
             'doctor_name' => $doctor_info->name,
             'time' => $doc_week,
             'reviews' => $reviews,
-            'ratings' => $ratings
+            'ratings' => (int)$ratings,
+            'nbr_votes' => $voteCount
         ]);
     }
 

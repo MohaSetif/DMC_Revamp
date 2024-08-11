@@ -78,7 +78,6 @@ function Medic_Form({ auth }: PageProps) {
     <AuthenticatedLayout
       user={auth.user}
       usertype={auth.usertype}
-      header={<h2 className="font-semibold text-xl text-gray-800 dark:text-gray-200 leading-tight">البحث عن دواء</h2>}
     >
       <Head title="البحث عن دواء" />
       <div className="fixed top-4 right-4 z-50">
@@ -91,7 +90,7 @@ function Medic_Form({ auth }: PageProps) {
           />
         ))}
       </div>
-      <div className="py-12">
+      <div className="py-8">
         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
           <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
             <div className="p-6 flex flex-col md:flex-row items-center">

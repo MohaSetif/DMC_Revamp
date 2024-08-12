@@ -30,7 +30,7 @@ const DoctorsList: React.FC<PageProps> = ({ auth, doctors, doctorNames }) => {
     >
       <Head title="أطباؤنا" />
       <div className="container mx-auto py-8">
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 m-2">
+        <div className="flex flex-wrap justify-end gap-6 m-2">
           {doctors.map((doctor: Doctor, index) => (
             <Suspense key={doctor.id} fallback={<Loader />}>
               <ProfileCard doctor={doctor} doctor_name={doctorNames[index]} />

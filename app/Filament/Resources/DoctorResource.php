@@ -8,6 +8,7 @@ use App\Models\Doctor;
 use Filament\Forms;
 use Filament\Forms\Components\FileUpload;
 use Filament\Forms\Components\Grid;
+use Filament\Forms\Components\Section;
 use Filament\Forms\Components\Select;
 use Filament\Forms\Components\Textarea;
 use Filament\Forms\Form;
@@ -32,46 +33,47 @@ class DoctorResource extends Resource
     {
         return $form
             ->schema([
-                Grid::make()
-                ->relationship('user')
-                ->schema([
-                    TextInput::make('name')
-                        ->required(),
-                    TextInput::make('phone')
-                        ->tel()
-                        ->required()
-                        ->maxLength(255),
-                    TextInput::make('email')
-                        ->email()
-                        ->required(),
-                    TextInput::make('password')
-                        ->password()
-                        ->dehydrateStateUsing(fn ($state) => filled($state) ? Hash::make($state) : null)
-                        ->dehydrated(fn ($state) => filled($state))
-                        ->required(fn (string $context): bool => $context === 'create'),
-                ])
-                ->columns(2),
-                Grid::make()
+                Section::make('User Information')
+                    ->schema([
+                        TextInput::make('user.name')
+                            ->required()
+                            ->label('Name'),
+                        TextInput::make('user.email')
+                            ->email()
+                            ->required()
+                            ->label('Email'),
+                        TextInput::make('user.phone')
+                            ->tel()
+                            ->required()
+                            ->label('Phone'),
+                        TextInput::make('user.password')
+                            ->password()
+                            ->label('Password')
+                            ->dehydrateStateUsing(fn ($state) => filled($state) ? Hash::make($state) : null)
+                            ->dehydrated(fn ($state) => filled($state))
+                            ->required(fn (string $context): bool => $context === 'create'),
+                    ]),
+                Section::make('Doctor Information')
                     ->schema([
                         TextInput::make('speciality')
-                        ->required()
-                        ->maxLength(255),
+                            ->required(),
                         TextInput::make('work_place')
-                            ->required()
-                            ->maxLength(255),
+                            ->required(),
                         TextInput::make('price')
                             ->required()
-                            ->numeric()
-                            ->minValue(0),
+                            ->numeric(),
                         Textarea::make('who')
-                            ->required()
-                            ->maxLength(65535),
+                            ->required(),
                         FileUpload::make('image')
                             ->image()
                             ->required(),
-                    ])
-                    ->columns(2),
+                    ]),
             ]);
+    }
+
+    public static function getEloquentQuery(): \Illuminate\Database\Eloquent\Builder
+    {
+        return parent::getEloquentQuery()->with('user');
     }
 
     public static function table(Table $table): Table

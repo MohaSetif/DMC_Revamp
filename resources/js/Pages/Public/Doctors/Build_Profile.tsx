@@ -1,5 +1,5 @@
 import React from 'react';
-import { useForm } from '@inertiajs/react';
+import { Head, useForm } from '@inertiajs/react';
 import { PageProps } from '@/types';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import TextInput from '@/Components/TextInput';
@@ -70,12 +70,13 @@ const Build_Profile: React.FC<BuildProfileProps> = ({ auth, doctor, shifts }) =>
             user={auth.user}
             usertype={auth.usertype}
         >
+            <Head title="معلوماتي الشخصية" />
             <div className="py-12">
                 <div className="max-w-7xl mx-auto sm:px-6 lg:px-8">
                     <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-sm sm:rounded-lg">
                         <div className="p-6 text-gray-900 dark:text-gray-100">
-                            <h1 className="text-3xl font-bold mb-8">الصفحة الشخصية</h1>
-                            <form onSubmit={handleSubmit} className="space-y-6">
+                            <h1 className="text-3xl text-gray-900 dark:text-white font-bold mb-8">الصفحة الشخصية</h1>
+                            <form onSubmit={handleSubmit} encType='multipart/form-data' className="space-y-6">
                                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                     <div>
                                         <label htmlFor="speciality" className="block text-sm font-medium text-gray-700 dark:text-gray-300">التخصص</label>
@@ -115,7 +116,7 @@ const Build_Profile: React.FC<BuildProfileProps> = ({ auth, doctor, shifts }) =>
                                     </div>
                                     <div className="flex flex-col items-end">
                                         <label htmlFor="image" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 self-end">صورتك</label>
-                                        <img className="w-40 h-40 rounded-full mb-2" src={data.image ? `/storage/${data.image}` : '/default-avatar.png'} alt="Rounded avatar" />
+                                        <img className="mr-12 inset-0 h-40 w-40 object-cover mb-2" src={data.image ? `/storage/${data.image}` : '/default-avatar.png'} alt="Rounded avatar" />
                                         <input
                                             type="file"
                                             id="image"

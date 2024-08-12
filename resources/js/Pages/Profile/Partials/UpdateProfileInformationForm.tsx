@@ -26,7 +26,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
             <header>
                 <h2 className="text-xl sm:text-2xl font-medium text-gray-900 dark:text-gray-100">المعلومات الشخصية</h2>
                 <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                    .هذه صفحتك الشخصية، هنا يمكنك تعديل اسمك فقط
+                    هذه صفحتك الشخصية، هنا يمكنك تعديل اسمك فقط.
                 </p>
             </header>
 
@@ -41,6 +41,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                         required
                         isFocused
                         autoComplete="name"
+                        disabled
                     />
                     <InputError className="mt-2" message={errors.name} />
                 </div>
@@ -59,7 +60,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                     <InputError className="mt-2" message={errors.email} />
                 </div>
 
-                {mustVerifyEmail && user.email_verified_at === null && (
+                {/* {mustVerifyEmail && user.email_verified_at === null && (
                     <div>
                         <p className="text-sm mt-2 text-gray-800 dark:text-gray-200">
                             بريدك الإلكتروني غير موثّق.
@@ -92,7 +93,7 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
                     >
                         <p className="text-sm text-gray-600 dark:text-gray-400">.تم الحفظ</p>
                     </Transition>
-                </div>
+                </div> */}
             </form>
         </section>
     );

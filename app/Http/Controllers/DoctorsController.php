@@ -10,6 +10,7 @@ use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Log;
+use Illuminate\Support\Facades\Storage;
 use Inertia\Inertia;
 
 class DoctorsController extends Controller
@@ -42,13 +43,27 @@ class DoctorsController extends Controller
         ]);
     }
 
-    public function build_profile(){
+    public function build_profile()
+    {
         $doctor = Doctor::where('user_id', Auth::id())->firstOrFail();
         $shifts = Time::where('doctor_id', $doctor->id)->first();
+        
+        $formattedShifts = [];
+        if ($shifts) {
+            foreach (['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday'] as $day) {
+                if ($shifts->$day) {
+                    list($start, $end) = explode('-', $shifts->$day);
+                    $formattedShifts[$day] = [
+                        'start_time' => $start,
+                        'end_time' => $end
+                    ];
+                }
+            }
+        }
 
         return Inertia::render('Public/Doctors/Build_Profile', [
             'doctor' => $doctor,
-            'shifts' => $shifts ? $shifts->only(['sunday', 'monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday']) : [],
+            'shifts' => $formattedShifts,
         ]);
     }
 
@@ -59,27 +74,26 @@ class DoctorsController extends Controller
             'work_place' => 'required|string|max:255',
             'price' => 'required|numeric',
             'who' => 'required|string',
-            'image' => 'string',
-            'shifts' => 'required|array',
-            'shifts.*.day' => 'required|string|in:sunday,monday,tuesday,wednesday,thursday,friday,saturday',
-            'shifts.*.start_time' => 'required|date_format:H:i',
-            'shifts.*.end_time' => 'required|date_format:H:i|after:shifts.*.start_time',
+            'shifts' => 'required'
         ]);
-    
+
         $doctor = Doctor::where('user_id', Auth::id())->firstOrFail();
-    
+
         $doctor->update([
             'speciality' => $validated['speciality'],
             'work_place' => $validated['work_place'],
             'price' => $validated['price'],
             'who' => $validated['who'],
         ]);
-    
+
         if ($request->hasFile('image')) {
+            if ($doctor->image) {
+                Storage::disk('public')->delete($doctor->image);
+            }
             $imagePath = $request->file('image')->store('doctor_images', 'public');
             $doctor->update(['image' => $imagePath]);
         }
-    
+
         $shifts = [];
         foreach ($validated['shifts'] as $shift) {
             $shifts[$shift['day']] = [
@@ -93,12 +107,11 @@ class DoctorsController extends Controller
             $flattenedShifts[$day] = $shift['start_time'] . '-' . $shift['end_time'];
         }
 
-    
         Time::updateOrCreate(
             ['doctor_id' => $doctor->id],
             $flattenedShifts
         );
-    
+
         return redirect()->back()->with('success', 'Profile updated successfully');
     }
 

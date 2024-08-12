@@ -1,16 +1,12 @@
 <?php
-
 namespace App\Filament\Resources\DoctorResource\Pages;
 
 use App\Filament\Resources\DoctorResource;
 use App\Models\Doctor;
-use App\Models\Review;
 use App\Models\Time;
 use App\Models\User;
-use Filament\Actions;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Database\Eloquent\Model;
-use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 
 class CreateDoctor extends CreateRecord
@@ -21,15 +17,15 @@ class CreateDoctor extends CreateRecord
     {
         $user = User::create([
             'name' => $data['user']['name'],
-            'phone' => $data['user']['phone'],
             'email' => $data['user']['email'],
-            'password' => Hash::make($data['user']['password']),
+            'phone' => $data['user']['phone'],
+            'password' => $data['user']['password'],
         ]);
 
         $doctorRole = Role::findByName('Doctor');
         $user->assignRole($doctorRole);
 
-        $doctor =  $user->doctor()->create([
+        $doctor = $user->doctor()->create([
             'speciality' => $data['speciality'],
             'work_place' => $data['work_place'],
             'price' => $data['price'],
@@ -37,6 +33,7 @@ class CreateDoctor extends CreateRecord
             'image' => $data['image']
         ]);
 
+        // Create the time record
         Time::create([
             'doctor_id' => $doctor->id,
             'saturday' => '',

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import { Head, useForm } from '@inertiajs/react';
 import { PageProps } from '@/types';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
@@ -36,16 +36,40 @@ const Build_Profile: React.FC<BuildProfileProps> = ({ auth, doctor, shifts }) =>
         start_time: shifts[day.toLowerCase()]?.start_time || '09:00',
         end_time: shifts[day.toLowerCase()]?.end_time || '18:00'
     }));
-    
-    const { data, setData, put, processing, errors } = useForm<FormData>({
-        ...doctor,
-        shifts: initialShifts,
+
+    const [currentImage, setCurrentImage] = useState<string | null>(null);
+
+    useEffect(() => {
+        if (doctor.image) {
+            setCurrentImage(`/storage/${doctor.image}`);
+        }
+    }, [doctor.image]);
+
+    const handleImageChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+        const file = e.target.files?.[0];
+        if (file) {
+            setData('image', file)
+            const reader = new FileReader()
+            reader.onloadend = () =>{
+                setCurrentImage(reader.result as string)
+            }
+            reader.readAsDataURL(file)
+        }
+    };
+
+    const { data, setData, post, processing, errors } = useForm<FormData>({
+      ...doctor,
+      shifts: initialShifts,
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
         const { name, value, type, files } = e.target;
-        setData(name as keyof FormData, type === 'file' ? files?.[0] || null : value);
-    };   
+        if (type === 'file' && files && files.length > 0) {
+            setData(name as keyof FormData, files[0]);
+        } else {
+            setData(name as keyof FormData, value);
+        }
+    };
 
     const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         const { name, value } = e.target;
@@ -60,9 +84,12 @@ const Build_Profile: React.FC<BuildProfileProps> = ({ auth, doctor, shifts }) =>
 
     const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
         e.preventDefault();
-        console.log(data);
-        
-        put(route('doctor.update_profile'));
+        console.log('Form data before submission:', data);
+        post(route('doctor.update_profile'), {
+            preserveState: true,
+            preserveScroll: true,
+            forceFormData: true,
+        });
     };
 
     return (
@@ -116,19 +143,25 @@ const Build_Profile: React.FC<BuildProfileProps> = ({ auth, doctor, shifts }) =>
                                     </div>
                                     <div className="flex flex-col items-end">
                                         <label htmlFor="image" className="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2 self-end">صورتك</label>
-                                        <img className="mr-12 inset-0 h-40 w-40 object-cover mb-2" src={data.image ? `/storage/${data.image}` : '/default-avatar.png'} alt="Rounded avatar" />
+                                        {currentImage && (
+                                            <img 
+                                                className="mr-12 inset-0 h-40 w-40 object-cover mb-2" 
+                                                src={currentImage} 
+                                                alt="Current profile" 
+                                            />
+                                        )}
                                         <input
                                             type="file"
                                             id="image"
                                             name="image"
-                                            onChange={handleChange}
+                                            onChange={handleImageChange}
                                             className="block w-full text-sm text-gray-500
-                                                file:mr-4 file:py-2 file:px-4
-                                                file:rounded-full file:border-0
-                                                file:text-sm file:font-semibold
-                                                file:bg-indigo-50 file:text-indigo-700
-                                                hover:file:bg-indigo-100
-                                                dark:file:bg-gray-700 dark:file:text-gray-200"
+                                            file:mr-4 file:py-2 file:px-4
+                                            file:rounded-full file:border-0
+                                            file:text-sm file:font-semibold
+                                            file:bg-indigo-50 file:text-indigo-700
+                                            hover:file:bg-indigo-100
+                                            dark:file:bg-gray-700 dark:file:text-gray-200"
                                         />
                                         {errors.image && <div className="text-red-500 text-sm mt-1">{errors.image}</div>}
                                     </div>

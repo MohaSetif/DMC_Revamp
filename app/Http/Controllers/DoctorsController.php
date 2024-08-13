@@ -69,16 +69,19 @@ class DoctorsController extends Controller
 
     public function update_profile(Request $request)
     {
+        Log::info('Received request:', $request->all());
+        Log::info('Files:', $request->allFiles());
+
         $validated = $request->validate([
             'speciality' => 'required|string|max:255',
             'work_place' => 'required|string|max:255',
             'price' => 'required|numeric',
             'who' => 'required|string',
-            'shifts' => 'required'
+            'shifts' => 'required',
+            'image' => 'nullable|image|max:2048',
         ]);
 
         $doctor = Doctor::where('user_id', Auth::id())->firstOrFail();
-
         $doctor->update([
             'speciality' => $validated['speciality'],
             'work_place' => $validated['work_place'],

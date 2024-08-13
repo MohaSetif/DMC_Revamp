@@ -63,12 +63,8 @@ const Build_Profile: React.FC<BuildProfileProps> = ({ auth, doctor, shifts }) =>
     });
 
     const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-        const { name, value, type, files } = e.target;
-        if (type === 'file' && files && files.length > 0) {
-            setData(name as keyof FormData, files[0]);
-        } else {
-            setData(name as keyof FormData, value);
-        }
+        const { name, value } = e.target;
+        setData(name as keyof FormData, value);
     };
 
     const handleTextareaChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {

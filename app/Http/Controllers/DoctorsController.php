@@ -69,8 +69,8 @@ class DoctorsController extends Controller
 
     public function update_profile(Request $request)
     {
-        Log::info('Received request:', $request->all());
-        Log::info('Files:', $request->allFiles());
+        // Log::info('Received request:', $request->all());
+        // Log::info('Files:', $request->allFiles());
 
         $validated = $request->validate([
             'speciality' => 'required|string|max:255',

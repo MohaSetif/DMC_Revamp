@@ -1,8 +1,8 @@
 import React, { useState } from 'react';
-import { Head, Link, useForm } from '@inertiajs/react';
+import { Head, Link, router, useForm } from '@inertiajs/react';
 import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { PageProps } from '@/types';
-import { faClock, faComment, faDollarSign, faMapMarkerAlt, faStar, faUserMd } from '@fortawesome/free-solid-svg-icons';
+import { faClock, faComment, faDollarSign, faMapMarkerAlt, faStar, faUserMd, faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 interface Doctor {
@@ -51,10 +51,13 @@ const InfoItem: React.FC<{ icon: React.ReactNode; text: string | number }> = ({ 
 );
 
 const Doctor_Profile: React.FC<Props> = ({ auth, doctor, doctor_name, time, ratings, reviews, nbr_votes, userHasReview }) => {
-  const { data, setData, post, processing, errors } = useForm({
+  const { data, setData, post, put, processing, errors } = useForm({
     rating: 0,
     comment: '',
   });
+
+  const [editComment, setEditComment] = useState<Boolean>(false)
+  const [editedComment, setEditedComment] = useState('');
 
   // console.log(ratings.toFixed(2));
 
@@ -75,6 +78,33 @@ const Doctor_Profile: React.FC<Props> = ({ auth, doctor, doctor_name, time, rati
       preserveScroll: true,
       preserveState: true,
     });
+  };
+
+  const handleDeletion = (review_id: number) => {
+    if (window.confirm('هل تريد حقا محو تعليقك؟')) {
+      router.delete(route('delete.comment', review_id), {
+        preserveScroll: true,
+        preserveState: true,
+      });
+    }
+  };
+
+  const handleTexting = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setEditedComment(e.target.value);
+  };
+
+  const handleEdit = (reviewId: number) => {
+    setEditComment(true);
+    setEditedComment(reviews?.find(review => review.id === reviewId)?.comment || '');
+    setData('comment', editedComment)
+  };
+
+  const handleCommentEdit = (review_id: number) => {
+    put(route('edit.comment', review_id), {
+      preserveScroll: true,
+      preserveState: true,
+    });
+    setEditComment(!editComment)
   };
 
   return (
@@ -178,26 +208,52 @@ const Doctor_Profile: React.FC<Props> = ({ auth, doctor, doctor_name, time, rati
                     {reviews && reviews.length > 0 ? (
                       <div className="space-y-6">
                         {reviews.map((review) => (
-                          <div key={review.id} className="bg-gray-50 dark:bg-gray-700 p-6 rounded-xl shadow-md transition duration-300 hover:shadow-lg">
-                            <div className="flex items-center justify-between mb-4">
-                              <div className="flex items-center space-x-2">
-                                <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-lg ml-4">
-                                  {review.username.charAt(0).toUpperCase()}
+                          <div key={review.id} className="bg-gray-50 flex dark:bg-gray-700 p-6 rounded-xl shadow-md transition duration-300 hover:shadow-lg">
+                            {!editComment ?
+                               <div key={review.id} className="bg-gray-50 flex dark:bg-gray-700 p-6 rounded-xl shadow-md transition duration-300 hover:shadow-lg">
+                                <div>
+                                  <div className="flex items-center justify-between mb-4">
+                                    <div className="flex items-center space-x-2">
+                                      <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-lg ml-4">
+                                        {review.username.charAt(0).toUpperCase()}
+                                      </div>
+                                      <div>
+                                        <h3 className="font-semibold text-lg text-gray-800 dark:text-gray-200">{review.username}</h3>
+                                        <p className="text-sm text-gray-500 dark:text-gray-400">{review.createdAt}</p>
+                                      </div>
+                                    </div>
+                                    <div className="flex items-center space-x-2">
+                                      <span className="text-2xl font-bold text-yellow-500 ml-2">{review.rating.toFixed(1)}</span>
+                                      <div className="flex">
+                                        {renderStars(review.rating)}
+                                      </div>
+                                    </div>
+                                  </div>
+                                  <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed" dir='rtl'>{review.comment}</p>
                                 </div>
                                 <div>
-                                  <h3 className="font-semibold text-lg text-gray-800 dark:text-gray-200">{review.username}</h3>
-                                  <p className="text-sm text-gray-500 dark:text-gray-400">{review.createdAt}</p>
+                                  <button>
+                                    <FontAwesomeIcon icon={faEllipsisVertical} color='white'/>
+                                    <section className="bg-gray-800 border border-gray-500">
+                                      <button className='bg-red-800' onClick={() => handleDeletion(review.id)}>محو</button>
+                                      <button className='bg-yellow-800' onClick={() => handleEdit(review.id)}>تعديل</button>
+                                    </section>
+                                  </button>
                                 </div>
                               </div>
-                              <div className="flex items-center space-x-2">
-                                <span className="text-2xl font-bold text-yellow-500 ml-2">{review.rating.toFixed(1)}</span>
-                                <div className="flex">
-                                  {renderStars(review.rating)}
-                                </div>
-                              </div>
+                              :
+                              <div className='block'>
+                              <input 
+                                type="text" 
+                                value={editedComment} 
+                                onChange={handleTexting} 
+                              />
+                              <button onClick={() => setEditComment(false)}>X</button>
+                              <br />
+                              <button type="submit" onClick={() => handleCommentEdit(review.id)}>Go</button>
                             </div>
-                            <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed">{review.comment}</p>
-                          </div>
+                            }
+                           </div>
                         ))}
                       </div>
                     ) : (

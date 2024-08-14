@@ -144,4 +144,18 @@ class DoctorsController extends Controller
 
         $doctor->review()->save($review);
     }
+
+    public function deleteComment($id){
+        $comment = Review::where('id', $id)->first();
+        $comment->delete();
+    }
+
+    public function editComment($id, Request $request){
+        $comment = Review::where('id', $id)->first();
+        $validatedData = $request->validate([
+            'comment' => 'required|string|max:1000',
+        ]);
+        
+        $comment->update($validatedData);
+    }
 }

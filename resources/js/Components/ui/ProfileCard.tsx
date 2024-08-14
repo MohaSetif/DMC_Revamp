@@ -9,7 +9,7 @@ interface Doctor_Card {
 
 function ProfileCard({ doctor, doctor_name }: { doctor: Doctor_Card, doctor_name: String }) {
   return (
-    <div key={doctor.id} className="bg-white dark:bg-gray-800 border border-gray-300 dark:border-gray-600 shadow-md rounded-lg overflow-hidden">
+    <div key={doctor.id} className="bg-white w-96 dark:bg-gray-800 border border-gray-300 dark:border-gray-600 shadow-md rounded-lg overflow-hidden">
       <div className="relative pb-2/3">
         <img
           src={`/storage/${doctor.image}`}

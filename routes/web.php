@@ -33,6 +33,8 @@ Route::middleware('auth')->group(function () {
     Route::get('/your_appointments', [DoctorsController::class, 'my_appointments'])->name('doctor.appoint_list');
     Route::get('/doctors/{id}', [DoctorsController::class, 'doc_profile'])->name('doctor.profile');
     Route::post('/doctors/{doctor}/review', [DoctorsController::class, 'submitReview'])->name('doctor.review');
+    Route::delete('/delete_comment/{id}', [DoctorsController::class, 'deleteComment'])->name('delete.comment');
+    Route::put('/edit_comment/{id}', [DoctorsController::class, 'editComment'])->name('edit.comment');
 
     Route::get('/appointments/{id}', [AppointmentController::class, 'index'])->name('appointment.index');
     Route::get('/my_appointments', [AppointmentController::class, 'getUserAppointments'])->name('appointment.for_user');

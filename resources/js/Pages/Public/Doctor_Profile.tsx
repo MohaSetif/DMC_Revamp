@@ -4,6 +4,8 @@ import AuthenticatedLayout from '@/Layouts/AuthenticatedLayout';
 import { PageProps } from '@/types';
 import { faClock, faComment, faDollarSign, faMapMarkerAlt, faStar, faUserMd, faEllipsisVertical } from '@fortawesome/free-solid-svg-icons';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Menu, Transition } from '@headlessui/react';
+import { EllipsisVerticalIcon } from '@heroicons/react/24/solid';
 
 interface Doctor {
   id: number;
@@ -31,6 +33,7 @@ interface Review {
   username: string;
   comment: string;
   createdAt: string;
+  user_id: number;
 }
 
 interface Props extends PageProps {
@@ -90,16 +93,18 @@ const Doctor_Profile: React.FC<Props> = ({ auth, doctor, doctor_name, time, rati
   };
 
   const handleTexting = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setEditedComment(e.target.value);
+    const newValue = e.target.value;
+    setEditedComment(newValue);
+    setData('comment', newValue);
   };
 
   const handleEdit = (reviewId: number) => {
     setEditComment(true);
     setEditedComment(reviews?.find(review => review.id === reviewId)?.comment || '');
-    setData('comment', editedComment)
   };
 
-  const handleCommentEdit = (review_id: number) => {
+  const handleCommentEdit = (e: React.FormEvent, review_id: number) => {
+    e.preventDefault();
     put(route('edit.comment', review_id), {
       preserveScroll: true,
       preserveState: true,
@@ -202,65 +207,116 @@ const Doctor_Profile: React.FC<Props> = ({ auth, doctor, doctor_name, time, rati
               </div>
               <div className="mt-8">
                 <h2 className="text-3xl font-bold mb-8 text-gray-900 dark:text-white">التقييمات والتعليقات</h2>
-                
                 <div className="flex flex-col lg:flex-row space-y-8 lg:space-y-0 lg:space-x-reverse lg:space-x-8">
-                  <div className="flex-grow lg:w-2/3">
+                  <div className="w-full max-w-3xl mx-auto">
                     {reviews && reviews.length > 0 ? (
                       <div className="space-y-6">
                         {reviews.map((review) => (
-                          <div key={review.id} className="bg-gray-50 flex dark:bg-gray-700 p-6 rounded-xl shadow-md transition duration-300 hover:shadow-lg">
-                            {!editComment ?
-                               <div key={review.id} className="bg-gray-50 flex dark:bg-gray-700 p-6 rounded-xl shadow-md transition duration-300 hover:shadow-lg">
-                                <div>
-                                  <div className="flex items-center justify-between mb-4">
-                                    <div className="flex items-center space-x-2">
-                                      <div className="w-12 h-12 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-lg ml-4">
-                                        {review.username.charAt(0).toUpperCase()}
-                                      </div>
-                                      <div>
-                                        <h3 className="font-semibold text-lg text-gray-800 dark:text-gray-200">{review.username}</h3>
-                                        <p className="text-sm text-gray-500 dark:text-gray-400">{review.createdAt}</p>
-                                      </div>
-                                    </div>
-                                    <div className="flex items-center space-x-2">
-                                      <span className="text-2xl font-bold text-yellow-500 ml-2">{review.rating.toFixed(1)}</span>
-                                      <div className="flex">
-                                        {renderStars(review.rating)}
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <p className="text-gray-700 dark:text-gray-300 text-lg leading-relaxed" dir='rtl'>{review.comment}</p>
-                                </div>
-                                <div>
-                                  <button>
-                                    <FontAwesomeIcon icon={faEllipsisVertical} color='white'/>
-                                    <section className="bg-gray-800 border border-gray-500">
-                                      <button className='bg-red-800' onClick={() => handleDeletion(review.id)}>محو</button>
-                                      <button className='bg-yellow-800' onClick={() => handleEdit(review.id)}>تعديل</button>
-                                    </section>
-                                  </button>
+                          <div key={review.id} className="bg-gray-100 dark:bg-gray-700 rounded-lg shadow-sm p-4">
+                            <div className="flex items-start space-x-3">
+                              <div className="flex-shrink-0">
+                                <div className="w-10 h-10 bg-blue-500 rounded-full flex items-center justify-center text-white font-bold text-lg">
+                                  {review.username.charAt(0).toUpperCase()}
                                 </div>
                               </div>
-                              :
-                              <div className='block'>
-                              <input 
-                                type="text" 
-                                value={editedComment} 
-                                onChange={handleTexting} 
-                              />
-                              <button onClick={() => setEditComment(false)}>X</button>
-                              <br />
-                              <button type="submit" onClick={() => handleCommentEdit(review.id)}>Go</button>
+                              <div className="flex-grow">
+                                <div className="flex items-center justify-between">
+                                  <div>
+                                    <h3 className="text-sm font-medium text-gray-900 dark:text-gray-100">{review.username}</h3>
+                                    <p className="text-xs text-gray-500 dark:text-gray-400">{review.createdAt}</p>
+                                  </div>
+                                  <div className="flex items-center space-x-2">
+                                    <span className="text-sm font-semibold text-yellow-500">{review.rating.toFixed(1)}</span>
+                                    <div className="flex">{renderStars(review.rating)}</div>
+                                  </div>
+                                </div>
+                                {/* must edit only the chosen comments, doesn't trigger the others and the textarea where the users write their comments (when writing only) */}
+                                {!editComment ? (
+                                  <p className="mt-2 text-sm text-gray-700 dark:text-gray-300" dir="rtl">{review.comment}</p>
+                                ) : (
+                                  <div className="mt-2">
+                                    <input
+                                      type='text'
+                                      value={editedComment}
+                                      onChange={handleTexting}
+                                      className="w-full px-3 py-2 text-sm text-gray-700 border rounded-lg focus:outline-none focus:border-blue-500 dark:bg-gray-700 dark:text-gray-300 dark:border-gray-600"
+                                    />
+                                    <div className="mt-2 flex justify-end space-x-2">
+                                      <button
+                                        onClick={(e) => handleCommentEdit(e, review.id)}
+                                        className="px-3 py-1 text-sm text-white bg-blue-500 rounded-md hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
+                                      >
+                                        حفظ
+                                      </button>
+                                      <button
+                                        onClick={() => setEditComment(false)}
+                                        className="px-3 py-1 text-sm text-gray-700 bg-gray-200 rounded-md hover:bg-gray-300 focus:outline-none focus:ring-2 focus:ring-gray-500 focus:ring-opacity-50"
+                                      >
+                                        إلغاء
+                                      </button>
+                                    </div>
+                                  </div>
+                                )}
+                              </div>
+                              <div className="flex-shrink-0">
+                                <Menu as="div" className="relative inline-block text-left">
+                                  {auth.user.id == review.user_id ?
+                                    <Menu.Button className="flex items-center text-gray-400 hover:text-gray-600 focus:outline-none">
+                                      <EllipsisVerticalIcon className="w-5 h-5" aria-hidden="true" />
+                                    </Menu.Button>
+                                    :
+                                    <></>
+                                  }
+                                  <Transition
+                                    enter="transition ease-out duration-100"
+                                    enterFrom="transform opacity-0 scale-95"
+                                    enterTo="transform opacity-100 scale-100"
+                                    leave="transition ease-in duration-75"
+                                    leaveFrom="transform opacity-100 scale-100"
+                                    leaveTo="transform opacity-0 scale-95"
+                                  >
+                                    <Menu.Items className="absolute right-0 w-56 mt-2 origin-top-right border dark:border-gray-600 bg-white dark:bg-gray-800 rounded-md shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+                                      <div className="py-1">
+                                        <Menu.Item>
+                                          {({ active }) => (
+                                            <button
+                                              onClick={() => handleEdit(review.id)}
+                                              className={`${
+                                                active ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white' : 'text-gray-700 dark:text-gray-300'
+                                              } flex w-full px-4 py-2 text-sm`}
+                                            >
+                                              تعديل
+                                            </button>
+                                          )}
+                                        </Menu.Item>
+                                        <Menu.Item>
+                                          {({ active }) => (
+                                            <button
+                                              onClick={() => handleDeletion(review.id)}
+                                              className={`${
+                                                active ? 'bg-gray-100 dark:bg-gray-700 text-gray-900 dark:text-white' : 'text-gray-700 dark:text-gray-300'
+                                              } flex w-full px-4 py-2 text-sm`}
+                                            >
+                                              حذف
+                                            </button>
+                                          )}
+                                        </Menu.Item>
+                                      </div>
+                                    </Menu.Items>
+                                  </Transition>
+                                </Menu>
+                              </div>
                             </div>
-                            }
-                           </div>
+                          </div>
                         ))}
                       </div>
                     ) : (
-                      <div className="bg-gray-50 dark:bg-gray-700 p-8 rounded-xl text-center">
-                        <FontAwesomeIcon icon={faComment} className="h-10 w-10 text-gray-300" />
-                        <h3 className="mt-2 text-sm font-semibold text-gray-900 dark:text-gray-200">لا توجد تقييمات</h3>
-                        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">.إبدأ بإضافة تقييم جديد</p>
+                      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-8 text-center">
+                        <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
+                        </svg>
+                        <h3 className="mt-2 text-sm font-medium text-gray-900 dark:text-gray-100">لا توجد تقييمات</h3>
+                        <p className="mt-1 text-sm text-gray-500 dark:text-gray-400">ابدأ بإضافة تقييم جديد</p>
                       </div>
                     )}
                   </div>
@@ -282,9 +338,9 @@ const Doctor_Profile: React.FC<Props> = ({ auth, doctor, doctor_name, time, rati
                               id="comment"
                               value={data.comment}
                               onChange={(e) => setData('comment', e.target.value)}
-                              className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:border-blue-500 dark:bg-gray-600 dark:text-white dark:border-gray-500"
+                              className="w-full px-3 py-2 text-gray-700 border rounded-lg focus:outline-none focus:border-blue-500 dark:bg-gray-800 dark:text-white dark:border-gray-500"
                               rows={4}
-                              placeholder="أخبرنا عن تجربتك..."
+                              placeholder="...أخبرنا عن تجربتك"
                             ></textarea>
                           </div>
                           <button

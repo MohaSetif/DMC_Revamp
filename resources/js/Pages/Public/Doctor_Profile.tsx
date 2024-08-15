@@ -119,7 +119,7 @@ const renderStarsInput = (rating: number, interactive = false) => {
       <div className="py-2 rtl">
         <div className="max-w-7xl mx-auto sm:px-6 lg:px-8 p-4 sm:p-8">
           <Doc_banner doctor={doctor} doctor_name={doctor_name} ratings={ratings} nbr_votes={nbr_votes} />
-          <div className="bg-white dark:bg-gray-800 overflow-hidden shadow-xl sm:rounded-lg mt-8">
+          <div className="bg-white dark:bg-gray-800 shadow-xl sm:rounded-lg mt-8">
             <div className="p-4 sm:p-8">
               <div className="mt-4">
                 <h2 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">الأوقات المتاحة</h2>

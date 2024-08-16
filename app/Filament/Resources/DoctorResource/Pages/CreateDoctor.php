@@ -7,6 +7,7 @@ use App\Models\Time;
 use App\Models\User;
 use Filament\Resources\Pages\CreateRecord;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\Hash;
 use Spatie\Permission\Models\Role;
 
 class CreateDoctor extends CreateRecord
@@ -19,7 +20,7 @@ class CreateDoctor extends CreateRecord
             'name' => $data['user']['name'],
             'email' => $data['user']['email'],
             'phone' => $data['user']['phone'],
-            'password' => $data['user']['password'],
+            'password' => Hash::make($data['user']['password']),
         ]);
 
         $doctorRole = Role::findByName('Doctor');
@@ -33,7 +34,6 @@ class CreateDoctor extends CreateRecord
             'image' => $data['image']
         ]);
 
-        // Create the time record
         Time::create([
             'doctor_id' => $doctor->id,
             'saturday' => '',

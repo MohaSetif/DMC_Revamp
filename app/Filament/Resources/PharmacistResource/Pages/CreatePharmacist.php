@@ -20,13 +20,13 @@ class CreatePharmacist extends CreateRecord
             'name' => $data['user']['name'],
             'phone' => $data['user']['phone'],
             'email' => $data['user']['email'],
-            'password' => Hash::make($data['user']['password']),
+            'password' => Hash::make($data['user']['password'])
         ]);
 
         $pharmacistRole = Role::findByName('Pharmacist');
         $user->assignRole($pharmacistRole);
 
-        $pharmacist =  $user->pharmacist()->create([
+        $pharmacist = $user->pharmacist()->create([
             'longitude' => $data['longitude'],
             'latitude' => $data['latitude'],
             'address' => $data['address'],

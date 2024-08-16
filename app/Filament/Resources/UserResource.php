@@ -37,9 +37,8 @@ class UserResource extends Resource
                     ->required(),
                 TextInput::make('password')
                     ->password()
-                    ->dehydrateStateUsing(fn ($state) => filled($state) ? Hash::make($state) : null)
-                    ->dehydrated(fn ($state) => filled($state))
-                    ->required(fn (string $context): bool => $context === 'create'),
+                    ->required()
+                    ->maxLength(255),
             ]);
     }
 

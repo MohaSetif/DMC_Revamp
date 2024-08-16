@@ -12,12 +12,6 @@ class EditUser extends EditRecord
 {
     protected static string $resource = UserResource::class;
 
-    protected function mutateFormDataBeforeFill(array $data): array
-    {
-        $data['doctor'] = $this->record->doctor->toArray();
-        return $data;
-    }
-
     protected function handleRecordUpdate(Model $record, array $data): Model
     {
         $record->update([
@@ -27,12 +21,14 @@ class EditUser extends EditRecord
             'password' => Hash::make($data['password']) ?? $record->password,
         ]);
 
-        $record->doctor->update([
-            'name' => $data['doctor']['name'] ?? $record->doctor->name,
-            'email' => $data['doctor']['email'] ?? $record->doctor->email,
-            'phone' => $data['doctor']['phone'] ?? $record->doctor->phone,
-            'password' => $data['doctor']['password'] ?? $record->doctor->password
-        ]);
+        if($record->doctor){
+            $record->doctor->update([
+                'name' => $data['doctor']['name'] ?? $record->doctor->name,
+                'email' => $data['doctor']['email'] ?? $record->doctor->email,
+                'phone' => $data['doctor']['phone'] ?? $record->doctor->phone,
+                'password' => $data['doctor']['password'] ?? $record->doctor->password
+            ]);
+        }
 
         return $record;
     }

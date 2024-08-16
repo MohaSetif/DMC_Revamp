@@ -263,7 +263,7 @@ const renderStarsInput = (rating: number, interactive = false) => {
                         ))}
                       </div>
                     ) : (
-                      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-sm p-8 text-center">
+                      <div className="bg-gray-100 dark:bg-gray-700 rounded-lg shadow-sm p-8 text-center">
                         <svg className="mx-auto h-12 w-12 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z" />
                         </svg>
@@ -275,7 +275,7 @@ const renderStarsInput = (rating: number, interactive = false) => {
 
                   {!userHasReview && (
                     <div className="lg:w-1/3 flex justify-end items-start">
-                      <div className="bg-gray-50 dark:bg-gray-700 p-6 rounded-xl shadow-md">
+                      <div className="bg-gray-100 dark:bg-gray-700 p-6 rounded-xl shadow-md">
                         <h3 className="text-2xl font-bold mb-6 text-gray-900 dark:text-white">أضف تقييمك</h3>
                         <form onSubmit={handleSubmit} className="space-y-6">
                           <div>

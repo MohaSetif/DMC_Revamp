@@ -2,12 +2,13 @@
 
 namespace App\Models;
 
+use Illuminate\Auth\Authenticatable;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 
 class Pharmacist extends Model
 {
-    use HasFactory;
+    use HasFactory, Authenticatable;
 
     protected $fillable =[
         'user_id' , 'address' , 'longitude' , 'latitude'

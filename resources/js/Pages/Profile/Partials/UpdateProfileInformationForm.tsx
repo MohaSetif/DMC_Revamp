@@ -25,9 +25,6 @@ export default function UpdateProfileInformation({ mustVerifyEmail, status, clas
         <section className={`${className} text-right`} dir="rtl">
             <header>
                 <h2 className="text-xl sm:text-2xl font-medium text-gray-900 dark:text-gray-100">المعلومات الشخصية</h2>
-                <p className="mt-1 text-sm text-gray-600 dark:text-gray-400">
-                    هذه صفحتك الشخصية، هنا يمكنك تعديل اسمك فقط.
-                </p>
             </header>
 
             <form onSubmit={submit} className="mt-6 space-y-4 sm:space-y-6">

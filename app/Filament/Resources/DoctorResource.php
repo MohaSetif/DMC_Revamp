@@ -18,10 +18,6 @@ use Filament\Tables\Table;
 use Filament\Forms\Components\TextInput;
 use Filament\Tables\Columns\ImageColumn;
 use Filament\Tables\Columns\TextColumn;
-use Illuminate\Support\Str;
-use Illuminate\Database\Eloquent\Builder;
-use Illuminate\Database\Eloquent\SoftDeletingScope;
-use Illuminate\Support\Facades\Hash;
 
 class DoctorResource extends Resource
 {
@@ -33,7 +29,7 @@ class DoctorResource extends Resource
     {
         return $form
             ->schema([
-                Section::make('User Information')
+                Section::make("Doctors's Information'")
                     ->schema([
                         TextInput::make('user.name')
                             ->required()
@@ -48,12 +44,10 @@ class DoctorResource extends Resource
                             ->label('Phone'),
                         TextInput::make('user.password')
                             ->password()
+                            ->required()
                             ->label('Password')
-                            ->dehydrateStateUsing(fn ($state) => filled($state) ? Hash::make($state) : null)
-                            ->dehydrated(fn ($state) => filled($state))
-                            ->required(fn (string $context): bool => $context === 'create'),
                     ]),
-                Section::make('Doctor Information')
+                Section::make('More Details')
                     ->schema([
                         TextInput::make('speciality')
                             ->required(),

@@ -15,6 +15,7 @@ use Filament\Tables\Table;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\SoftDeletingScope;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 
 class UserResource extends Resource
 {
@@ -37,7 +38,10 @@ class UserResource extends Resource
                     ->required(),
                 TextInput::make('password')
                     ->password()
-                    ->required()
+                    // ->afterStateHydrated(function ($component, $state) {
+                    //     Log::info('Password field state after hydration: ' . ($state ? 'Not empty' : 'Empty'));
+                    //     Log::info('User has password in DB: ' . (filled($component->getRecord()->password) ? 'Yes' : 'No'));
+                    // })
                     ->maxLength(255),
             ]);
     }

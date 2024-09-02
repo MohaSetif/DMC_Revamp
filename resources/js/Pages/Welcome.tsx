@@ -13,6 +13,7 @@ import DMC_WhiteLogo from "../../../public/img/168608548544536747.png"
 import Footer from '@/Components/Footer';
 import AnimationSquare from '@/Components/AnimationSquare';
 import AnimationSquare2 from '@/Components/AnimationSquare2';
+import { AnimatedBeamMultipleOutputDemo } from '@/Components/Animated_Beam';
 
 export default function Welcome({ auth, laravelVersion, phpVersion }: PageProps<{ laravelVersion: string, phpVersion: string }>) {
 

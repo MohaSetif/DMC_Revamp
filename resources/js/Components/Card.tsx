@@ -5,7 +5,7 @@ import EmailSmsOneTimePasscodes from './EmailSmsOneTimePasscodes';
 import MultifactorAuthentication from './MultifactorAuthentication';
 import UserToPharmacists from './UserToPharmacists';
 import DoctorProfileCard from './DoctorProfileCard';
-import MedicationForm from './MedicationForm';
+import { AnimatedBeamMultipleOutputDemo } from './Animated_Beam';
 
 const Card: React.FC<{ title: string, icon: IconProp, description: string, index: number }> = ({ title, icon, description, index }) => {
   const iconScrollTrigger = useRef<SVGSVGElement>(null);
@@ -40,7 +40,7 @@ const Card: React.FC<{ title: string, icon: IconProp, description: string, index
         <div className="md:w-1/2 relative z-30">
           {index === 0 && <DoctorProfileCard />}
           {index === 1 && <UserToPharmacists />}
-          {index === 2 && <MedicationForm />}
+          {index === 2 && <AnimatedBeamMultipleOutputDemo />}
           {index === 3 && <EmailSmsOneTimePasscodes />}
           {index === 4 && <MultifactorAuthentication />}
         </div>
